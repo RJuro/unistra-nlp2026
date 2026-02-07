@@ -6,27 +6,24 @@
     <title>Applied NLP 2026 | University of Strasbourg</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
     <style>
-        /* === DESIGN TOKENS (matching LaTeX beamerthememedievalnlp) === */
+        /* === DESIGN TOKENS === */
         :root {
-            --bg-main: #F5EFE6;
-            --bg-card: #EDE8E0;
-            --bg-accent: #E5DDD3;
-            --bg-white: #FFFFFF;
-            --text-primary: #2C2421;
-            --text-secondary: #4A4340;
-            --text-muted: #8A7B70;
+            --bg-dark: #2C2421;
+            --bg-warm: #362E2A;
+            --bg-card: #3D3531;
+            --cream: #FAF7F2;
+            --cream-dark: #EDE8E0;
             --coral: #E07850;
             --coral-light: #F0A080;
             --coral-dark: #C05830;
             --gold: #D4A855;
             --gold-dark: #B08A3A;
-            /* Panel (dark overlay) */
-            --panel-bg: #2C2421;
-            --panel-card: #3D3531;
-            --panel-text: #FAF7F2;
-            --panel-text-muted: #A89B91;
+            --text-light: #F0EBE5;
+            --text-light-muted: #A89B91;
+            --text-dark: #2C2421;
+            --text-muted: #6B5D55;
         }
 
         /* === RESET & BASE === */
@@ -35,109 +32,151 @@
 
         body {
             font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
-            background: var(--bg-main);
-            color: var(--text-primary);
+            background: var(--bg-dark);
+            color: var(--text-light);
             font-size: 16px;
             line-height: 1.7;
             overflow-x: hidden;
         }
         body.panel-open { overflow: hidden; }
 
+        /* Dot grid overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         /* === CONTAINER === */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         /* === TYPOGRAPHY === */
         h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
-        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; }
-        h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 1rem; }
-        h3 { font-size: 1.25rem; line-height: 1.3; }
+        h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); line-height: 1.08; }
+        h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 1.2rem; }
+        h3 { font-size: 1.3rem; line-height: 1.3; }
 
         .section-label {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--text-muted);
+            color: var(--text-light-muted);
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         a { color: var(--coral); text-decoration: none; transition: color 0.2s; }
-        a:hover { color: var(--coral-dark); }
+        a:hover { color: var(--coral-light); }
 
         /* === HEADER === */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(245, 239, 230, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--bg-accent);
+            background: rgba(44, 36, 33, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .header-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
+            padding: 0.9rem 0;
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: var(--text-primary);
+            font-size: 1.25rem;
+            color: var(--cream);
         }
         .logo em { color: var(--coral); font-style: italic; }
 
-        nav { display: flex; gap: 1.5rem; }
+        nav { display: flex; gap: 2rem; }
         nav a {
             font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.04em;
             font-weight: 500;
-            color: var(--text-muted);
+            color: var(--text-light-muted);
         }
-        nav a:hover { color: var(--text-primary); }
+        nav a:hover { color: var(--cream); }
 
         /* === HERO === */
         .hero {
-            padding: 4rem 0 3rem;
-            border-bottom: 1px solid var(--bg-accent);
+            padding: 5rem 0 4rem;
         }
 
-        .hero h1 { margin-bottom: 0.75rem; }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: end;
+        }
+
+        .hero h1 { margin-bottom: 1rem; }
         .hero h1 em { color: var(--coral); font-style: italic; }
 
-        .hero-meta {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-light-muted);
+            max-width: 560px;
+            margin-bottom: 1.5rem;
         }
 
-        .hero-desc {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 640px;
-            margin-bottom: 1.5rem;
+        .hero-meta {
+            font-size: 0.9rem;
+            color: var(--text-light-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
         }
 
         .hero-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
+        /* Hero stats */
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+        }
+        .hero-stat {
+            text-align: right;
+        }
+        .hero-stat .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--coral);
+            line-height: 1;
+        }
+        .hero-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-light-muted);
+        }
+
+        /* === BUTTONS === */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.7rem 1.4rem;
+            padding: 0.75rem 1.6rem;
             font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 0.02em;
             font-family: 'Source Sans 3', sans-serif;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             border: none;
         }
         .btn-coral {
@@ -145,174 +184,277 @@
             color: white;
         }
         .btn-coral:hover {
-            background: var(--coral-dark);
+            background: var(--coral-light);
             color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(224, 120, 80, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 120, 80, 0.3);
         }
-        .btn-outline {
+        .btn-ghost {
             background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--bg-accent);
+            color: var(--cream);
+            border: 1px solid rgba(255,255,255,0.15);
         }
-        .btn-outline:hover {
+        .btn-ghost:hover {
             border-color: var(--coral);
             color: var(--coral);
+            transform: translateY(-2px);
         }
 
         /* === SESSIONS BY DAY === */
         .sessions-section {
-            padding: 3rem 0 2rem;
+            padding: 4rem 0 2rem;
         }
 
         .day-group {
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .day-header {
             display: flex;
             align-items: baseline;
             gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.6rem;
             border-bottom: 2px solid var(--coral);
         }
 
         .day-date {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--text-primary);
+            font-size: 1.4rem;
+            color: var(--cream);
         }
 
         .day-hours {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: var(--text-light-muted);
         }
 
         .day-status {
             margin-left: auto;
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--text-light-muted);
             font-style: italic;
         }
 
-        .day-blocks {
+        /* Active day: expanded block cards */
+        .block-expanded {
+            background: var(--bg-card);
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .block-expanded::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--coral);
+        }
+
+        .block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .block-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--coral);
+            opacity: 0.5;
+            line-height: 1;
+        }
+        .block-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--cream);
+            margin-bottom: 0.2rem;
+        }
+        .block-time {
+            font-size: 0.8rem;
+            color: var(--text-light-muted);
+        }
+        .block-desc {
+            font-size: 0.9rem;
+            color: var(--text-light-muted);
+            margin-bottom: 1.25rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .block-details-btn {
+            font-size: 0.8rem;
+            color: var(--text-light-muted);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Source Sans 3', sans-serif;
+            padding: 0;
+            transition: color 0.2s;
+        }
+        .block-details-btn:hover { color: var(--coral); }
+
+        /* Notebook row inside expanded block */
+        .nb-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 0.8rem 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .nb-row:first-child { border-top: none; }
+
+        .nb-id {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--coral);
+            min-width: 4rem;
+        }
+        .nb-name {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--cream);
+        }
+        .nb-duration {
+            font-size: 0.75rem;
+            color: var(--text-light-muted);
+            min-width: 5rem;
+            text-align: right;
+        }
+        .nb-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .nb-links a {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            transition: all 0.2s;
+        }
+        .nb-links .colab-btn {
+            background: var(--coral);
+            color: white;
+        }
+        .nb-links .colab-btn:hover {
+            background: var(--coral-light);
+            color: white;
+        }
+        .nb-links .dl-btn {
+            color: var(--text-light-muted);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .nb-links .dl-btn:hover {
+            border-color: var(--coral);
+            color: var(--coral);
+        }
+
+        /* Schedule items (breaks, sprints) */
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 0.6rem 0;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .schedule-item .time {
+            font-size: 0.75rem;
+            color: var(--text-light-muted);
+            min-width: 4rem;
+        }
+        .schedule-item .label {
+            font-size: 0.85rem;
+            color: var(--text-light-muted);
+            flex: 1;
+        }
+        .schedule-item.sprint {
+            border-left: 3px solid var(--gold);
+            padding-left: 1rem;
+            margin-left: -1rem;
+        }
+        .schedule-item.sprint .label { color: var(--gold); }
+
+        /* Locked day cards (compact) */
+        .day-blocks-locked {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
-
-        .day-blocks.single {
+        .day-blocks-locked.single {
             grid-template-columns: 1fr;
             max-width: 50%;
         }
 
-        .session-card {
-            background: var(--bg-white);
+        .session-card-locked {
+            background: var(--bg-card);
             padding: 1.5rem;
-            cursor: pointer;
+            opacity: 0.45;
             position: relative;
-            overflow: hidden;
-            transition: all 0.25s ease;
-            border: 1px solid var(--bg-accent);
-            display: block;
-            color: inherit;
         }
-        .session-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: var(--coral);
-            transform: scaleX(0);
-            transition: transform 0.25s ease;
-        }
-        .session-card:hover::before { transform: scaleX(1); }
-        .session-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            color: inherit;
-        }
-
-        .session-number {
+        .session-card-locked .session-number {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             color: var(--coral);
             opacity: 0.5;
             margin-bottom: 0.25rem;
         }
-        .session-day {
+        .session-card-locked .session-day {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--text-muted);
+            color: var(--text-light-muted);
             margin-bottom: 0.15rem;
         }
-        .session-title {
+        .session-card-locked .session-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
-            color: var(--text-primary);
+            color: var(--cream);
             margin-bottom: 0.5rem;
         }
-        .session-desc {
+        .session-card-locked .session-desc {
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: var(--text-light-muted);
             line-height: 1.5;
         }
-        .session-notebooks {
+        .session-card-locked .nb-tag {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            background: rgba(168, 155, 145, 0.12);
+            color: var(--text-light-muted);
+            font-weight: 600;
+        }
+        .session-card-locked .session-notebooks {
             margin-top: 0.75rem;
             display: flex;
             gap: 0.4rem;
             flex-wrap: wrap;
         }
-        .nb-tag {
-            font-size: 0.65rem;
-            padding: 0.15rem 0.5rem;
-            background: rgba(224, 120, 80, 0.1);
-            color: var(--coral);
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
 
-        /* Locked session cards */
-        .day-group.locked .day-header {
-            border-bottom-color: var(--bg-accent);
-        }
-        .day-group.locked .day-date {
-            color: var(--text-muted);
-        }
-        .day-group.locked .session-card {
-            cursor: default;
-            opacity: 0.5;
-            background: var(--bg-card);
-            border-color: transparent;
-        }
-        .day-group.locked .session-card:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        .day-group.locked .session-card::before { display: none; }
-        .day-group.locked .nb-tag {
-            background: rgba(138, 123, 112, 0.1);
-            color: var(--text-muted);
-        }
-
-        /* === REQUIREMENTS === */
+        /* === REQUIREMENTS (cream section for contrast) === */
         .requirements-section {
-            padding: 3rem 0;
-            border-top: 1px solid var(--bg-accent);
+            background: var(--cream);
+            color: var(--text-dark);
+            margin: 0 -100vw;
+            padding: 4rem 100vw;
         }
+        .requirements-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .requirements-section h2 { color: var(--text-dark); }
+        .requirements-section .sub { color: var(--text-muted); margin-bottom: 1.5rem; }
 
         .requirements-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 1.25rem;
         }
         .req-card {
-            background: var(--bg-white);
+            background: white;
             padding: 1.5rem;
-            border: 1px solid var(--bg-accent);
             position: relative;
         }
         .req-card::before {
@@ -324,99 +466,101 @@
         }
         .req-card h3 {
             font-size: 1rem;
-            color: var(--text-primary);
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
         .req-card p, .req-card li {
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             line-height: 1.6;
         }
         .req-card ol { padding-left: 1.2rem; margin-top: 0.4rem; }
         .req-card li { margin-bottom: 0.3rem; }
         .req-card code {
-            background: var(--bg-card);
-            padding: 0.1rem 0.35rem;
+            background: var(--cream-dark);
+            padding: 0.1rem 0.4rem;
             font-size: 0.8rem;
             font-family: 'SF Mono', 'Fira Code', monospace;
-            color: var(--text-primary);
+            color: var(--text-dark);
         }
         .req-card .badge {
             display: inline-block;
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            padding: 0.15rem 0.4rem;
+            padding: 0.15rem 0.45rem;
             background: rgba(224, 120, 80, 0.1);
             color: var(--coral);
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
+        .req-card a { color: var(--coral); }
+        .req-card a:hover { color: var(--coral-dark); }
 
         /* === PROJECT MENU === */
         .projects-section {
-            padding: 3rem 0;
-            border-top: 1px solid var(--bg-accent);
+            padding: 4rem 0;
         }
+        .projects-section .sub { color: var(--text-light-muted); margin-bottom: 1.5rem; }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 1.25rem;
         }
         .project-card {
-            background: var(--bg-white);
-            padding: 1.25rem;
-            border: 1px solid var(--bg-accent);
-            transition: all 0.2s ease;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         .project-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
         .project-letter {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--coral);
-            opacity: 0.35;
+            opacity: 0.3;
             line-height: 1;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.3rem;
         }
         .project-card h3 {
-            color: var(--text-primary);
-            font-size: 1rem;
+            color: var(--cream);
+            font-size: 1.05rem;
             margin-bottom: 0.5rem;
         }
         .project-card p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            font-size: 0.82rem;
+            color: var(--text-light-muted);
             line-height: 1.5;
             margin-bottom: 0.75rem;
         }
         .project-datasets {
             font-size: 0.75rem;
-            color: var(--gold-dark);
+            color: var(--gold);
         }
 
         /* === FOOTER === */
         footer {
-            border-top: 1px solid var(--bg-accent);
+            border-top: 1px solid rgba(255,255,255,0.06);
             padding: 1.5rem 0;
         }
         .footer-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--text-muted);
+            color: var(--text-light-muted);
             font-size: 0.8rem;
         }
 
-        /* === PANEL SYSTEM (stays dark for contrast) === */
+        /* === PANEL SYSTEM === */
         .topic-panel-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(44, 36, 33, 0.5);
+            background: rgba(44, 36, 33, 0.6);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             z-index: 200;
@@ -431,13 +575,23 @@
             top: 0; right: 0; bottom: 0;
             width: 100%;
             max-width: 860px;
-            background: var(--panel-bg);
+            background: var(--bg-dark);
             z-index: 201;
             transform: translateX(100%);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+        }
+        .topic-panel::before {
+            content: '';
+            position: fixed;
+            top: 0; right: 0;
+            width: 860px; height: 100%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
         }
         .topic-panel.active { transform: translateX(0); }
 
@@ -448,7 +602,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
-            background: linear-gradient(180deg, var(--panel-bg) 60%, transparent);
+            background: linear-gradient(180deg, var(--bg-dark) 60%, transparent);
             z-index: 10;
         }
 
@@ -458,94 +612,62 @@
             gap: 0.5rem;
             background: none;
             border: none;
-            color: var(--panel-text-muted);
+            color: var(--text-light-muted);
             font-size: 0.85rem;
             font-family: 'Source Sans 3', sans-serif;
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .panel-close:hover { color: var(--panel-text); gap: 0.75rem; }
+        .panel-close:hover { color: var(--cream); gap: 0.75rem; }
 
         .topic-panel-body {
             padding: 1rem 3rem 4rem;
             position: relative;
             z-index: 1;
             flex: 1;
-            color: var(--panel-text);
         }
         .topic-panel-body h1 {
             font-size: clamp(2rem, 4vw, 2.75rem);
             margin-bottom: 0.5rem;
-            color: var(--panel-text);
+            color: var(--cream);
         }
         .topic-panel-body h2 {
             font-size: 1.5rem;
             margin-top: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--panel-text);
+            color: var(--cream);
         }
         .topic-panel-body p {
-            color: var(--panel-text-muted);
+            color: var(--text-light-muted);
             margin-bottom: 1rem;
-        }
-
-        /* Panel notebook cards */
-        .panel-nb-card {
-            background: var(--panel-card);
-            padding: 1.5rem 2rem;
-            margin-bottom: 1rem;
-        }
-        .panel-nb-card h3 {
-            font-size: 1.1rem;
-            color: var(--panel-text);
-            margin-bottom: 0.5rem;
-        }
-        .panel-nb-buttons {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-        .panel-nb-buttons .btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
-
-        .panel-btn-coral {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.2rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            background: var(--coral);
-            color: white;
-            text-decoration: none;
-        }
-        .panel-btn-ghost {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.2rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            background: transparent;
-            color: var(--panel-text);
-            border: 1px solid rgba(255,255,255,0.15);
-            text-decoration: none;
         }
 
         /* === RESPONSIVE === */
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
             .projects-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 768px) {
-            .container { padding: 0 1.25rem; }
-            .day-blocks { grid-template-columns: 1fr; }
-            .day-blocks.single { max-width: 100%; }
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: row; gap: 2rem; }
+            .hero-stat { text-align: left; }
             .requirements-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1.5rem; }
+            .day-blocks-locked { grid-template-columns: 1fr; }
+            .day-blocks-locked.single { max-width: 100%; }
             .projects-grid { grid-template-columns: 1fr; }
             nav { display: none; }
             .topic-panel { max-width: 100%; }
             .day-header { flex-wrap: wrap; }
-            .day-status { margin-left: 0; }
+            .day-status { margin-left: 0; width: 100%; }
+            .nb-row { flex-wrap: wrap; gap: 0.5rem; }
+            .nb-duration { text-align: left; min-width: auto; }
+            .nb-links { width: 100%; }
+            .block-expanded { padding: 1.5rem; }
+            .requirements-section { margin: 0; padding: 3rem 1.5rem; }
         }
 
         /* === PRINT === */
@@ -561,6 +683,7 @@
             }
             .topic-panel-toolbar { display: none; }
             .topic-panel-overlay { display: none; }
+            .topic-panel::before { display: none; }
         }
     </style>
 </head>
@@ -581,13 +704,34 @@
         <!-- HERO -->
         <section class="hero">
             <div class="container">
-                <h1>Applied NLP:<br><em>From Text to Intelligence</em></h1>
-                <div class="hero-meta">University of Strasbourg &middot; Room A 330, Idem-Lab &middot; Feb 10&ndash;12, 2026</div>
-                <p class="hero-desc">A 20-hour workshop covering the full NLP pipeline &mdash; from TF-IDF baselines to LLM fine-tuning. Everything runs in Google Colab with free APIs.</p>
-                <div class="hero-meta" style="margin-bottom: 1.5rem;">Instructor: Roman Jurowetzki (Aalborg University / University of Strasbourg)</div>
-                <div class="hero-buttons">
-                    <a href="#sessions" class="btn btn-coral">Sessions &amp; Materials &darr;</a>
-                    <a href="#requirements" class="btn btn-outline">Setup Guide</a>
+                <div class="hero-inner">
+                    <div>
+                        <div class="section-label">University of Strasbourg &bull; February 2026</div>
+                        <h1>Applied NLP:<br><em>From Text to Intelligence</em></h1>
+                        <p class="hero-desc">20-hour intensive workshop covering the full NLP pipeline &mdash; from TF-IDF baselines to LLM fine-tuning. Everything runs in Google Colab with free APIs.</p>
+                        <div class="hero-meta">
+                            Room A 330, Idem-Lab &bull; Feb 10&ndash;12, 2026<br>
+                            Instructor: Roman Jurowetzki (Aalborg University / University of Strasbourg)
+                        </div>
+                        <div class="hero-buttons">
+                            <a href="#sessions" class="btn btn-coral">Sessions &amp; Materials <span>&darr;</span></a>
+                            <a href="#requirements" class="btn btn-ghost">Setup Guide</a>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="num">20</div>
+                            <div class="label">hours</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="num">11</div>
+                            <div class="label">notebooks</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="num">4</div>
+                            <div class="label">project tracks</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -597,50 +741,125 @@
             <div class="container">
                 <h2>Schedule &amp; Materials</h2>
 
-                <!-- TUESDAY -->
+                <!-- ===== TUESDAY ===== -->
                 <div class="day-group">
                     <div class="day-header">
                         <div class="day-date">Tuesday, February 10</div>
-                        <div class="day-hours">8 hours &middot; AM + PM</div>
+                        <div class="day-hours">8 hours &bull; AM + PM</div>
                     </div>
-                    <div class="day-blocks">
-                        <a class="session-card" href="block1.html" data-panel="block1.html">
-                            <div class="session-number">01</div>
-                            <div class="session-day">Morning &middot; 08:00&ndash;12:00</div>
-                            <div class="session-title">Foundation</div>
-                            <div class="session-desc">Kickoff presentation, TF-IDF baselines, sentence embeddings. Build your first classifiers and learn evaluation fundamentals.</div>
-                            <div class="session-notebooks">
-                                <span class="nb-tag">Kickoff</span>
-                                <span class="nb-tag">NB01</span>
-                                <span class="nb-tag">NB02</span>
-                            </div>
-                        </a>
 
-                        <a class="session-card" href="block2.html" data-panel="block2.html">
-                            <div class="session-number">02</div>
-                            <div class="session-day">Afternoon &middot; 13:00&ndash;17:00</div>
-                            <div class="session-title">LLMs + Topics</div>
-                            <div class="session-desc">Zero-shot classification with LLMs, structured output with Pydantic, BERTopic for topic discovery. First project sprint.</div>
-                            <div class="session-notebooks">
-                                <span class="nb-tag">NB03</span>
-                                <span class="nb-tag">NB04</span>
-                                <span class="nb-tag">Sprint 1</span>
+                    <!-- Block 1: Foundation -->
+                    <div class="block-expanded">
+                        <div class="block-header">
+                            <div>
+                                <div class="block-title">Block 1 &mdash; Foundation</div>
+                                <div class="block-time">08:00 &ndash; 12:00 &bull; Morning</div>
                             </div>
-                        </a>
+                            <div class="block-number">01</div>
+                        </div>
+                        <div class="block-desc">Kickoff presentation, TF-IDF baselines, sentence embeddings. Build your first classifiers and learn evaluation fundamentals.</div>
+
+                        <div class="schedule-item">
+                            <div class="time">08:20</div>
+                            <div class="label">Kickoff presentation &mdash; NLP landscape, course roadmap, tools &amp; setup</div>
+                            <div class="nb-duration">30 min</div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB01</div>
+                            <div class="nb-name">TF-IDF + Linear Models</div>
+                            <div class="nb-duration">08:50 &bull; 90 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB01_tfidf_baselines.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB01_tfidf_baselines.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">10:20</div>
+                            <div class="label">Break</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB02</div>
+                            <div class="nb-name">Sentence Embeddings</div>
+                            <div class="nb-duration">10:35 &bull; 85 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB02_sentence_embeddings.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB02_sentence_embeddings.ipynb">Download</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Block 2: LLMs + Topics -->
+                    <div class="block-expanded">
+                        <div class="block-header">
+                            <div>
+                                <div class="block-title">Block 2 &mdash; LLMs + Topics</div>
+                                <div class="block-time">13:00 &ndash; 17:00 &bull; Afternoon</div>
+                            </div>
+                            <div class="block-number">02</div>
+                        </div>
+                        <div class="block-desc">Zero-shot classification with LLMs, structured output with Pydantic, BERTopic for topic discovery. First project sprint.</div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB03</div>
+                            <div class="nb-name">LLM Zero-shot + Structured Output</div>
+                            <div class="nb-duration">13:00 &bull; 50 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB03_llm_zero_shot.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB03_llm_zero_shot.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">13:50</div>
+                            <div class="label">Break</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB04</div>
+                            <div class="nb-name">BERTopic &mdash; Topic Discovery + LLM Annotation</div>
+                            <div class="nb-duration">14:05 &bull; 90 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB04_bertopic.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB04_bertopic.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">15:35</div>
+                            <div class="label">Break + Sprint 1 intro</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="schedule-item sprint">
+                            <div class="time">15:50</div>
+                            <div class="label">Project Sprint 1 &mdash; Pick dataset, define task &amp; metric, build first baseline</div>
+                            <div class="nb-duration">55 min</div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">16:45</div>
+                            <div class="label">Lightning shares (2&ndash;3 groups) + day wrap</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- WEDNESDAY -->
-                <div class="day-group locked">
-                    <div class="day-header">
-                        <div class="day-date">Wednesday, February 11</div>
-                        <div class="day-hours">4 hours &middot; AM</div>
+                <!-- ===== WEDNESDAY ===== -->
+                <div class="day-group">
+                    <div class="day-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+                        <div class="day-date" style="color: var(--text-light-muted);">Wednesday, February 11</div>
+                        <div class="day-hours">4 hours &bull; AM</div>
                         <div class="day-status">Materials available Tuesday evening</div>
                     </div>
-                    <div class="day-blocks single">
-                        <div class="session-card">
+                    <div class="day-blocks-locked single">
+                        <div class="session-card-locked">
                             <div class="session-number">03</div>
-                            <div class="session-day">Morning &middot; 08:00&ndash;12:00</div>
+                            <div class="session-day">Morning &bull; 08:00&ndash;12:00</div>
                             <div class="session-title">Few-shot + Retrieval</div>
                             <div class="session-desc">SetFit few-shot classification, FAISS semantic search, evaluation habits.</div>
                             <div class="session-notebooks">
@@ -652,17 +871,17 @@
                     </div>
                 </div>
 
-                <!-- THURSDAY -->
-                <div class="day-group locked">
-                    <div class="day-header">
-                        <div class="day-date">Thursday, February 12</div>
-                        <div class="day-hours">8 hours &middot; AM + PM</div>
+                <!-- ===== THURSDAY ===== -->
+                <div class="day-group">
+                    <div class="day-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+                        <div class="day-date" style="color: var(--text-light-muted);">Thursday, February 12</div>
+                        <div class="day-hours">8 hours &bull; AM + PM</div>
                         <div class="day-status">Materials available Wednesday evening</div>
                     </div>
-                    <div class="day-blocks">
-                        <div class="session-card">
+                    <div class="day-blocks-locked">
+                        <div class="session-card-locked">
                             <div class="session-number">04</div>
-                            <div class="session-day">Morning &middot; 08:00&ndash;12:00</div>
+                            <div class="session-day">Morning &bull; 08:00&ndash;12:00</div>
                             <div class="session-title">Advanced Pipelines</div>
                             <div class="session-desc">Cross-encoder reranking, LLM-generated training data, fine-tuning Qwen3-4B with LoRA.</div>
                             <div class="session-notebooks">
@@ -672,11 +891,11 @@
                             </div>
                         </div>
 
-                        <div class="session-card">
+                        <div class="session-card-locked">
                             <div class="session-number">05</div>
-                            <div class="session-day">Afternoon &middot; 13:00&ndash;17:00</div>
+                            <div class="session-day">Afternoon &bull; 13:00&ndash;17:00</div>
                             <div class="session-title">Evaluation + Projects</div>
-                            <div class="session-desc">LLM evaluation, annotation &amp; inter-rater reliability, final project sprint, group presentations.</div>
+                            <div class="session-desc">LLM evaluation, annotation &amp; inter-rater reliability, final sprint, presentations.</div>
                             <div class="session-notebooks">
                                 <span class="nb-tag">NB10</span>
                                 <span class="nb-tag">NB11</span>
@@ -689,11 +908,11 @@
             </div>
         </section>
 
-        <!-- REQUIREMENTS -->
+        <!-- REQUIREMENTS (cream section) -->
         <section class="requirements-section" id="requirements">
-            <div class="container">
+            <div class="requirements-inner">
                 <h2>Setup Guide</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Everything is free. Takes about 10 minutes.</p>
+                <p class="sub">Everything is free. Takes about 10 minutes.</p>
 
                 <div class="requirements-grid">
                     <div class="req-card">
@@ -743,32 +962,32 @@
         <section class="projects-section" id="projects">
             <div class="container">
                 <h2>Project Tracks</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Pick one track, work across Sprint 1 (Tue) and Sprint 2 (Thu). Own data welcome.</p>
+                <p class="sub">Pick one track, work across Sprint 1 (Tue) and Sprint 2 (Thu). Own data welcome.</p>
 
                 <div class="projects-grid">
                     <div class="project-card">
                         <div class="project-letter">A</div>
                         <h3>Classification</h3>
                         <p>Classify text into categories &mdash; stance, sentiment, topic tags, toxicity. Compare baselines to LLMs to fine-tuned models.</p>
-                        <div class="project-datasets">Moltbook &middot; Environmental Claims &middot; dk_posts</div>
+                        <div class="project-datasets">Moltbook &bull; Environmental Claims &bull; dk_posts</div>
                     </div>
                     <div class="project-card">
                         <div class="project-letter">B</div>
                         <h3>Topic Discovery</h3>
                         <p>BERTopic + LLM annotation. Discover what people talk about and how topics evolve over time.</p>
-                        <div class="project-datasets">Moltbook &middot; Podcast Transcripts &middot; Bluesky</div>
+                        <div class="project-datasets">Moltbook &bull; Podcast Transcripts &bull; Bluesky</div>
                     </div>
                     <div class="project-card">
                         <div class="project-letter">C</div>
                         <h3>Semantic Search</h3>
                         <p>Build a retrieval system with FAISS + cross-encoder reranking for large document collections.</p>
-                        <div class="project-datasets">Policy Docs &middot; Academic Papers &middot; SEC Filings</div>
+                        <div class="project-datasets">Policy Docs &bull; Academic Papers &bull; SEC Filings</div>
                     </div>
                     <div class="project-card">
                         <div class="project-letter">D</div>
                         <h3>Structured Extraction</h3>
                         <p>LLM &rarr; structured JSON &rarr; analysis pipeline. Turn messy text into clean data at scale.</p>
-                        <div class="project-datasets">Podcast Transcripts &middot; SEC Filings &middot; News</div>
+                        <div class="project-datasets">Podcast Transcripts &bull; SEC Filings &bull; News</div>
                     </div>
                 </div>
             </div>
@@ -778,7 +997,7 @@
     <!-- FOOTER -->
     <footer>
         <div class="container footer-inner">
-            <div>Roman Jurowetzki &middot; Aalborg University / University of Strasbourg</div>
+            <div>Roman Jurowetzki &bull; Aalborg University / University of Strasbourg</div>
             <div>&copy; 2026</div>
         </div>
     </footer>
@@ -818,7 +1037,7 @@
                     panel.scrollTop = 0;
                 })
                 .catch(() => {
-                    body.innerHTML = '<p style="padding: 2rem; color: var(--panel-text-muted);">Session content loading soon&hellip;</p>';
+                    body.innerHTML = '<p style="padding: 2rem; color: var(--text-light-muted);">Session content loading soon&hellip;</p>';
                     panel.classList.add('active');
                     overlay.classList.add('active');
                     document.body.classList.add('panel-open');
@@ -832,16 +1051,6 @@
             history.pushState(null, '', window.location.pathname);
         }
 
-        // Only active (non-locked) session cards are clickable
-        document.querySelectorAll('.day-group:not(.locked) .session-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('data-panel') || this.getAttribute('href');
-                history.pushState({ topic: href }, '', '#' + href.replace('.html', ''));
-                openPanel(href);
-            });
-        });
-
         closeBtn.addEventListener('click', closePanel);
         overlay.addEventListener('click', closePanel);
 
@@ -854,14 +1063,12 @@
                 closePanel();
             } else if (window.location.hash.startsWith('#block')) {
                 const blockNum = window.location.hash.replace('#block', '');
-                // Only auto-open blocks 1 and 2
                 if (blockNum === '1' || blockNum === '2') {
-                    openPanel(window.location.hash.slice(1) + '.html');
+                    openPanel('block' + blockNum + '.html');
                 }
             }
         });
 
-        // Auto-open if URL has hash for active blocks
         if (window.location.hash === '#block1' || window.location.hash === '#block2') {
             openPanel(window.location.hash.slice(1) + '.html');
         }
