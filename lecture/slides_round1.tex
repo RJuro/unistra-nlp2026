@@ -419,9 +419,9 @@
         % Topic word distributions (H)
         \node[font=\footnotesize\bfseries, text=textdark] at (9.2,4.2) {H: topic-word dists.};
         \draw[textmuted, thin] (7.6,1.2) rectangle (10.8,3.9);
-        \node[font=\tiny, anchor=west, text=coral] at (7.8,3.35) {Topic A: inflation, rates, GDP};
-        \node[font=\tiny, anchor=west, text=gold] at (7.8,2.75) {Topic B: patent, startup, AI};
-        \node[font=\tiny, anchor=west, text=blue] at (7.8,2.15) {Topic C: carbon, climate, energy};
+        \node[font=\tiny, anchor=west, text=coral] at (7.8,3.35) {Topic A: inflation, rates};
+        \node[font=\tiny, anchor=west, text=gold] at (7.8,2.75) {Topic B: patent, startup};
+        \node[font=\tiny, anchor=west, text=blue] at (7.8,2.15) {Topic C: climate, energy};
 
         % Arrows
         \draw[-{Stealth}, coral, thick] (2.9,2.55) -- (3.3,2.55);
@@ -785,16 +785,6 @@
       \end{tikzpicture}
       \end{center}
 
-      \vspace{0.06cm}
-      \IfFileExists{figures/generated/ufo.png}{%
-        \begin{center}
-          \includegraphics[width=0.58\linewidth]{figures/generated/ufo.png}
-        \end{center}
-      }{%
-        \begin{center}
-          \fcolorbox{coral}{bgcard}{\parbox{0.85\linewidth}{\centering\tiny Missing image: \texttt{figures/generated/ufo.png}}}
-        \end{center}
-      }
     \end{column}
   \end{columns}
 \end{frame}
