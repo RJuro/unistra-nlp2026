@@ -1,0 +1,1644 @@
+% slides.tex — UNISTRA NLP 2026 Lecture: Applied NLP
+% "A Practical Journey Through NLP"
+% Compile with: pdflatex slides.tex (twice for frame numbers)
+
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\IfFileExists{beamerthememedievalnlp.sty}{%
+  \usetheme{medievalnlp}%
+}{%
+  \usetheme{default}%
+  \usepackage{xcolor}%
+  \definecolor{bglight}{HTML}{F5EFE6}%
+  \definecolor{bgcard}{HTML}{EDE8E0}%
+  \definecolor{bgaccent}{HTML}{E5DDD3}%
+  \definecolor{textdark}{HTML}{2C2421}%
+  \definecolor{textsecond}{HTML}{4A4340}%
+  \definecolor{textmuted}{HTML}{8A7B70}%
+  \definecolor{coral}{HTML}{E07850}%
+  \definecolor{corallight}{HTML}{F0A080}%
+  \definecolor{coraldark}{HTML}{C05830}%
+  \definecolor{gold}{HTML}{D4A855}%
+  \definecolor{green}{HTML}{5A8A5A}%
+  \definecolor{blue}{HTML}{5B8DB8}%
+  \setbeamercolor{background canvas}{bg=bglight}%
+  \setbeamercolor{normal text}{fg=textdark}%
+  \setbeamercolor{structure}{fg=coral}%
+  \setbeamertemplate{navigation symbols}{}%
+  \newcommand{\highlight}[1]{\textcolor{coral}{#1}}%
+  \newcommand{\muted}[1]{\textcolor{textmuted}{#1}}%
+  \newcommand{\gold}[1]{\textcolor{gold}{#1}}%
+  \newcommand{\green}[1]{\textcolor{green}{#1}}%
+  \newcommand{\cmark}[1]{\hfill{\tiny\color{textmuted}#1}}%
+  \newcommand{\citeslide}[1]{{\tiny\color{textmuted}#1}}%
+  \newcommand{\coralrule}{\textcolor{coral}{\rule{\textwidth}{1pt}}}%
+}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=coral,urlcolor=corallight}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,calc,decorations.pathreplacing,backgrounds,matrix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\scriptsize\color{textdark},
+  backgroundcolor=\color{bgaccent},
+  keywordstyle=\color{coral},
+  stringstyle=\color{gold},
+  commentstyle=\color{textmuted},
+  frame=none,
+  breaklines=true
+}
+
+% ── Metadata ──
+\title{Applied NLP}
+\subtitle{A Practical Journey Through NLP}
+\author{Roman Jurowetzki}
+\institute{Aalborg University / University of Strasbourg}
+\date{February 2026}
+
+\begin{document}
+
+% ═══════════════════════════════════════════════════════════════
+% SECTION 0: TITLE & ROADMAP
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 1: Title ---
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+% --- Slide 2: The Dual Track ---
+\begin{frame}{Two Tracks}
+  \framesubtitle{How this lecture works}
+
+  \begin{columns}[T]
+    \begin{column}{0.45\textwidth}
+      \highlight{Concepts \& Intuition}\\[0.3cm]
+      Visual analogies and worked examples\\
+      that make the algorithms stick.\\[0.2cm]
+      \muted{From simple counts to deep learning.}\\[0.3cm]
+      \gold{Word Counting} $\to$ TF-IDF\\
+      \gold{Hidden Topics} $\to$ Topic Models\\
+      \gold{Meaning as Geometry} $\to$ Embeddings\\
+      \gold{Context is Everything} $\to$ Transformers
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \highlight{The State of the Art}\\[0.3cm]
+      Architecture diagrams, benchmarks,\\
+      code snippets, cost tables.\\[0.2cm]
+      \muted{Where we actually are in Feb 2026.}\\[0.3cm]
+      \gold{Transformers} $\to$ Attention\\
+      \gold{Reasoning Models} $\to$ o3, R1\\
+      \gold{Cost Collapse} $\to$ \$0.27/M tokens\\
+      \gold{Social Science} $\to$ Text as Data
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 3: Roadmap ---
+\begin{frame}{Roadmap}
+  \framesubtitle{Teaching Computers Language}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    era/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=1.8cm, minimum height=0.7cm, font=\footnotesize\bfseries, line width=0.5pt, align=center},
+    year/.style={font=\tiny, text=gold},
+    desc/.style={font=\tiny, text=textmuted, text width=1.8cm, align=center}
+  ]
+    \draw[coral, line width=1.5pt] (0,0) -- (14,0);
+    \foreach \x/\yr/\name/\detail in {
+      0.8/1990s/TF-IDF/Word counts,
+      3.2/2003/Topics/LDA{,} NMF,
+      5.6/2013/Word2Vec/Dense vectors,
+      8.0/2017/Transformers/Attention,
+      10.4/2022+/LLMs/GPT{,} Claude,
+      12.8/2026/State of Art/Where we are
+    } {
+      \fill[coral] (\x, 0) circle (3pt);
+      \node[era, above=0.5cm] at (\x, 0) {\name};
+      \node[year, below=0.15cm] at (\x, 0) {\yr};
+      \node[desc, below=0.55cm] at (\x, 0) {\detail};
+    }
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  Each era \highlight{added a tool} --- none replaced what came before.\\[0.1cm]
+  \muted{TF-IDF still powers Elasticsearch. Embeddings are still the backbone of search.}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{TF-IDF \& Text Features}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 4: Word Counts ---
+\begin{frame}{Word Counts \& Information Theory}
+  \framesubtitle{The foundation of text retrieval}
+
+  \begin{itemize}
+    \item Text is \highlight{unstructured} --- the hardest data type for machines
+    \item First idea: just \textbf{count words}
+    \item Problem: common words (``the'', ``is'', ``and'') dominate
+    \item Solution: weight words by how \highlight{informative} they are
+  \end{itemize}
+
+  \vspace{0.4cm}
+  \begin{alertblock}{Insight for Economists}
+    IDF is mathematically equivalent to \highlight{self-information (surprisal)}.\\
+    Rare events carry more information --- just like in information theory.
+  \end{alertblock}
+
+  \cmark{Sparck Jones, 1972; Aizawa, 2003}
+\end{frame}
+
+% --- Slide 5: Bag of Words ---
+\begin{frame}{Bag of Words}
+  \framesubtitle{The simplest text representation}
+
+  \begin{center}
+  \footnotesize
+  \begin{tabular}{l|cccccc}
+    \toprule
+    & scary & long & good & funny & boring & great \\
+    \midrule
+    \textit{``Scary and long movie''} & \highlight{1} & \highlight{1} & 0 & 0 & 0 & 0 \\
+    \textit{``Good and funny film''} & 0 & 0 & \highlight{1} & \highlight{1} & 0 & 0 \\
+    \textit{``Not a great movie''} & 0 & 0 & 0 & 0 & 0 & \highlight{1} \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.4cm}
+  \begin{itemize}
+    \item Each document $=$ a vector of word frequencies
+    \item \highlight{Ignores word order} (``dog bites man'' $=$ ``man bites dog'')
+    \item But surprisingly effective for classification and retrieval
+  \end{itemize}
+\end{frame}
+
+% --- Slide 6: The Dog Park Analogy ---
+\begin{frame}{TF-IDF Intuition: The Dog Park}
+  \framesubtitle{Finding a unique dog in a crowded park}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      Imagine a dog park with 100 dogs.\\[0.3cm]
+      \begin{itemize}
+        \item 80 are \textbf{Golden Retrievers}
+        \item ``Golden Retriever'' is \highlight{not} a useful descriptor
+        \item But \textbf{one} dog wears a \gold{funny bandana}
+        \item That bandana is \highlight{extremely} informative!
+      \end{itemize}
+      \vspace{0.3cm}
+      \gold{TF-IDF} = how often a word appears in \textit{this} document\\
+      \hspace{1.5cm}$\times$ how \textit{rare} it is across \textit{all} documents
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=0.7]
+          % Dog park illustration
+          \draw[coral, thick, rounded corners=5pt] (0,0) rectangle (5,4);
+          \node[font=\tiny, text=textmuted] at (2.5,4.3) {THE DOG PARK};
+          % Many same dogs
+          \foreach \x/\y in {0.5/0.5, 1.2/1.5, 2.0/0.8, 2.8/2.2, 3.5/1.0, 4.2/2.8, 1.0/3.0, 3.8/0.5} {
+            \node[font=\tiny, text=textmuted] at (\x,\y) {dog};
+          }
+          % The special one
+          \node[font=\small, text=gold] at (2.5,1.8) {\textbf{dog*}};
+          \draw[gold, thick] (1.7,1.6) rectangle (3.3,2.1);
+          \node[font=\tiny, text=gold] at (2.5,1.3) {funny bandana!};
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 7: TF-IDF Math ---
+\begin{frame}{TF-IDF: The Math}
+
+  \begin{center}
+    {\Large $w(t, d) = \underbrace{\text{tf}(t, d)}_{\text{term frequency}} \times \underbrace{\log\!\left(\frac{N}{\text{df}(t)}\right)}_{\text{inverse document frequency}}$}
+  \end{center}
+
+  \vspace{0.3cm}
+  \footnotesize
+  \begin{center}
+  \begin{tabular}{lcccl}
+    \toprule
+    \textbf{Term} & \textbf{TF in doc} & \textbf{DF (of 1000)} & \textbf{IDF} & \textbf{TF-IDF} \\
+    \midrule
+    ``the'' & 10/100 & 1000 & $\log(1) = 0$ & \highlight{0} \\
+    ``dog'' & 8/100 & 900 & $\log(1.1) \approx 0.05$ & 0.004 \\
+    ``park'' & 5/100 & 50 & $\log(20) \approx 1.3$ & \gold{0.065} \\
+    ``bandana'' & 2/100 & 3 & $\log(333) \approx 2.5$ & \gold{0.050} \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.2cm}
+  \muted{``The'' appears everywhere $\to$ zero weight. ``Park'' and ``bandana'' are distinctive.}
+\end{frame}
+
+% --- Slide 8: TF-IDF Worked Example ---
+\begin{frame}{TF-IDF: A Worked Example}
+  \framesubtitle{Finding what makes a document unique}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      A forum with 1,000 advice posts across 8 categories.\\[0.2cm]
+      \textit{``Help with my breakup''} mentions ``relationship'' 5 times.\\[0.2cm]
+      \begin{itemize}
+        \item TF(``relationship'') = $5/80 = 0.063$
+        \item But ``relationship'' appears in \highlight{600} of 1,000 posts
+        \item IDF = $\log(1000/600) \approx 0.22$ \muted{\ldots modest}
+      \end{itemize}
+      \vspace{0.2cm}
+      Meanwhile, ``ghosting'' and ``rebound'' are rare globally\\
+      but frequent in \textit{this} post $\to$ \gold{high TF-IDF}\\[0.2cm]
+      \muted{The words that \textit{distinguish} a document\\are the ones that matter.}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=0.65]
+          % Document card
+          \draw[gold, thick, rounded corners=3pt] (0,0) rectangle (4.5,5.5);
+          \node[font=\footnotesize\bfseries, text=textdark] at (2.25,5) {Forum Post \#42};
+          \draw[coral, thick] (0.3,4.6) -- (4.2,4.6);
+          \node[font=\tiny, text=textmuted, text width=3.8cm, align=left] at (2.25,3.5) {
+            ``relationship'' $\times$ 5 ... \textcolor{textmuted}{common}\\
+            ``ghosting'' $\times$ 3 ... \textcolor{gold}{rare!}\\
+            ``rebound'' $\times$ 2 ... \textcolor{gold}{rare!}\\
+            ``the'' $\times$ 12 ... \textcolor{textmuted}{useless}\\
+            ``catfishing'' $\times$ 1 ... \textcolor{gold}{very rare!}
+          };
+          \draw[gold, thick] (0.3,1.8) -- (4.2,1.8);
+          \node[font=\tiny\itshape, text=textmuted, text width=3.8cm, align=center] at (2.25,1.0) {
+            TF-IDF finds the\\
+            \textcolor{coral}{distinguishing} words
+          };
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 9: BM25 ---
+\begin{frame}{BM25: TF-IDF's Descendant (Still Alive in 2026)}
+  \framesubtitle{The algorithm that powers search engines}
+
+  \begin{itemize}
+    \item \highlight{BM25} adds \textbf{term frequency saturation}: $\frac{\text{tf}}{\text{tf} + k_1}$
+    \item Prevents long documents from dominating
+    \item Default in \textbf{Elasticsearch}, Apache Solr, Apache Lucene
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \begin{exampleblock}{2024: BMX --- The Next Step}
+    BMX combines entropy-weighted similarity with TF-IDF.\\
+    Outperforms BM25 on the BEIR benchmark.\\
+    \muted{arXiv:2408.06643}
+  \end{exampleblock}
+
+  \vspace{0.3cm}
+  \begin{center}
+    \gold{Lesson:} foundational methods don't die --- they \highlight{evolve}.\\
+    \muted{Every modern search engine still uses TF-IDF descendants.}
+  \end{center}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{Topic Modeling}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 10: Uncovering Hidden Relationships ---
+\begin{frame}{Uncovering Hidden Relationships}
+  \framesubtitle{What if documents share latent themes?}
+
+  \begin{itemize}
+    \item TF-IDF treats each word independently
+    \item But documents have \highlight{hidden topics} that connect words
+    \item \textbf{Goal:} discover these topics automatically
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.3\textwidth}
+      \centering
+      \highlight{LSA / LSI}\\[0.1cm]
+      \muted{SVD on term-doc matrix}\\
+      \muted{(Deerwester, 1990)}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \highlight{LDA}\\[0.1cm]
+      \muted{Generative model}\\
+      \muted{(Blei et al., 2003)}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \highlight{NMF}\\[0.1cm]
+      \muted{Non-negative factors}\\
+      \muted{(Lee \& Seung, 1999)}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 11: Matrix Factorization ---
+\begin{frame}{Matrix Factorization}
+  \framesubtitle{The mathematical trick behind topic modeling}
+
+  \begin{center}
+  \begin{tikzpicture}[scale=0.85]
+    % A matrix
+    \node[rectangle, draw=coral, fill=bgcard, minimum width=3cm, minimum height=2cm, text=textdark] (A) at (0,0) {
+      \begin{tabular}{c}
+        \footnotesize\textbf{A}\\
+        \tiny docs $\times$ words
+      \end{tabular}
+    };
+    % approx
+    \node at (2.3,0) {\Large\color{coral}$\approx$};
+    % W matrix
+    \node[rectangle, draw=gold, fill=bgcard, minimum width=1.8cm, minimum height=2cm, text=textdark] (W) at (4,0) {
+      \begin{tabular}{c}
+        \footnotesize\textbf{W}\\
+        \tiny docs $\times$ \textcolor{gold}{topics}
+      \end{tabular}
+    };
+    % times
+    \node at (5.5,0) {\Large\color{textdark}$\times$};
+    % H matrix
+    \node[rectangle, draw=gold, fill=bgcard, minimum width=3cm, minimum height=1.2cm, text=textdark] (H) at (7.5,0) {
+      \begin{tabular}{c}
+        \footnotesize\textbf{H}\\
+        \tiny \textcolor{gold}{topics} $\times$ words
+      \end{tabular}
+    };
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{itemize}
+    \item \textbf{W} tells us: each document's \gold{topic mixture}
+    \item \textbf{H} tells us: each topic's \gold{word distribution}
+    \item We choose $k$ topics --- the model finds the rest
+  \end{itemize}
+\end{frame}
+
+% --- Slide 12: Discovering Topics ---
+\begin{frame}{Discovering Topics in Text}
+  \framesubtitle{Automatic theme extraction from a large corpus}
+
+  Feed 10,000 news articles to a topic model $\to$ \highlight{4 hidden themes} emerge:
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.22\textwidth}
+      \centering
+      \gold{Technology}\\[0.1cm]
+      \muted{\footnotesize AI, startup,\\
+      funding, platform,\\
+      compute, deploy}
+    \end{column}
+    \begin{column}{0.22\textwidth}
+      \centering
+      \gold{Economics}\\[0.1cm]
+      \muted{\footnotesize inflation, GDP,\\
+      labor, trade,\\
+      policy, fiscal}
+    \end{column}
+    \begin{column}{0.22\textwidth}
+      \centering
+      \gold{Climate}\\[0.1cm]
+      \muted{\footnotesize emissions, carbon,\\
+      renewable, ESG,\\
+      transition, green}
+    \end{column}
+    \begin{column}{0.22\textwidth}
+      \centering
+      \gold{Health}\\[0.1cm]
+      \muted{\footnotesize vaccine, trial,\\
+      patients, drug,\\
+      biotech, FDA}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4cm}
+  \begin{center}
+    \muted{An article on ``AI for drug discovery'':}
+    \highlight{50\%} Technology,
+    \highlight{30\%} Health,
+    \muted{20\% other}\\[0.1cm]
+    \muted{Documents are \textit{mixtures} of topics --- not just one.}
+  \end{center}
+\end{frame}
+
+% --- Slide 13: LDA ---
+\begin{frame}{LDA: The Generative Model}
+  \framesubtitle{How documents are ``born'' according to LDA}
+
+  \begin{enumerate}
+    \item For each document, draw a \gold{topic mixture} $\theta \sim \text{Dir}(\alpha)$
+    \item For each word position:
+      \begin{enumerate}
+        \item Choose a \highlight{topic} $z \sim \text{Mult}(\theta)$
+        \item Choose a \highlight{word} $w \sim \text{Mult}(\phi_z)$
+      \end{enumerate}
+  \end{enumerate}
+
+  \vspace{0.3cm}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.8]
+    \node[circle, draw=gold, fill=bgcard, text=textdark, minimum size=0.8cm] (theta) at (0,0) {$\theta$};
+    \node[circle, draw=coral, fill=bgcard, text=textdark, minimum size=0.8cm] (z) at (2.5,0) {$z$};
+    \node[circle, draw=textsecond, fill=bgcard, text=textdark, minimum size=0.8cm] (w) at (5,0) {$w$};
+    \node[circle, draw=gold, fill=bgcard, text=textdark, minimum size=0.8cm] (phi) at (2.5,1.5) {$\phi$};
+    \draw[-{Stealth}, gold, thick] (theta) -- (z);
+    \draw[-{Stealth}, coral, thick] (z) -- (w);
+    \draw[-{Stealth}, gold, thick] (phi) -- (w);
+    \node[font=\tiny, text=textmuted] at (0, -0.7) {topic mix};
+    \node[font=\tiny, text=textmuted] at (2.5, -0.7) {topic};
+    \node[font=\tiny, text=textmuted] at (5, -0.7) {word};
+    \node[font=\tiny, text=textmuted] at (2.5, 2.1) {word dist.};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.2cm}
+  \cmark{Blei, Ng \& Jordan, 2003}
+\end{frame}
+
+% --- Slide 14: BERTopic ---
+\begin{frame}{BERTopic: Topic Modeling for 2026}
+  \framesubtitle{Embeddings + clustering + interpretability}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    pipestep/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=2.2cm, minimum height=1cm, font=\footnotesize, align=center, line width=0.5pt},
+    arr/.style={-{Stealth}, coral, thick}
+  ]
+    \node[pipestep] (embed) at (0,0) {Embed\\[-0.05cm]\tiny sentence-transformers};
+    \node[pipestep] (umap) at (3.5,0) {Reduce\\[-0.05cm]\tiny UMAP};
+    \node[pipestep] (hdbscan) at (7,0) {Cluster\\[-0.05cm]\tiny HDBSCAN};
+    \node[pipestep] (ctfidf) at (10.5,0) {Represent\\[-0.05cm]\tiny c-TF-IDF};
+    \draw[arr] (embed) -- (umap);
+    \draw[arr] (umap) -- (hdbscan);
+    \draw[arr] (hdbscan) -- (ctfidf);
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Advantages over LDA:}
+      \begin{itemize}
+        \item Auto-determines topic count
+        \item 50+ languages
+        \item LLM-powered topic naming
+        \item Dynamic \& hierarchical models
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \highlight{Benchmark:}
+      \begin{itemize}
+        \item Coherence (Cv): \gold{0.76}\\
+              \muted{vs LDA's 0.38 --- nearly 2$\times$}
+        \item v0.17+: multi-GPU, Model2Vec
+        \item Active development by Maarten Grootendorst
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \cmark{Grootendorst, 2022; arXiv:2203.05794}
+\end{frame}
+
+% --- Slide 15: BERTopic in Practice ---
+\begin{frame}{BERTopic in Practice}
+  \framesubtitle{Why social scientists love it}
+
+  \begin{itemize}
+    \item \highlight{Interpretable}: c-TF-IDF gives real words per topic (not just topic IDs)
+    \item \highlight{Scalable}: handles 100K+ documents on a laptop
+    \item \highlight{LLM integration}: feed topic words to GPT/Claude for human-readable names
+    \item \highlight{Visualization}: built-in topic maps, hierarchies, temporal trends
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \begin{alertblock}{Bridge to Social Science}
+    BERTopic is the most adopted topic model in social science since LDA.\\
+    Used in: innovation studies, policy analysis, media research, scientometrics.
+  \end{alertblock}
+
+  \vspace{0.1cm}
+  \muted{We'll build a full BERTopic pipeline in \highlight{NB04} --- with LLM topic naming via Groq.}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{Word Embeddings \& Vector Space}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 16: Words as GPS Coordinates ---
+\begin{frame}{Words as GPS Coordinates}
+  \framesubtitle{From sparse counts to dense meaning}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      TF-IDF: each word = a dimension (10,000+ dims)\\[0.2cm]
+      \highlight{Word2Vec}: each word = a \textbf{dense vector} (100--300 dims)\\[0.3cm]
+      Think of it as \gold{GPS coordinates in meaning-space}:
+      \begin{itemize}
+        \item ``dog'' and ``puppy'' are \highlight{nearby}
+        \item ``dog'' and ``spreadsheet'' are \highlight{far apart}
+        \item Similar meanings $\to$ similar coordinates
+      \end{itemize}
+      \vspace{0.2cm}
+      \muted{Trained on billions of words---the model\\learns meaning from \textit{context}.}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.7]
+        \draw[textmuted, thin, ->] (0,0) -- (5,0) node[right, font=\tiny, text=textmuted] {dim 1};
+        \draw[textmuted, thin, ->] (0,0) -- (0,5) node[above, font=\tiny, text=textmuted] {dim 2};
+        % Animal cluster
+        \fill[coral] (1.5,3.5) circle (3pt) node[right, font=\footnotesize, text=textdark] {dog};
+        \fill[coral] (1.8,3.8) circle (3pt) node[right, font=\footnotesize, text=textdark] {puppy};
+        \fill[corallight] (2.2,3.0) circle (3pt) node[right, font=\footnotesize, text=textsecond] {cat};
+        \fill[corallight] (1.2,2.7) circle (3pt) node[left, font=\footnotesize, text=textsecond] {kitten};
+        % Far away
+        \fill[textmuted] (4.0,0.8) circle (3pt) node[right, font=\footnotesize, text=textmuted] {spreadsheet};
+        \fill[textmuted] (3.8,1.2) circle (3pt) node[left, font=\footnotesize, text=textmuted] {excel};
+        % Cluster labels
+        \draw[coral, dashed, thick] (0.7,2.4) ellipse (1.5cm and 1.2cm);
+        \draw[textmuted, dashed] (3.5,0.6) ellipse (1.2cm and 0.8cm);
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+  \cmark{Mikolov et al., 2013}
+\end{frame}
+
+% --- Slide 17: King - Man + Woman = Queen ---
+\begin{frame}{Vector Arithmetic}
+  \framesubtitle{The most famous equation in NLP}
+
+  \begin{center}
+    {\Large\color{gold} $\vec{\text{king}} - \vec{\text{man}} + \vec{\text{woman}} \approx \vec{\text{queen}}$}
+  \end{center}
+
+  \vspace{0.4cm}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.9]
+    \node[font=\normalsize, text=textdark] (king) at (0,3) {\textbf{king}};
+    \node[font=\normalsize, text=textdark] (queen) at (4,3) {\textbf{queen}};
+    \node[font=\normalsize, text=textdark] (man) at (0,0) {\textbf{man}};
+    \node[font=\normalsize, text=textdark] (woman) at (4,0) {\textbf{woman}};
+    \draw[-{Stealth}, coral, thick] (man) -- (king) node[midway, left, font=\footnotesize, text=gold] {royalty};
+    \draw[-{Stealth}, coral, thick] (woman) -- (queen) node[midway, right, font=\footnotesize, text=gold] {royalty};
+    \draw[-{Stealth}, textmuted, thick] (man) -- (woman) node[midway, below, font=\footnotesize, text=textmuted] {gender};
+    \draw[-{Stealth}, textmuted, thick] (king) -- (queen) node[midway, above, font=\footnotesize, text=textmuted] {gender};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{center}
+    \muted{Works for:} \gold{Paris} $-$ \gold{France} $+$ \gold{Germany} $\approx$ \gold{Berlin}\\
+    \muted{Captures relational structure, not just similarity.}
+  \end{center}
+\end{frame}
+
+% --- Slide 18: Training ---
+\begin{frame}{How Word2Vec Learns}
+  \framesubtitle{Predicting context from massive text corpora}
+
+  The model reads thousands of books, predicting words from context:
+
+  \vspace{0.2cm}
+  \begin{center}
+    \muted{``The} \highlight{dog} \muted{fetched the} \gold{[\_\_\_\_\_]} \muted{from the garden.''}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.85]
+    % Sliding window
+    \foreach \i/\word in {0/The, 1.5/quick, 3/brown, 4.5/fox, 6/jumps} {
+      \node[font=\small, text=textdark] at (\i, 0) {\word};
+    }
+    % Window highlight
+    \draw[coral, thick, rounded corners=3pt] (0.6,-0.3) rectangle (5.4,0.4);
+    \node[font=\tiny, text=coral] at (3,0.7) {context window};
+    % Arrows
+    \draw[-{Stealth}, gold, thick] (1.5,-0.5) -- (3,-1.2);
+    \draw[-{Stealth}, gold, thick] (4.5,-0.5) -- (3,-1.2);
+    \node[font=\small, text=gold] at (3,-1.5) {predict ``brown''};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.2cm}
+  \begin{itemize}
+    \item \textbf{Skip-gram}: predict context from center word
+    \item \textbf{CBOW}: predict center word from context
+    \item Words that appear in similar contexts get \highlight{similar vectors}
+  \end{itemize}
+
+  \cmark{Mikolov et al., 2013; Pennington et al. (GloVe), 2014}
+\end{frame}
+
+% --- Slide 19: The UFO in the Village ---
+\begin{frame}{The UFO in the Village}
+  \framesubtitle{Distance = dissimilarity in vector space}
+
+  \begin{center}
+  \begin{tikzpicture}[scale=0.75]
+    \draw[textmuted, thin, ->] (0,0) -- (10,0);
+    \draw[textmuted, thin, ->] (0,0) -- (0,6);
+    % Medieval cluster
+    \fill[gold] (2,4) circle (4pt) node[above, font=\small, text=gold] {castle};
+    \fill[gold] (2.5,3.5) circle (4pt) node[right, font=\small, text=gold] {knight};
+    \fill[gold] (1.5,3) circle (4pt) node[left, font=\small, text=gold] {sword};
+    \fill[coral] (3,4.5) circle (4pt) node[above, font=\small, text=coral] {dog};
+    \fill[coral] (3.5,3.8) circle (4pt) node[right, font=\small, text=coral] {hound};
+    \draw[gold, dashed, thick] (2.3,3.7) ellipse (2cm and 1.3cm);
+    \node[font=\tiny, text=textmuted] at (2.3,2) {medieval cluster};
+    % UFO - far away!
+    \fill[textdark] (8,1.5) circle (5pt) node[above, font=\small\bfseries, text=textdark] {UFO};
+    \fill[textmuted] (8.5,1) circle (3pt) node[right, font=\small, text=textmuted] {spaceship};
+    \fill[textmuted] (7.5,0.8) circle (3pt) node[left, font=\small, text=textmuted] {alien};
+    \draw[textmuted, dashed] (8,1.1) ellipse (1.5cm and 0.8cm);
+    % Arrow showing distance
+    \draw[coral, thick, <->] (4.2,3.5) -- (6.8,1.8);
+    \node[font=\footnotesize, text=coral, rotate=-25] at (5.5,3) {large distance};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.1cm}
+  \begin{center}
+    Concepts that never co-occur end up far apart in vector space.\\[0.1cm]
+    \muted{A UFO landing in a medieval village --- clearly out of place!}
+  \end{center}
+\end{frame}
+
+% --- Slide 20: Visualizing Embeddings ---
+\begin{frame}{Visualizing Embedding Space}
+  \framesubtitle{From 300 dimensions down to 2}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Dimensionality reduction:}
+      \begin{itemize}
+        \item \textbf{t-SNE}: preserves local structure
+        \item \textbf{UMAP}: preserves global + local
+        \item Both: 300D $\to$ 2D for visualization
+      \end{itemize}
+
+      \vspace{0.3cm}
+      \muted{What you see:}
+      \begin{itemize}
+        \item Semantic clusters (animals, food, tech)
+        \item Analogies as parallel lines
+        \item Outliers = unusual words
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.6]
+        % Simulated t-SNE clusters
+        \foreach \i in {1,...,8} {
+          \pgfmathsetmacro{\x}{1.5+rand*0.5}
+          \pgfmathsetmacro{\y}{4+rand*0.5}
+          \fill[coral, opacity=0.7] (\x,\y) circle (2pt);
+        }
+        \node[font=\tiny, text=coral] at (1.5,3.2) {animals};
+        \foreach \i in {1,...,8} {
+          \pgfmathsetmacro{\x}{4+rand*0.5}
+          \pgfmathsetmacro{\y}{4.5+rand*0.5}
+          \fill[gold, opacity=0.7] (\x,\y) circle (2pt);
+        }
+        \node[font=\tiny, text=gold] at (4,3.7) {food};
+        \foreach \i in {1,...,8} {
+          \pgfmathsetmacro{\x}{3+rand*0.5}
+          \pgfmathsetmacro{\y}{1.5+rand*0.5}
+          \fill[blue, opacity=0.7] (\x,\y) circle (2pt);
+        }
+        \node[font=\tiny, text=blue] at (3,0.7) {technology};
+        \foreach \i in {1,...,6} {
+          \pgfmathsetmacro{\x}{5+rand*0.4}
+          \pgfmathsetmacro{\y}{2+rand*0.4}
+          \fill[green, opacity=0.7] (\x,\y) circle (2pt);
+        }
+        \node[font=\tiny, text=green] at (5,1.3) {sports};
+        \draw[textmuted, thin] (0,0) rectangle (6,5.5);
+        \node[font=\tiny, text=textmuted] at (3,-0.3) {t-SNE / UMAP projection};
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 21: Bias in Embeddings ---
+\begin{frame}{Bias in Embeddings}
+  \framesubtitle{A warning for social scientists}
+
+  \begin{itemize}
+    \item Word2Vec trained on Google News:
+      \begin{itemize}
+        \item ``man'' $\to$ ``computer programmer''
+        \item ``woman'' $\to$ ``homemaker''
+      \end{itemize}
+    \item Embeddings \highlight{absorb and amplify} societal biases from training data
+    \item WEAT test: measures stereotypes in embedding space
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \begin{alertblock}{For Social Scientists}
+    This is both a \textbf{bug} and a \textbf{feature}:\\
+    --- Bug: biased models produce biased outputs\\
+    --- Feature: embeddings \highlight{measure cultural associations} at scale
+  \end{alertblock}
+
+  \cmark{Bolukbasi et al., 2016; Caliskan et al., 2017; Kozlowski et al., 2019}
+\end{frame}
+
+% --- Slide 22: Sentence Embeddings ---
+\begin{frame}{From Words to Sentences}
+  \framesubtitle{Sentence-BERT and the MTEB era}
+
+  \begin{itemize}
+    \item Word2Vec: one vector per \textit{word}
+    \item \highlight{Sentence-BERT} (2019): one vector per \textit{sentence/paragraph}
+    \item Key stat: finding most-similar pair from \textbf{65 hours} (BERT cross-encoder) to \gold{5 seconds}
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \footnotesize
+  \begin{tabular}{llrl}
+    \toprule
+    \textbf{Model} & \textbf{Dims} & \textbf{MTEB} & \textbf{Cost} \\
+    \midrule
+    Cohere embed-v4 & 1024 & 65.2 & \$0.10/M tok \\
+    OpenAI text-embedding-3-large & 3072 & 64.6 & \$0.13/M tok \\
+    \highlight{all-MiniLM-L6-v2} & 384 & --- & \gold{Free} \\
+    \highlight{BGE-M3} (multilingual) & 1024 & --- & \gold{Free} \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.2cm}
+  \muted{+ Matryoshka embeddings: truncate dimensions without retraining (Kusupati et al., 2022)}
+
+  \cmark{Reimers \& Gurevych, 2019}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{Transformers}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 23: Attention Is All You Need ---
+\begin{frame}{Attention Is All You Need}
+  \framesubtitle{The paper that changed everything}
+
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \highlight{Self-attention}: every word looks at\\every other word simultaneously.\\[0.2cm]
+      \begin{itemize}
+        \item \textbf{Query}: what am I looking for?
+        \item \textbf{Key}: what do I contain?
+        \item \textbf{Value}: what do I offer?
+      \end{itemize}
+      \vspace{0.2cm}
+      \muted{Analogy: Query = your search text,\\
+      Key = the page title,\\
+      Value = the page content}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.65]
+        % Words
+        \foreach \i/\word in {0/The, 1.5/cat, 3/sat, 4.5/on, 6/the, 7.5/mat} {
+          \node[font=\small, text=textdark] (w\i) at (\i, 0) {\word};
+        }
+        % Attention lines from "cat"
+        \draw[coral, thick, opacity=0.2] (1.5,0.3) -- (0,0.3);
+        \draw[coral, thick, opacity=0.9] (1.5,0.3) -- (3,0.3);
+        \draw[coral, thick, opacity=0.3] (1.5,0.3) -- (4.5,0.3);
+        \draw[coral, thick, opacity=0.1] (1.5,0.3) -- (6,0.3);
+        \draw[coral, thick, opacity=0.7] (1.5,0.3) -- (7.5,0.3);
+        \node[font=\tiny, text=gold] at (3.75, 0.8) {attention weights};
+        % Attention from "sat"
+        \draw[gold, thick, opacity=0.8] (3,-0.3) -- (1.5,-0.3);
+        \draw[gold, thick, opacity=0.5] (3,-0.3) -- (7.5,-0.3);
+      \end{tikzpicture}
+      \end{center}
+
+      \vspace{0.2cm}
+      \muted{\footnotesize ``cat'' attends strongly to ``sat''\\and ``mat'' --- learns relationships.}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.2cm}
+  \cmark{Vaswani et al., 2017}
+\end{frame}
+
+% --- Slide 24: The Assembly Line ---
+\begin{frame}{The Assembly Line Analogy}
+  \framesubtitle{Each transformer layer adds context}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    layer/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=10cm, minimum height=0.7cm, font=\footnotesize, line width=0.5pt},
+  ]
+    \node[layer] (l1) at (0,0) {Layer 1: ``king'' $\to$ a male ruler};
+    \node[layer] (l2) at (0,1.2) {Layer 2: $\to$ a \textbf{Scottish} male ruler};
+    \node[layer] (l3) at (0,2.4) {Layer 3: $\to$ who \textbf{murdered} the previous king};
+    \node[layer] (l4) at (0,3.6) {Layer 4: $\to$ described in \textbf{Shakespearean} language};
+    \draw[-{Stealth}, coral, thick] (0,-0.5) -- (0,-0.1);
+    \draw[-{Stealth}, coral, thick] (l1.north) -- (l2.south);
+    \draw[-{Stealth}, coral, thick] (l2.north) -- (l3.south);
+    \draw[-{Stealth}, coral, thick] (l3.north) -- (l4.south);
+    \node[font=\small, text=gold] at (0,-0.8) {raw token: ``king''};
+    \node[font=\small, text=gold] at (0,4.2) {rich contextual representation};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.2cm}
+  \muted{Like an assembly line: each station adds detail. The final product is\\a rich, context-aware representation.}
+\end{frame}
+
+% --- Slide 25: Three Architectures ---
+\begin{frame}{Three Transformer Architectures}
+
+  \begin{center}
+  \footnotesize
+  \begin{tabular}{lcll}
+    \toprule
+    \textbf{Architecture} & \textbf{Direction} & \textbf{Models} & \textbf{Tasks} \\
+    \midrule
+    \highlight{Encoder-only} & $\leftrightarrow$ bidirectional & BERT, RoBERTa & Classification, NER, similarity \\
+    \highlight{Decoder-only} & $\rightarrow$ left-to-right & GPT, Claude, Llama & Generation, chat, reasoning \\
+    \highlight{Enc-Decoder} & $\leftrightarrow$\,+\,$\rightarrow$ & T5, BART & Translation, summarization \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{BERT: Understanding}\\[0.1cm]
+      Reads \textit{both directions} simultaneously.\\
+      ``I went to the \textbf{bank}''\\
+      $\to$ river bank? financial bank?\\
+      BERT uses \textit{full context} to decide.
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \highlight{GPT: Generation}\\[0.1cm]
+      Predicts the \textit{next word}.\\
+      ``Smartphone autocomplete on steroids.''\\[0.2cm]
+      \muted{Counter:} ``Saying LLMs just predict the next word is like saying a cathedral is just a pile of stones.''
+    \end{column}
+  \end{columns}
+
+  \cmark{Devlin et al., 2019; Radford et al., 2019; Raffel et al., 2020}
+\end{frame}
+
+% --- Slide 26: Evolution Comparison ---
+\begin{frame}{The Evolution of Text Similarity}
+  \framesubtitle{Same sentences, different representations}
+
+  \begin{center}
+  \footnotesize
+  \begin{tabular}{l|ccc}
+    \toprule
+    & \highlight{TF-IDF} & \gold{GloVe} & \textcolor{green}{SBERT} \\
+    \midrule
+    ``The dog ran'' vs ``The cat ran'' & \highlight{0.67} & \gold{0.85} & \textcolor{green}{0.82} \\
+    ``The dog ran'' vs ``A puppy sprinted'' & \highlight{0.00} & \gold{0.72} & \textcolor{green}{0.89} \\
+    ``Bank of England'' vs ``River bank'' & \highlight{0.33} & \gold{0.55} & \textcolor{green}{0.12} \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \centering
+      \highlight{TF-IDF}\\[0.1cm]
+      \muted{Word overlap only.\\``puppy'' $\neq$ ``dog''}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \gold{GloVe}\\[0.1cm]
+      \muted{Semantic similarity.\\``puppy'' $\approx$ ``dog''}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \textcolor{green}{SBERT}\\[0.1cm]
+      \muted{Contextual meaning.\\Disambiguates ``bank''}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{2025/2026 State of the Art}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 27: The LLM Landscape ---
+\begin{frame}{The LLM Landscape}
+  \framesubtitle{February 2026}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    lab/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=2cm, minimum height=0.7cm, font=\small, line width=0.5pt, align=center},
+  ]
+    \node[lab] (oai) at (0,2) {OpenAI};
+    \node[lab] (ant) at (3.5,2) {Anthropic};
+    \node[lab] (goo) at (7,2) {Google};
+    \node[lab] (met) at (0,0) {Meta};
+    \node[lab, draw=gold] (ds) at (3.5,0) {\textcolor{gold}{DeepSeek}};
+    \node[lab, draw=gold] (qw) at (7,0) {\textcolor{gold}{Qwen}};
+    \node[lab] (mis) at (10.5,2) {Mistral};
+    \node[lab] (xai) at (10.5,0) {xAI};
+    % Labels
+    \node[font=\tiny, text=textmuted] at (0,1.3) {GPT-5.2, o3};
+    \node[font=\tiny, text=textmuted] at (3.5,1.3) {Claude 4.5};
+    \node[font=\tiny, text=textmuted] at (7,1.3) {Gemini 3};
+    \node[font=\tiny, text=textmuted] at (0,-0.7) {Llama 4};
+    \node[font=\tiny, text=gold] at (3.5,-0.7) {V3.2, R1};
+    \node[font=\tiny, text=gold] at (7,-0.7) {Qwen 3};
+    \node[font=\tiny, text=textmuted] at (10.5,1.3) {Large 3};
+    \node[font=\tiny, text=textmuted] at (10.5,-0.7) {Grok};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Key shift:} Chinese AI went from\\
+      1.2\% $\to$ \gold{30\%} of global usage in one year.
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \muted{Stanford HAI 2025:} Chinese developers\\
+      17.1\% of HuggingFace (vs US 15.8\%).\\
+      63\% of fine-tuned models use Chinese bases.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 28: The Model Zoo ---
+\begin{frame}{The Model Zoo}
+  \framesubtitle{Key specifications, early 2026}
+
+  \footnotesize
+  \begin{center}
+  \begin{tabular}{lrlrl}
+    \toprule
+    \textbf{Model} & \textbf{Context} & \textbf{Strength} & \textbf{Input \$/M} & \textbf{Note} \\
+    \midrule
+    GPT-5.2 & 400K & Reasoning & \$1.75 & 100\% AIME \\
+    Claude 4.5 Sonnet & 200K & Coding & \$3.00 & 77\% SWE-bench \\
+    Gemini 3 Pro & 2M & Multimodal & varies & 1501 LMArena Elo \\
+    Llama 4 Scout & \gold{10M} & Open-source & free & 17B active/109B \\
+    DeepSeek V3.2 & 128K & Cost & \gold{\$0.27} & 37B active/671B \\
+    Qwen 3 & 128K & Multilingual & free & 119 languages \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{center}
+    \gold{Llama 4 Scout}: 10M tokens $\approx$ \textbf{7,500 pages} in one prompt.\\
+    \muted{Google: near-perfect needle-in-a-haystack across text, 10.5h video, 107h audio.}
+  \end{center}
+\end{frame}
+
+% --- Slide 29: Cost Collapse ---
+\begin{frame}{The Cost of Intelligence is Collapsing}
+  \framesubtitle{100$\times$ cheaper in 2 years}
+
+  \begin{center}
+  \begin{tikzpicture}[scale=0.85]
+    \begin{axis}[
+      ybar,
+      bar width=14pt,
+      width=12cm, height=5.5cm,
+      ymin=0, ymax=20,
+      ylabel={\footnotesize \$/M output tokens},
+      ylabel style={text=textdark},
+      symbolic x coords={DeepSeek V3.2, GPT-4o Mini, DeepSeek R1, GPT-5.2, Claude 4.5S},
+      xtick=data,
+      x tick label style={rotate=30, anchor=east, font=\tiny, text=textdark},
+      y tick label style={font=\tiny, text=textdark},
+      axis line style={textdark},
+      tick style={textdark},
+      yticklabel style={text=textdark},
+      axis background/.style={fill=bglight},
+      major grid style={draw=bgaccent},
+      ymajorgrids=true,
+    ]
+      \addplot[fill=gold, draw=gold] coordinates {(DeepSeek V3.2,0.42) (GPT-4o Mini,0.60) (DeepSeek R1,2.19) (GPT-5.2,14) (Claude 4.5S,15)};
+    \end{axis}
+    % Annotation
+    \node[font=\footnotesize, text=gold] at (1.5,4.5) {\textbf{\$0.42}};
+    \node[font=\tiny, text=textmuted] at (1.5,4) {best value};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.1cm}
+  \muted{Output tokens cost 3--8$\times$ more than input across all providers.}
+\end{frame}
+
+% --- Slide 30: Reasoning Models ---
+\begin{frame}{Reasoning Models: Think Longer, Not Bigger}
+  \framesubtitle{The paradigm shift of 2024--2025}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{The idea:} spend more compute at \textit{inference time}\\
+      instead of making models bigger.\\[0.3cm]
+      \begin{itemize}
+        \item \textbf{o1} (Sep 2024): internal chain-of-thought
+        \item \textbf{o3} (Apr 2025): 87.5\% ARC-AGI
+        \item \textbf{DeepSeek-R1}: open-source reasoning
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \gold{Key finding} \citeslide{(Snell et al., 2024)}:\\[0.1cm]
+      A smaller model with more\\inference compute outperforms a\\
+      \highlight{14$\times$ larger model} that answers instantly.\\[0.3cm]
+      \muted{Visible reasoning:}
+      \begin{itemize}
+        \item OpenAI: hidden CoT
+        \item DeepSeek: \texttt{<think>...</think>}
+        \item \highlight{Transparent} \muted{vs hidden}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \cmark{Wei et al., 2022; Snell et al., 2024}
+\end{frame}
+
+% --- Slide 31: DeepSeek ---
+\begin{frame}{DeepSeek: The Earthquake}
+  \framesubtitle{January 2025 --- the day NVIDIA lost \$600B}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \highlight{DeepSeek-V3} (Dec 2024):
+      \begin{itemize}
+        \item MoE: \gold{671B total, 37B active} ($\sim$5.5\%)
+        \item Training cost: \gold{\$5.6M} on 2,048 H800 GPUs
+        \item \muted{vs GPT-4 estimated \$50--100M}
+        \item Engineers coded in \textbf{PTX} (GPU assembly)
+        \item FP8 mixed-precision at extreme scale
+      \end{itemize}
+      \vspace{0.2cm}
+      \highlight{DeepSeek-R1} (Jan 2025):
+      \begin{itemize}
+        \item \textbf{Pure RL} (no supervised fine-tuning)
+        \item Matches o1 at \gold{90--96\% lower cost}
+        \item \textbf{MIT license} --- fully open
+        \item 32B distilled model beats o1-mini
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.7]
+        % Impact visualization
+        \node[rectangle, fill=bgcard, minimum width=4cm, minimum height=1.2cm, text=textdark, font=\small, align=center] at (2,5) {Jan 27, 2025};
+        \node[rectangle, fill=coral, minimum width=4cm, minimum height=1.2cm, text=white, font=\small\bfseries, align=center] at (2,3.5) {NVIDIA\\$-$600B market cap};
+        \node[rectangle, fill=gold, minimum width=4cm, minimum height=1.2cm, text=textdark, font=\small\bfseries, align=center] at (2,2) {DeepSeek app\\\#1 on App Store};
+        \node[font=\tiny, text=textmuted, text width=3.8cm, align=center] at (2,0.6) {``Scarcity fosters innovation''\\--- Brookings Institution};
+        \draw[-{Stealth}, coral, thick] (2,4.3) -- (2,4.1);
+        \draw[-{Stealth}, gold, thick] (2,2.9) -- (2,2.7);
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 32: Context Windows ---
+\begin{frame}{Context Windows in 2026}
+  \framesubtitle{From 4K tokens to 10M tokens in 3 years}
+
+  \begin{center}
+  \begin{tikzpicture}[scale=0.85]
+    \begin{axis}[
+      xbar,
+      bar width=10pt,
+      width=11cm, height=6cm,
+      xmin=0, xmax=11,
+      xlabel={\footnotesize Millions of tokens},
+      xlabel style={text=textdark},
+      symbolic y coords={GPT-4, Claude 3, GPT-5.2, Gemini 3, Qwen 2.5-1M, Llama 4 Maverick, Llama 4 Scout},
+      ytick=data,
+      y tick label style={font=\tiny, text=textdark},
+      x tick label style={font=\tiny, text=textdark},
+      axis line style={textdark},
+      tick style={textdark},
+      axis background/.style={fill=bglight},
+      major grid style={draw=bgaccent},
+      xmajorgrids=true,
+      nodes near coords,
+      nodes near coords style={font=\tiny, text=gold},
+    ]
+      \addplot[fill=coral, draw=coral] coordinates {(0.008,GPT-4) (0.2,Claude 3) (0.4,GPT-5.2) (2,Gemini 3) (1,Qwen 2.5-1M) (1,Llama 4 Maverick) (10,Llama 4 Scout)};
+    \end{axis}
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+% --- Slide 33: Structured Output ---
+\begin{frame}[fragile]{Structured Output: LLMs as Data Extraction Engines}
+  \framesubtitle{Not just chat --- structured data}
+
+  \begin{columns}[T]
+    \begin{column}{0.45\textwidth}
+      LLMs can return \highlight{guaranteed JSON}:
+      \begin{itemize}
+        \item Constrained decoding
+        \item Pydantic schema validation
+        \item Retry on parse failure
+      \end{itemize}
+      \vspace{0.3cm}
+      \gold{Tools:}
+      \begin{itemize}
+        \item OpenAI Structured Outputs
+        \item \texttt{instructor} library (3M+/mo)
+        \item \texttt{outlines} (token-level FSM)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{lstlisting}[language=Python]
+class ArticleInfo(BaseModel):
+    title: str
+    key_people: list[str]
+    sentiment: Literal[
+        "positive", "negative",
+        "neutral"
+    ]
+    topics: list[str]
+    confidence: float
+
+# LLM returns valid JSON
+# matching this schema
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.2cm}
+  \muted{We'll build this in \highlight{NB03} --- extracting structured data from news articles.}
+\end{frame}
+
+% --- Slide 34: Benchmarks ---
+\begin{frame}{The Benchmark Landscape}
+  \framesubtitle{MMLU is saturated --- what's next?}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Saturated} (90\%+ for top models):
+      \begin{itemize}
+        \item MMLU
+        \item HellaSwag
+        \item ARC-Challenge
+      \end{itemize}
+
+      \vspace{0.3cm}
+      \highlight{Still differentiating:}
+      \begin{itemize}
+        \item \textbf{GPQA Diamond}: PhD-level science\\
+              \muted{Gemini 3: 91.9\%}
+        \item \textbf{AIME}: Math olympiad\\
+              \muted{GPT-5.2: 100\%}
+        \item \textbf{SWE-bench}: Real GitHub issues\\
+              \muted{Claude 4.5: 77.2\%}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \highlight{The new frontier:}\\[0.3cm]
+      \textbf{Humanity's Last Exam} (HLE)\\
+      \muted{Published in \textit{Nature}, 2025}\\[0.2cm]
+      \begin{itemize}
+        \item 1,000 experts, 500+ institutions
+        \item 2,500 questions, 100+ subjects
+        \item Jan 2025: top models $<$10\%
+        \item Feb 2026: \gold{Gemini 3 Pro: 37.2\%}
+        \item GPT-5.2: 35.4\%
+        \item Human experts: $\sim$90\%
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \cmark{Hendrycks et al., 2025 (Nature); scale.com/leaderboard}
+\end{frame}
+
+% --- Slide 35: Multimodal ---
+\begin{frame}{Multimodal AI}
+  \framesubtitle{Text, images, video, audio --- in one model}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Vision foundations:}
+      \begin{itemize}
+        \item \textbf{CLIP} (2021): text + images in same vector space
+        \item Vision-Language Models: GPT-4o, Gemini, Claude see images natively
+        \item Open: Qwen2.5-VL, LLaMA 3.2 Vision
+      \end{itemize}
+
+      \vspace{0.3cm}
+      \highlight{Image generation:}
+      \begin{itemize}
+        \item FLUX, GPT Image 1.5, Midjourney V7
+        \item Accurate text in images (Ideogram 3.0)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \highlight{Video generation (2025--26):}
+      \begin{itemize}
+        \item Sora 2: 25s + synchronized audio
+        \item Kling 3.0: native 4K 60fps
+        \item Veo 3.1: photorealism
+        \item WAN 2.6: open-source
+      \end{itemize}
+
+      \vspace{0.3cm}
+      \highlight{Audio/Speech:}
+      \begin{itemize}
+        \item Whisper large-v3: 1.55B params
+        \item ElevenLabs v3: 32 languages
+        \item NotebookLM: AI podcast from docs
+        \item Real-time speech-to-speech
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 36: HLE Deep Dive ---
+\begin{frame}{Humanity's Last Exam}
+  \framesubtitle{1,000 experts. 100+ subjects. Best AI still below 40\%.}
+
+  \begin{center}
+  \begin{tikzpicture}[scale=0.85]
+    \begin{axis}[
+      xbar,
+      bar width=10pt,
+      width=10cm, height=5.5cm,
+      xmin=0, xmax=100,
+      xlabel={\footnotesize Accuracy (\%)},
+      xlabel style={text=textdark},
+      symbolic y coords={GPT-4o, Claude 3.5S, DeepSeek R1, GPT-5.2, Gemini 3 Pro, Human Expert},
+      ytick=data,
+      y tick label style={font=\small, text=textdark},
+      x tick label style={font=\tiny, text=textdark},
+      axis line style={textdark},
+      tick style={textdark},
+      axis background/.style={fill=bglight},
+      major grid style={draw=bgaccent},
+      xmajorgrids=true,
+    ]
+      \addplot[fill=coral, draw=coral] coordinates {(8,GPT-4o) (15,Claude 3.5S) (25,DeepSeek R1) (35.4,GPT-5.2) (37.2,Gemini 3 Pro) (90,Human Expert)};
+    \end{axis}
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.1cm}
+  \begin{center}
+    \muted{AI is superhuman on many tasks --- but expert-level knowledge remains hard.}
+  \end{center}
+
+  \cmark{Nature, 2025; arXiv:2501.14249}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{Applied Social Science}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 37: NLP for Economists ---
+\begin{frame}{NLP for Economists \& Social Scientists}
+  \framesubtitle{Text as Data}
+
+  \begin{itemize}
+    \item \textbf{Gentzkow, Kelly \& Taddy} (2019): ``Text as Data'' --- canonized the field
+    \item \textbf{Ash \& Hansen} (2023): first major econ survey on embeddings + transformers
+    \item Social science is adopting NLP with a \highlight{4-year diffusion lag}
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \highlight{What NLP enables for social science:}
+  \begin{itemize}
+    \item \gold{Scale}: analyze 100,000+ documents (policy, patents, speeches)
+    \item \gold{Measurement}: cultural dimensions from text (Kozlowski et al., 2019)
+    \item \gold{Replication}: LLMs outperform crowd-workers for annotation (Gilardi et al., 2023)
+    \item \gold{Simulation}: ``Homo Silicus'' --- LLMs as simulated survey respondents (Horton, 2023)
+  \end{itemize}
+
+  \cmark{Gentzkow et al., 2019 (JEL); Ash \& Hansen, 2023 (Ann.~Rev.~Econ.)}
+\end{frame}
+
+% --- Slide 38: Embeddings for Innovation ---
+\begin{frame}{Embeddings for Innovation Research}
+  \framesubtitle{Measuring technological change with text}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \highlight{Patent similarity} \citeslide{(Arts et al., 2018, 2021)}:\\
+      TF-IDF + cosine on patent text to measure\\
+      technological relatedness\\[0.3cm]
+
+      \highlight{Breakthrough detection} \citeslide{(Kelly et al., 2021)}:\\
+      A patent is ``important'' if \textit{textually distant}\\
+      from prior work but \textit{similar to subsequent}.\\
+      Covers 1840--present!\\[0.3cm]
+
+      \highlight{PatentSBERTa} \citeslide{(Bekamiri, Hain \& Jurowetzki, 2024)}:\\
+      Fine-tuned SBERT on patent pairs\\
+      for semantic patent matching\\[0.3cm]
+
+      \muted{NLP $\to$ economic geography:\\
+      map knowledge spaces, identify\\
+      smart specialization opportunities.}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.6]
+        % Innovation space
+        \draw[textmuted, thin, ->] (0,0) -- (6,0) node[right, font=\tiny, text=textmuted] {novelty};
+        \draw[textmuted, thin, ->] (0,0) -- (0,5) node[above, font=\tiny, text=textmuted] {impact};
+        % Patents
+        \foreach \i in {1,...,15} {
+          \pgfmathsetmacro{\x}{0.5+rand*2.5}
+          \pgfmathsetmacro{\y}{0.5+rand*2}
+          \fill[textmuted, opacity=0.3] (\x,\y) circle (2pt);
+        }
+        % Breakthrough
+        \fill[gold] (4.5,4) circle (5pt);
+        \node[font=\tiny, text=gold] at (4.5,4.5) {breakthrough};
+        % Incremental
+        \fill[coral] (1.5,1.5) circle (4pt);
+        \node[font=\tiny, text=coral] at (1.5,1) {incremental};
+        % Arrow
+        \draw[gold, thick, dashed, ->] (2,2) -- (4,3.7);
+        \node[font=\tiny, text=textmuted, rotate=35] at (3.2,2.6) {influence};
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 39: Productivity Studies ---
+\begin{frame}{AI \& Productivity: The Evidence}
+  \framesubtitle{Three landmark experiments}
+
+  \footnotesize
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \centering
+      \highlight{BCG + Harvard}\\
+      \muted{Dell'Acqua et al., 2023}\\[0.2cm]
+      758 consultants\\[0.1cm]
+      \gold{+25\% faster}\\
+      \gold{+40\% quality}\\
+      within AI's frontier\\[0.1cm]
+      \muted{--19\% quality\\outside frontier}\\[0.1cm]
+      Lowest performers:\\
+      \highlight{+43\% improvement}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \highlight{MIT / Science}\\
+      \muted{Noy \& Zhang, 2023}\\[0.2cm]
+      453 professionals\\[0.1cm]
+      \gold{--40\% time}\\
+      \gold{+18\% quality}\\[0.1cm]
+      Greatest benefits for\\
+      \highlight{lower-ability workers}\\[0.1cm]
+      \muted{Published in \textit{Science}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \highlight{Stanford / QJE}\\
+      \muted{Brynjolfsson et al., 2023}\\[0.2cm]
+      5,172 CS agents\\[0.1cm]
+      \gold{+14\% overall}\\
+      \gold{+34\% for novices}\\[0.1cm]
+      AI \highlight{disseminates}\\
+      \highlight{tacit knowledge}\\
+      of top performers\\[0.1cm]
+      \muted{Published in \textit{QJE}}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3cm}
+  \begin{center}
+    \muted{Pattern: AI is an \textit{equalizer} --- biggest gains for least experienced workers.}
+  \end{center}
+\end{frame}
+
+% --- Slide 40: The Adoption Gap ---
+\begin{frame}{The Adoption Gap}
+  \framesubtitle{Social science is catching up --- fast}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Why the lag?}
+      \begin{itemize}
+        \item Interpretability requirements
+        \item Causal identification culture
+        \item Smaller datasets / qualitative traditions
+        \item Institutional inertia
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \highlight{Why it's closing:}
+      \begin{itemize}
+        \item BERTopic: interpretable by design
+        \item Structured output: LLM $\to$ DataFrame
+        \item Cost collapse: everyone can afford it
+        \item Embedding-based measurement\\at scale
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3cm}
+  \begin{alertblock}{The Jagged Frontier \citeslide{(Dell'Acqua et al.)}}
+    AI excels at some tasks, fails at others --- and the boundary is \highlight{jagged}.\\
+    The professional skill is knowing \textit{when} to use AI and when not to.
+  \end{alertblock}
+
+  \cmark{Eloundou et al., 2024 (Science); Acemoglu, 2025 (Economic Policy)}
+\end{frame}
+
+% --- Slide 41: Task Exposure ---
+\begin{frame}{Who Is Affected?}
+  \framesubtitle{AI task exposure across the economy}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \highlight{Eloundou et al.} (2024, \textit{Science}):
+      \begin{itemize}
+        \item $\sim$80\% of US workforce: $\geq$10\% of tasks affected
+        \item $\sim$19\%: $\geq$50\% of tasks affected
+        \item \gold{Higher-income jobs face greater exposure}
+      \end{itemize}
+
+      \vspace{0.3cm}
+      \highlight{Acemoglu} (2024 Nobel laureate):\\
+      \muted{``The Simple Macroeconomics of AI''}\\
+      Estimate: $\leq$\gold{0.66\% TFP increase} over 10 years\\[0.1cm]
+      \muted{Modest macro effect, but large for\\specific tasks and workers.}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[scale=0.7]
+        % Pie-chart-style visualization
+        \fill[coral, opacity=0.8] (0,0) -- (0:2.5) arc (0:288:2.5) -- cycle;
+        \fill[gold, opacity=0.8] (0,0) -- (288:2.5) arc (288:360:2.5) -- cycle;
+        \node[font=\large\bfseries, text=white] at (-0.3,0.5) {80\%};
+        \node[font=\tiny, text=white, text width=2cm, align=center] at (-0.3,-0.3) {at least 10\%\\of tasks affected};
+        \node[font=\footnotesize\bfseries, text=textdark] at (1.8,-1.2) {20\%};
+        \node[font=\tiny, text=textmuted] at (1.8,-1.7) {less affected};
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+% ═══════════════════════════════════════════════════════════════
+\section{Workshop Preview \& Closing}
+% ═══════════════════════════════════════════════════════════════
+
+% --- Slide 42: What We'll Build ---
+\begin{frame}{What We'll Build This Week}
+  \framesubtitle{3 days, 11 notebooks, 1 project}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    day/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=3.5cm, minimum height=2.5cm, font=\footnotesize, align=center, line width=0.5pt},
+    dlabel/.style={font=\small\bfseries, text=gold}
+  ]
+    \node[dlabel] at (0, 2.5) {Day 1: Baselines};
+    \node[day] at (0, 0.5) {TF-IDF\\Embeddings\\LLM Zero-shot\\BERTopic\\[0.1cm]\muted{+ Sprint 1}};
+
+    \node[dlabel] at (5, 2.5) {Day 2: Retrieval};
+    \node[day] at (5, 0.5) {SetFit Few-shot\\FAISS Search\\Evaluation\\[0.1cm]\muted{+ Sprint planning}};
+
+    \node[dlabel] at (10, 2.5) {Day 3: Advanced};
+    \node[day] at (10, 0.5) {Reranking\\Distillation\\Fine-tuning\\[0.1cm]\muted{+ Sprint 2 + Demos}};
+
+    \draw[-{Stealth}, coral, thick] (2,0.5) -- (3,0.5);
+    \draw[-{Stealth}, coral, thick] (7,0.5) -- (8,0.5);
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \begin{center}
+    \muted{Every approach compared to the previous one. Error analysis over accuracy chasing.}
+  \end{center}
+\end{frame}
+
+% --- Slide 43: The Professional's Playbook ---
+\begin{frame}{The Professional's Playbook}
+  \framesubtitle{Start simple, escalate only when needed}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    levelbox/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=10cm, minimum height=0.7cm, font=\small, line width=0.5pt},
+  ]
+    \node[levelbox] (s1) at (0,0) {1. \textbf{Prompting} --- can a good prompt solve it?};
+    \node[levelbox] (s2) at (0,1.2) {2. \textbf{RAG} --- does it need external knowledge?};
+    \node[levelbox] (s3) at (0,2.4) {3. \textbf{Few-shot / SetFit} --- can 8--32 examples help?};
+    \node[levelbox] (s4) at (0,3.6) {4. \textbf{Fine-tuning} --- do you have enough data?};
+    \node[levelbox] (s5) at (0,4.8) {5. \textbf{Custom training} --- is this a novel task?};
+
+    \draw[-{Stealth}, gold, thick] (5.5,0.3) -- (5.5,4.5);
+    \node[font=\footnotesize, text=gold, rotate=90] at (6.2,2.4) {complexity \& cost};
+    \draw[-{Stealth}, coral, thick] (-5.5,4.5) -- (-5.5,0.3);
+    \node[font=\footnotesize, text=coral, rotate=90] at (-6.2,2.4) {try this first};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.2cm}
+  \begin{center}
+    \gold{80\% of real-world NLP problems} are solved at levels 1--2.\\
+    \muted{The skill is knowing when to escalate.}
+  \end{center}
+\end{frame}
+
+% --- Slide 44: Five Themes ---
+\begin{frame}{Five Themes to Remember}
+
+  \begin{enumerate}
+    \item \highlight{Foundational methods haven't been replaced}\\
+          \muted{TF-IDF lives in BM25. Embeddings are the backbone of search.}\\[0.2cm]
+    \item \highlight{The reasoning revolution}\\
+          \muted{o1, o3, R1: ``think longer'' beats ``make bigger.''}\\[0.2cm]
+    \item \highlight{The cost of intelligence is collapsing}\\
+          \muted{DeepSeek V3.2 at \$0.27/M --- 100$\times$ cheaper than 2 years ago.}\\[0.2cm]
+    \item \highlight{The toolkit has matured}\\
+          \muted{RAG, agents, structured output, fine-tuning, eval --- all production-ready.}\\[0.2cm]
+    \item \highlight{The adoption gap is closing}\\
+          \muted{Social science is 4 years behind CS --- but catching up fast.}
+  \end{enumerate}
+\end{frame}
+
+% --- Slide 45: Resources ---
+\begin{frame}{Resources \& Further Reading}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Textbooks:}
+      \begin{itemize}
+        \item \muted{Grimmer, Roberts \& Stewart (2022)}\\
+              \textit{Text as Data} (Princeton UP)
+        \item \muted{Jurafsky \& Martin}\\
+              \textit{SLP} 3rd ed. (free online)
+        \item \muted{Raschka (2024)}\\
+              \textit{Build an LLM From Scratch}
+      \end{itemize}
+      \vspace{0.2cm}
+      \highlight{Visual guides:}
+      \begin{itemize}
+        \item Jay Alammar's Illustrated Series
+        \item 3Blue1Brown Transformer videos
+        \item HuggingFace LLM Course
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \highlight{Key papers for social science:}
+      \begin{itemize}
+        \item Gentzkow et al. (2019) --- JEL
+        \item Ash \& Hansen (2023) --- Ann.~Rev.~Econ.
+        \item Kozlowski et al. (2019) --- ASR
+        \item Gilardi et al. (2023) --- annotation
+        \item Dell'Acqua et al. (2023) --- productivity
+      \end{itemize}
+      \vspace{0.2cm}
+      \highlight{This course:}\\[0.1cm]
+      \footnotesize
+      \texttt{github.com/RJuro/unistra-nlp2026}\\
+      \texttt{rjuro.github.io/unistra-nlp2026}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slide 46: Closing ---
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    {\Huge\color{textdark} Let's begin.}\\[0.8cm]
+    \textcolor{coral}{\rule{4cm}{2pt}}\\[0.8cm]
+    {\large\color{textmuted} 20 hours to build your NLP toolkit.}\\[0.8cm]
+    {\footnotesize\color{gold} Roman Jurowetzki --- rjuro@business.aau.dk}
+  \end{center}
+  \vfill
+\end{frame}
+
+\end{document}

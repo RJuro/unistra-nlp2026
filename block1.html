@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Block 1 — Foundation</title></head>
+<body>
+<div class="container">
+    <div class="section-label" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#A89B91;font-weight:600;">Tuesday Morning</div>
+    <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-size:2.5rem;color:#FAF7F2;margin-bottom:0.5rem;">Foundation</h1>
+    <div class="time-badge" style="display:inline-block;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 0.7rem;background:rgba(224,120,80,0.15);color:#E07850;font-weight:600;margin-bottom:1.5rem;">08:00 – 12:00 &bull; 4 hours</div>
+
+    <p style="color:#A89B91;margin-bottom:2rem;font-size:1.05rem;">Start with the fundamentals: TF-IDF baselines that actually win, sentence embeddings for universal features, and the evaluation habits you'll use for the rest of the workshop.</p>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2rem;margin-bottom:1rem;">Learning Goals</h2>
+    <ul style="list-style:none;padding:0;color:#A89B91;">
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Build a complete text classification pipeline from scratch</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Understand TF-IDF vs dense embeddings — when each wins</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Read and interpret classification reports and confusion matrices</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Analyze errors systematically — why does the model fail?</li>
+    </ul>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2.5rem;margin-bottom:1rem;">Schedule</h2>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">08:20 – 08:50</span>
+            <span style="font-size:0.8rem;color:#A89B91;">30 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Kickoff presentation: NLP landscape, course roadmap, tools & setup</div>
+    </div>
+
+    <!-- NB01 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB01: TF-IDF + Linear Models — "Baselines that Win"</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">08:50 – 10:20 &bull; 90 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Text cleaning and TfidfVectorizer pipeline</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>LogisticRegression + LinearSVC comparison</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Confusion matrix, per-class F1, top features</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Error analysis: 5 worst misclassifications</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB01_tfidf_baselines.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB01_tfidf_baselines.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">10:20 – 10:35</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break</div>
+    </div>
+
+    <!-- NB02 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB02: Sentence Embeddings — "Universal Features"</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">10:35 – 12:00 &bull; 85 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>SBERT (all-MiniLM-L6-v2) encode &rarr; classify</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Side-by-side comparison with TF-IDF</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Label efficiency curve: 10, 50, 100, 500 examples</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>When to use embeddings vs TF-IDF in practice</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB02_sentence_embeddings.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB02_sentence_embeddings.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2.5rem;margin-bottom:1rem;">Dataset</h2>
+    <div style="background:#3D3531;padding:1.5rem 2rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">Danish Reddit Advice Posts</h3>
+        <p style="color:#A89B91;font-size:0.9rem;">457 posts &bull; 8 categories &bull; English text. Covers love, family, work, friendship, health, finance, practical questions, and everyday observations.</p>
+        <a href="data/dk_posts_synth_en_processed.json" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;margin-top:0.75rem;">Download Dataset</a>
+    </div>
+</div>
+</body>
+</html>

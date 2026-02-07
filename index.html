@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied NLP 2026 | University of Strasbourg</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* === DESIGN TOKENS === */
+        :root {
+            --bg-dark: #2C2421;
+            --bg-warm: #362E2A;
+            --bg-card: #3D3531;
+            --cream: #FAF7F2;
+            --cream-dark: #EDE8E0;
+            --coral: #E07850;
+            --coral-light: #F0A080;
+            --gold: #D4A855;
+            --text-dark: #2C2421;
+            --text-muted: #6B5D55;
+            --text-light: #F0EBE5;
+            --text-light-muted: #A89B91;
+        }
+
+        /* === RESET & BASE === */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body.panel-open { overflow: hidden; }
+
+        /* Dot grid overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* === CONTAINER === */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === TYPOGRAPHY === */
+        h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
+        h1 { font-size: clamp(3.5rem, 7vw, 5.5rem); line-height: 1.05; }
+        h2 { font-size: 2.5rem; line-height: 1.2; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.5rem; line-height: 1.3; }
+
+        .accent-text { font-family: 'Caveat', cursive; font-size: 1.35rem; color: var(--coral); }
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-light-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        a { color: var(--coral); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--coral-light); }
+
+        /* === HEADER === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(44, 36, 33, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+        }
+        .logo em { color: var(--coral); font-style: italic; }
+
+        nav { display: flex; gap: 2rem; }
+        nav a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 500;
+            color: var(--text-light-muted);
+        }
+        nav a:hover { color: var(--cream); }
+
+        /* === HERO === */
+        .hero {
+            min-height: 85vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-content .section-label { margin-bottom: 1rem; }
+        .hero-content h1 { margin-bottom: 1.5rem; }
+        .hero-content h1 em { color: var(--coral); font-style: italic; }
+        .hero-content .description {
+            font-size: 1.15rem;
+            color: var(--text-light-muted);
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            font-family: 'Source Sans 3', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+        }
+        .btn-coral {
+            background: var(--coral);
+            color: white;
+        }
+        .btn-coral:hover {
+            background: var(--coral-light);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(224, 120, 80, 0.3);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .btn-ghost:hover {
+            border-color: var(--coral);
+            color: var(--coral);
+            transform: translateY(-2px);
+        }
+        .btn .arrow { transition: transform 0.25s ease; }
+        .btn:hover .arrow { transform: translateX(4px); }
+
+        /* Floating stat cards */
+        .hero-cards {
+            position: relative;
+            height: 420px;
+        }
+        .float-card {
+            position: absolute;
+            background: var(--cream);
+            color: var(--text-dark);
+            padding: 2rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-width: 220px;
+        }
+        .float-card .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--coral);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .float-card .label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .float-card:nth-child(1) { top: 20px; right: 60px; transform: rotate(2deg); z-index: 3; }
+        .float-card:nth-child(2) { top: 160px; right: 180px; transform: rotate(-3deg); z-index: 2; }
+        .float-card:nth-child(3) { top: 280px; right: 30px; transform: rotate(1deg); z-index: 1; }
+        .float-card:hover { transform: translateY(-8px) rotate(0deg); }
+        .float-card { transition: transform 0.4s ease; }
+
+        /* === CREAM SECTION (Overview) === */
+        .cream-section {
+            background: var(--cream);
+            color: var(--text-dark);
+            margin: 0 -100vw;
+            padding: 5rem 100vw;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .overview-text h2 { color: var(--text-dark); }
+        .overview-text p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .overview-text .accent-text { margin-bottom: 1.5rem; display: block; }
+
+        .learning-outcomes {
+            list-style: none;
+            counter-reset: outcomes;
+        }
+        .learning-outcomes li {
+            counter-increment: outcomes;
+            padding: 0.75rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--cream-dark);
+        }
+        .learning-outcomes li::before {
+            content: counter(outcomes);
+            position: absolute;
+            left: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--coral);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: white;
+            padding: 1.5rem 1.5rem 1.5rem 2rem;
+            position: relative;
+            margin-top: 2rem;
+        }
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: var(--coral);
+        }
+        .highlight-box p { color: var(--text-muted); margin: 0; font-size: 0.95rem; }
+        .highlight-box strong { color: var(--text-dark); }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .info-card {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .info-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 60px; height: 60px;
+            background: var(--coral);
+            opacity: 0.15;
+            border-radius: 0 0 0 60px;
+        }
+        .info-card .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--coral);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .info-card .label {
+            font-size: 0.85rem;
+            color: var(--text-light-muted);
+            font-weight: 500;
+        }
+
+        /* === TIMELINE SECTION === */
+        .timeline-section {
+            padding: 5rem 0;
+        }
+        .timeline-section h2 { text-align: center; margin-bottom: 0.5rem; }
+        .timeline-section .accent-text { text-align: center; display: block; margin-bottom: 3rem; }
+
+        .timeline-track {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--coral), var(--gold));
+        }
+
+        .timeline-point {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--coral);
+            border: 3px solid var(--bg-dark);
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+        .timeline-point:last-child .timeline-dot { background: var(--gold); }
+
+        .timeline-day {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--cream);
+            margin-bottom: 0.25rem;
+        }
+        .timeline-time {
+            font-size: 0.8rem;
+            color: var(--text-light-muted);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-theme {
+            font-size: 0.8rem;
+            color: var(--coral-light);
+            max-width: 160px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        /* === SESSIONS GRID === */
+        .sessions-section {
+            padding: 5rem 0;
+        }
+        .sessions-section h2 { text-align: center; margin-bottom: 0.5rem; }
+        .sessions-section .accent-text { text-align: center; display: block; margin-bottom: 3rem; }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .sessions-grid .session-card:nth-child(4),
+        .sessions-grid .session-card:nth-child(5) {
+            /* Center the last two cards */
+        }
+
+        .session-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+        .session-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--coral);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+        }
+        .session-card:hover::before { transform: scaleX(1); }
+        .session-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+        .session-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--coral);
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
+        }
+        .session-day {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light-muted);
+            margin-bottom: 0.25rem;
+        }
+        .session-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 0.75rem;
+        }
+        .session-desc {
+            font-size: 0.85rem;
+            color: var(--text-light-muted);
+            line-height: 1.5;
+        }
+        .session-notebooks {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .nb-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(224, 120, 80, 0.15);
+            color: var(--coral-light);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* === REQUIREMENTS SECTION === */
+        .requirements-section {
+            background: var(--cream);
+            color: var(--text-dark);
+            margin: 0 -100vw;
+            padding: 5rem 100vw;
+        }
+
+        .requirements-section h2 { color: var(--text-dark); text-align: center; margin-bottom: 0.5rem; }
+        .requirements-section .accent-text { text-align: center; display: block; margin-bottom: 3rem; }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .req-card {
+            background: white;
+            padding: 2rem;
+            position: relative;
+        }
+        .req-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: var(--coral);
+        }
+        .req-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+        .req-card p, .req-card li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .req-card ol { padding-left: 1.2rem; margin-top: 0.5rem; }
+        .req-card li { margin-bottom: 0.4rem; }
+        .req-card code {
+            background: var(--cream-dark);
+            padding: 0.15rem 0.4rem;
+            font-size: 0.85rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--text-dark);
+        }
+        .req-card .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.5rem;
+            background: rgba(224, 120, 80, 0.12);
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        /* === PROJECT MENU === */
+        .projects-section {
+            padding: 5rem 0;
+        }
+        .projects-section h2 { text-align: center; margin-bottom: 0.5rem; }
+        .projects-section .accent-text { text-align: center; display: block; margin-bottom: 3rem; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .project-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--coral);
+            opacity: 0.4;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .project-card h3 {
+            color: var(--cream);
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-card p {
+            font-size: 0.85rem;
+            color: var(--text-light-muted);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .project-datasets {
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        /* === FOOTER === */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 2rem 0;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light-muted);
+            font-size: 0.85rem;
+        }
+
+        /* === PANEL SYSTEM === */
+        .topic-panel-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(44, 36, 33, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .topic-panel-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .topic-panel {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 100%;
+            max-width: 860px;
+            background: var(--bg-dark);
+            z-index: 201;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .topic-panel::before {
+            content: '';
+            position: fixed;
+            top: 0; right: 0;
+            width: 860px;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .topic-panel.active { transform: translateX(0); }
+
+        .topic-panel-toolbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(180deg, var(--bg-dark) 60%, transparent);
+            z-index: 10;
+        }
+
+        .panel-close {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--text-light-muted);
+            font-size: 0.85rem;
+            font-family: 'Source Sans 3', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .panel-close:hover { color: var(--cream); gap: 0.75rem; }
+
+        .topic-panel-body {
+            padding: 1rem 3rem 4rem;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        .topic-panel-body h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 0.5rem;
+        }
+        .topic-panel-body h2 {
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+        .topic-panel-body p {
+            color: var(--text-light-muted);
+            margin-bottom: 1rem;
+        }
+        .topic-panel-body .time-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 0.7rem;
+            background: rgba(224, 120, 80, 0.15);
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Panel notebook cards */
+        .panel-nb-card {
+            background: var(--bg-card);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+        }
+        .panel-nb-card h3 {
+            font-size: 1.1rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+        .panel-nb-card .nb-time {
+            font-size: 0.8rem;
+            color: var(--text-light-muted);
+            margin-bottom: 0.75rem;
+        }
+        .panel-nb-card .goals {
+            font-size: 0.9rem;
+            color: var(--text-light-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .panel-nb-card .goals ul {
+            list-style: none;
+            padding: 0;
+        }
+        .panel-nb-card .goals li {
+            padding-left: 1rem;
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+        .panel-nb-card .goals li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 5px;
+            height: 5px;
+            background: var(--coral);
+        }
+        .panel-nb-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .panel-nb-buttons .btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1200px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .sessions-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; padding: 3rem 0; }
+            .hero-cards { display: none; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .info-cards { grid-template-columns: repeat(2, 1fr); }
+            .requirements-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1.5rem; }
+            .sessions-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .timeline-track { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+            .timeline-track::before { display: none; }
+            .timeline-point { text-align: left; display: flex; gap: 1rem; align-items: center; }
+            .timeline-dot { margin: 0; flex-shrink: 0; }
+            .timeline-theme { max-width: none; }
+            nav { display: none; }
+            .cream-section, .requirements-section { margin: 0; padding: 3rem 1.5rem; }
+            .topic-panel { max-width: 100%; }
+        }
+
+        /* === PRINT === */
+        @media print {
+            body * { visibility: hidden; }
+            .topic-panel, .topic-panel * { visibility: visible; }
+            .topic-panel {
+                position: static;
+                transform: none;
+                max-width: 100%;
+                background: white;
+                color: black;
+            }
+            .topic-panel-toolbar { display: none; }
+            .topic-panel-overlay { display: none; }
+            .topic-panel::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">NLP<em>/</em>LLM 2026</div>
+            <nav>
+                <a href="#overview">Overview</a>
+                <a href="#schedule">Schedule</a>
+                <a href="#sessions">Sessions</a>
+                <a href="#requirements">Requirements</a>
+                <a href="#projects">Projects</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <div class="container" style="display: contents;">
+                <div class="hero-content">
+                    <div class="section-label">University of Strasbourg &bull; February 2026</div>
+                    <h1>Applied NLP:<br><em>From Text to Intelligence</em></h1>
+                    <p class="description">A 20-hour intensive workshop covering the full NLP pipeline &mdash; from TF-IDF baselines to LLM fine-tuning. Build real pipelines with real data. Ship something by Thursday.</p>
+                    <div class="hero-buttons">
+                        <a href="#sessions" class="btn btn-coral">Explore Sessions <span class="arrow">&rarr;</span></a>
+                        <a href="#requirements" class="btn btn-ghost">Setup Guide</a>
+                    </div>
+                </div>
+                <div class="hero-cards">
+                    <div class="float-card">
+                        <div class="number">20</div>
+                        <div class="label">Hours of hands-on learning</div>
+                    </div>
+                    <div class="float-card">
+                        <div class="number">11</div>
+                        <div class="label">Guided notebooks</div>
+                    </div>
+                    <div class="float-card">
+                        <div class="number">4</div>
+                        <div class="label">Project tracks</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OVERVIEW -->
+        <section class="cream-section" id="overview">
+            <div class="overview-grid">
+                <div class="overview-text">
+                    <div class="section-label">About the course</div>
+                    <h2>Learn by Building</h2>
+                    <span class="accent-text">From baselines to production-ready pipelines</span>
+                    <p>This workshop takes you from classical NLP baselines to cutting-edge LLM applications in three days. Every concept is taught through runnable code in Google Colab &mdash; no local setup required.</p>
+                    <p>You&rsquo;ll work with real datasets, real APIs (Groq, Together.AI), and real evaluation frameworks. By the end, you&rsquo;ll have a working NLP pipeline and the judgment to choose the right tool for any text analysis task.</p>
+
+                    <ol class="learning-outcomes">
+                        <li>Build and evaluate TF-IDF, embedding, and LLM-based classifiers</li>
+                        <li>Extract structured data from unstructured text using Pydantic schemas</li>
+                        <li>Discover topics with BERTopic and annotate them with LLMs</li>
+                        <li>Build semantic search with FAISS and cross-encoder reranking</li>
+                        <li>Fine-tune a small language model (Qwen3-4B) using LoRA</li>
+                        <li>Evaluate models rigorously: metrics, slicing, inter-rater reliability</li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <p><strong>Feb 10&ndash;12, 2026</strong> &bull; Room A 330, Idem-Lab &bull; University of Strasbourg<br>Instructor: Roman Jurowetzki (Aalborg University / University of Strasbourg)</p>
+                    </div>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="number">3</div>
+                        <div class="label">Days (Tue &bull; Wed &bull; Thu)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="number">5</div>
+                        <div class="label">Teaching blocks</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="number">2</div>
+                        <div class="label">Project sprints</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="number">0</div>
+                        <div class="label">Dollars required (all tools free)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCHEDULE TIMELINE -->
+        <section class="timeline-section" id="schedule">
+            <div class="container">
+                <div class="section-label" style="text-align:center;">3-day intensive</div>
+                <h2>Schedule</h2>
+                <span class="accent-text">Tue &rarr; Wed &rarr; Thu</span>
+
+                <div class="timeline-track">
+                    <div class="timeline-point">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-day">Tue AM</div>
+                        <div class="timeline-time">08:00&ndash;12:00</div>
+                        <div class="timeline-theme">Kickoff + TF-IDF + Embeddings</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-day">Tue PM</div>
+                        <div class="timeline-time">13:00&ndash;17:00</div>
+                        <div class="timeline-theme">LLM Zero-shot + BERTopic + Sprint 1</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-day">Wed AM</div>
+                        <div class="timeline-time">08:00&ndash;12:00</div>
+                        <div class="timeline-theme">SetFit + FAISS + Eval Habits</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-day">Thu AM</div>
+                        <div class="timeline-time">08:00&ndash;12:00</div>
+                        <div class="timeline-theme">Reranking + Distillation + Fine-tuning</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-day">Thu PM</div>
+                        <div class="timeline-time">13:00&ndash;17:00</div>
+                        <div class="timeline-theme">Eval + Annotation + Final Sprint + Demos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SESSIONS GRID -->
+        <section class="sessions-section" id="sessions">
+            <div class="container">
+                <div class="section-label" style="text-align:center;">Click to explore</div>
+                <h2>Sessions</h2>
+                <span class="accent-text">5 blocks across 3 days</span>
+
+                <div class="sessions-grid">
+                    <a class="session-card" href="block1.html" data-panel="block1.html">
+                        <div class="session-number">01</div>
+                        <div class="session-day">Tuesday Morning &bull; 4h</div>
+                        <div class="session-title">Foundation</div>
+                        <div class="session-desc">Kickoff presentation, TF-IDF baselines, sentence embeddings. Build your first classifiers and learn evaluation fundamentals.</div>
+                        <div class="session-notebooks">
+                            <span class="nb-tag">Kickoff</span>
+                            <span class="nb-tag">NB01</span>
+                            <span class="nb-tag">NB02</span>
+                        </div>
+                    </a>
+
+                    <a class="session-card" href="block2.html" data-panel="block2.html">
+                        <div class="session-number">02</div>
+                        <div class="session-day">Tuesday Afternoon &bull; 4h</div>
+                        <div class="session-title">LLMs + Topics</div>
+                        <div class="session-desc">Zero-shot classification with LLMs, structured output, BERTopic for topic discovery. First project sprint.</div>
+                        <div class="session-notebooks">
+                            <span class="nb-tag">NB03</span>
+                            <span class="nb-tag">NB04</span>
+                            <span class="nb-tag">Sprint 1</span>
+                        </div>
+                    </a>
+
+                    <a class="session-card" href="block3.html" data-panel="block3.html">
+                        <div class="session-number">03</div>
+                        <div class="session-day">Wednesday Morning &bull; 4h</div>
+                        <div class="session-title">Few-shot + Retrieval</div>
+                        <div class="session-desc">SetFit few-shot classification, FAISS semantic search, evaluation habits. Build with just a handful of examples.</div>
+                        <div class="session-notebooks">
+                            <span class="nb-tag">NB05</span>
+                            <span class="nb-tag">NB06</span>
+                            <span class="nb-tag">Eval</span>
+                        </div>
+                    </a>
+
+                    <a class="session-card" href="block4.html" data-panel="block4.html">
+                        <div class="session-number">04</div>
+                        <div class="session-day">Thursday Morning &bull; 4h</div>
+                        <div class="session-title">Advanced Pipelines</div>
+                        <div class="session-desc">Cross-encoder reranking, LLM-generated training data, fine-tuning Qwen3-4B with LoRA on Colab.</div>
+                        <div class="session-notebooks">
+                            <span class="nb-tag">NB07</span>
+                            <span class="nb-tag">NB08</span>
+                            <span class="nb-tag">NB09</span>
+                        </div>
+                    </a>
+
+                    <a class="session-card" href="block5.html" data-panel="block5.html">
+                        <div class="session-number">05</div>
+                        <div class="session-day">Thursday Afternoon &bull; 4h</div>
+                        <div class="session-title">Ship It</div>
+                        <div class="session-desc">LLM evaluation, annotation & inter-rater reliability, final project sprint, and group presentations.</div>
+                        <div class="session-notebooks">
+                            <span class="nb-tag">NB10</span>
+                            <span class="nb-tag">NB11</span>
+                            <span class="nb-tag">Sprint 2</span>
+                            <span class="nb-tag">Demos</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- REQUIREMENTS -->
+        <section class="requirements-section" id="requirements">
+            <div class="requirements-grid">
+                <div style="grid-column: 1 / -1; text-align: center;">
+                    <div class="section-label">Before the workshop</div>
+                    <h2>Setup Guide</h2>
+                    <span class="accent-text">Everything is free &mdash; 10 minutes to get ready</span>
+                </div>
+
+                <div class="req-card">
+                    <div class="badge">Required</div>
+                    <h3>Google Colab</h3>
+                    <p>All notebooks run in Colab &mdash; no local install needed. Just sign in with your Google account.</p>
+                    <ol>
+                        <li>Go to <a href="https://colab.research.google.com" target="_blank">colab.research.google.com</a></li>
+                        <li>Sign in with your Google account</li>
+                        <li>Verify GPU access: <code>Runtime &rarr; Change runtime type &rarr; T4 GPU</code></li>
+                    </ol>
+                </div>
+
+                <div class="req-card">
+                    <div class="badge">Required</div>
+                    <h3>Groq API Key (Free)</h3>
+                    <p>Our primary LLM provider. Extremely fast inference, generous free tier (14,400 requests/day).</p>
+                    <ol>
+                        <li>Go to <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a></li>
+                        <li>Create a free account (GitHub or Google sign-in)</li>
+                        <li>Click &ldquo;Create API Key&rdquo;</li>
+                        <li>Save the key &mdash; you&rsquo;ll paste it into each notebook</li>
+                    </ol>
+                </div>
+
+                <div class="req-card">
+                    <div class="badge">Recommended</div>
+                    <h3>Together.AI API Key ($5 free credit)</h3>
+                    <p>Backup provider with wider model selection. Useful if Groq rate limits are hit during class.</p>
+                    <ol>
+                        <li>Go to <a href="https://api.together.xyz/settings/api-keys" target="_blank">api.together.xyz</a></li>
+                        <li>Create account &rarr; get $5 free credit</li>
+                        <li>Copy your API key</li>
+                    </ol>
+                </div>
+
+                <div class="req-card">
+                    <div class="badge">Optional</div>
+                    <h3>Clone the Repository</h3>
+                    <p>For offline access or running notebooks locally. Not required &mdash; Colab links work directly.</p>
+                    <p style="margin-top: 0.75rem;"><code>git clone https://github.com/RJuro/unistra-nlp2026.git</code></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECT MENU -->
+        <section class="projects-section" id="projects">
+            <div class="container">
+                <div class="section-label" style="text-align:center;">Choose your focus</div>
+                <h2>Project Tracks</h2>
+                <span class="accent-text">Pick one, work across Sprint 1 + Sprint 2</span>
+
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-letter">A</div>
+                        <h3>Classification</h3>
+                        <p>Classify text into categories &mdash; stance, sentiment, topic tags, toxicity. Compare baselines to LLMs to fine-tuned models.</p>
+                        <div class="project-datasets">Moltbook &bull; Environmental Claims &bull; dk_posts</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-letter">B</div>
+                        <h3>Topic Discovery</h3>
+                        <p>BERTopic + LLM annotation + interpretability. Discover what people talk about and how topics evolve.</p>
+                        <div class="project-datasets">Moltbook &bull; Podcast Transcripts &bull; Bluesky</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-letter">C</div>
+                        <h3>Semantic Search</h3>
+                        <p>Build a retrieval system with FAISS + cross-encoder reranking. Find what matters in large document collections.</p>
+                        <div class="project-datasets">Policy Docs &bull; Academic Papers &bull; SEC Filings</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-letter">D</div>
+                        <h3>Structured Extraction</h3>
+                        <p>LLM &rarr; structured JSON &rarr; analysis pipeline. Turn messy text into clean, analyzable data at scale.</p>
+                        <div class="project-datasets">Podcast Transcripts &bull; SEC Filings &bull; News</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <div>Roman Jurowetzki &bull; Aalborg University / University of Strasbourg</div>
+            <div>&copy; 2026</div>
+        </div>
+    </footer>
+
+    <!-- PANEL SYSTEM -->
+    <div class="topic-panel-overlay" id="topicOverlay"></div>
+    <div class="topic-panel" id="topicPanel">
+        <div class="topic-panel-toolbar">
+            <button class="panel-close" id="topicClose">&larr; <span>Back</span></button>
+            <button class="btn btn-ghost" id="topicSave" style="padding: 0.4rem 1rem; font-size: 0.8rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                Save as PDF
+            </button>
+        </div>
+        <div class="topic-panel-body" id="topicBody">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const panel = document.getElementById('topicPanel');
+        const overlay = document.getElementById('topicOverlay');
+        const body = document.getElementById('topicBody');
+        const closeBtn = document.getElementById('topicClose');
+        const saveBtn = document.getElementById('topicSave');
+
+        function openPanel(href) {
+            fetch(href)
+                .then(r => r.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const content = doc.querySelector('.container') || doc.querySelector('body');
+                    // Remove navigation elements from fetched content
+                    content.querySelectorAll('.back-link, footer, header, nav').forEach(el => el.remove());
+                    body.innerHTML = content.innerHTML;
+                    // Open links in new tab
+                    body.querySelectorAll('a[href^="http"]').forEach(a => {
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                    });
+                    panel.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.classList.add('panel-open');
+                    panel.scrollTop = 0;
+                })
+                .catch(err => {
+                    body.innerHTML = '<p style="padding: 2rem; color: var(--text-light-muted);">Session content loading soon&hellip;</p>';
+                    panel.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.classList.add('panel-open');
+                });
+        }
+
+        function closePanel() {
+            panel.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.classList.remove('panel-open');
+            history.pushState(null, '', window.location.pathname);
+        }
+
+        // Session card clicks
+        document.querySelectorAll('.session-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('data-panel') || this.getAttribute('href');
+                history.pushState({ topic: href }, '', '#' + href.replace('.html', ''));
+                openPanel(href);
+            });
+        });
+
+        closeBtn.addEventListener('click', closePanel);
+        overlay.addEventListener('click', closePanel);
+        saveBtn.addEventListener('click', () => window.print());
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && panel.classList.contains('active')) closePanel();
+        });
+
+        window.addEventListener('popstate', function() {
+            if (panel.classList.contains('active')) {
+                closePanel();
+            } else if (window.location.hash.startsWith('#block')) {
+                openPanel(window.location.hash.slice(1) + '.html');
+            }
+        });
+
+        // Auto-open if URL has hash
+        if (window.location.hash.startsWith('#block')) {
+            openPanel(window.location.hash.slice(1) + '.html');
+        }
+    })();
+    </script>
+</body>
+</html>

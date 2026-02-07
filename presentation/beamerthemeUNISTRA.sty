@@ -1,0 +1,109 @@
+% beamerthemeUNISTRA.sty — Custom Beamer theme for UNISTRA NLP 2026
+% Colors match the course webpage: dark warm background, cream text, coral accents
+
+\ProvidesPackage{beamerthemeUNISTRA}
+
+% ── Packages ──
+\RequirePackage{tikz}
+% fontspec only works with XeLaTeX/LuaLaTeX
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+\ifxetex
+  \RequirePackage{fontspec}
+\else\ifluatex
+  \RequirePackage{fontspec}
+\fi\fi
+\RequirePackage{xcolor}
+
+% ── Colors ──
+\definecolor{bgdark}{HTML}{2C2421}
+\definecolor{bgwarm}{HTML}{362E2A}
+\definecolor{cream}{HTML}{FAF7F2}
+\definecolor{creamdark}{HTML}{EDE8E0}
+\definecolor{coral}{HTML}{E07850}
+\definecolor{corallight}{HTML}{F0A080}
+\definecolor{gold}{HTML}{D4A855}
+\definecolor{textmuted}{HTML}{A89B91}
+
+% ── Base Settings ──
+\setbeamercolor{background canvas}{bg=bgdark}
+\setbeamercolor{normal text}{fg=cream}
+\setbeamercolor{title}{fg=cream}
+\setbeamercolor{subtitle}{fg=textmuted}
+\setbeamercolor{author}{fg=textmuted}
+\setbeamercolor{date}{fg=textmuted}
+\setbeamercolor{institute}{fg=textmuted}
+\setbeamercolor{frametitle}{fg=cream}
+\setbeamercolor{framesubtitle}{fg=coral}
+\setbeamercolor{structure}{fg=coral}
+\setbeamercolor{section in toc}{fg=cream}
+\setbeamercolor{subsection in toc}{fg=textmuted}
+\setbeamercolor{item}{fg=coral}
+\setbeamercolor{subitem}{fg=corallight}
+\setbeamercolor{block title}{fg=cream,bg=bgwarm}
+\setbeamercolor{block body}{fg=creamdark,bg=bgwarm}
+\setbeamercolor{block title alerted}{fg=cream,bg=coral}
+\setbeamercolor{block body alerted}{fg=cream,bg=bgwarm}
+\setbeamercolor{block title example}{fg=cream,bg=bgwarm}
+\setbeamercolor{block body example}{fg=creamdark,bg=bgwarm}
+\setbeamercolor{alerted text}{fg=coral}
+\setbeamercolor{footnote}{fg=textmuted}
+\setbeamercolor{caption name}{fg=coral}
+
+% ── Fonts ──
+\setbeamerfont{title}{size=\Huge,series=\bfseries}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+
+% ── Inner Theme ──
+\setbeamertemplate{itemize item}{\color{coral}\raisebox{0.2ex}{\rule{0.6ex}{0.6ex}}}
+\setbeamertemplate{itemize subitem}{\color{corallight}\raisebox{0.2ex}{\rule{0.5ex}{0.5ex}}}
+\setbeamertemplate{enumerate item}{\color{coral}\insertenumlabel.}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+
+% ── Frame Title ──
+\setbeamertemplate{frametitle}{%
+  \vspace{0.6cm}%
+  \noindent\insertframetitle%
+  \par%
+  \ifx\insertframesubtitle\empty\else%
+    \vspace{0.15cm}%
+    {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}%
+  \fi%
+  \vspace{0.3cm}%
+  \noindent\textcolor{coral}{\rule{2cm}{1.5pt}}%
+  \vspace{0.3cm}%
+}
+
+% ── Title Page ──
+\setbeamertemplate{title page}{%
+  \vspace{1.5cm}%
+  \begin{flushleft}%
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}\\[0.4cm]%
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}\\[1cm]%
+    \textcolor{coral}{\rule{3cm}{2pt}}\\[0.8cm]%
+    {\usebeamercolor[fg]{author}\insertauthor}\\[0.2cm]%
+    {\usebeamercolor[fg]{institute}\insertinstitute}\\[0.2cm]%
+    {\usebeamercolor[fg]{date}\insertdate}%
+  \end{flushleft}%
+}
+
+% ── Section Page ──
+\AtBeginSection[]{%
+  \begin{frame}[plain]
+    \vfill
+    \begin{center}
+      {\Large\color{textmuted}\insertsectionnumber}\\[0.3cm]
+      {\Huge\color{cream}\insertsectionhead}\\[0.5cm]
+      \textcolor{coral}{\rule{3cm}{2pt}}
+    \end{center}
+    \vfill
+  \end{frame}
+}
+
+% ── Useful Commands ──
+\newcommand{\highlight}[1]{\textcolor{coral}{#1}}
+\newcommand{\gold}[1]{\textcolor{gold}{#1}}
+\newcommand{\muted}[1]{\textcolor{textmuted}{#1}}

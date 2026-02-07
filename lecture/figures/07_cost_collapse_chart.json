@@ -1,0 +1,119 @@
+{
+  "title": "The Cost of Intelligence is Collapsing",
+  "slide": "29 — Cost per Million Output Tokens",
+
+  "concept": "A horizontal bar chart showing the cost per million output tokens for 6 major LLM providers in early 2026. The dramatic visual story: DeepSeek V3.2 at $0.42 vs Claude Opus at $75 — a 178x difference. The bars should make this ratio viscerally obvious. The cheapest models are at the top, most expensive at the bottom, creating a visual cliff. Clean data visualization, conference-quality.",
+
+  "format": {
+    "dimensions": "1920 × 1080 pixels (16:9 ratio)",
+    "orientation": "Horizontal / Landscape",
+    "bleed": "Full bleed, no borders, no frames"
+  },
+
+  "background": {
+    "color": "#F5EFE6 (warm cream — projector-friendly)",
+    "texture": "None — clean white-ish for data readability"
+  },
+
+  "chart": {
+    "type": "Horizontal bar chart",
+    "orientation": "Model names on the left y-axis, cost on the x-axis",
+    "sort_order": "Cheapest at top, most expensive at bottom",
+
+    "data": [
+      {"model": "DeepSeek V3.2", "cost": 0.42, "bar_color": "#D4A855", "label": "$0.42", "note": "Best value"},
+      {"model": "GPT-4o Mini", "cost": 0.60, "bar_color": "#D4A855", "label": "$0.60"},
+      {"model": "DeepSeek R1", "cost": 2.19, "bar_color": "#D4A855", "label": "$2.19", "note": "Reasoning"},
+      {"model": "GPT-5.2", "cost": 14.00, "bar_color": "#E07850", "label": "$14.00", "note": "Frontier"},
+      {"model": "Claude 4.5 Sonnet", "cost": 15.00, "bar_color": "#E07850", "label": "$15.00", "note": "Best coding"},
+      {"model": "Claude Opus 4.5", "cost": 75.00, "bar_color": "#3D4852", "label": "$75.00", "note": "Premium"}
+    ],
+
+    "x_axis": {
+      "label": "$ per million output tokens",
+      "scale": "Linear",
+      "gridlines": "Light grey vertical lines at $0, $20, $40, $60, $80",
+      "gridline_color": "#D8D0C4"
+    },
+    "y_axis": {
+      "label_color": "#1E1E2E",
+      "label_font": "Sans-serif, medium weight"
+    },
+
+    "bar_style": {
+      "height": "Thick, comfortable spacing between bars",
+      "value_labels": "Right-aligned at the end of each bar, inside or just outside",
+      "value_label_color": "#1E1E2E"
+    },
+
+    "annotations": [
+      {
+        "type": "bracket with label",
+        "from": "DeepSeek V3.2",
+        "to": "Claude Opus 4.5",
+        "label": "178x difference",
+        "color": "#E07850",
+        "position": "Right side of chart"
+      },
+      {
+        "type": "callout",
+        "text": "Output tokens cost 3-8x more than input across all providers",
+        "position": "Bottom-right",
+        "color": "#9CA3AF",
+        "size": "Small"
+      }
+    ]
+  },
+
+  "typography": {
+    "title": {
+      "text": "The Cost of Intelligence is Collapsing",
+      "position": "Top-left",
+      "keyword": "Collapsing",
+      "keyword_color": "#D4A855 (gold — the cheap end)",
+      "other_color": "#1E1E2E",
+      "font": "Heavy sans-serif"
+    },
+    "subtitle": {
+      "text": "$ per million output tokens, early 2026",
+      "color": "#6B7280",
+      "size": "Small, below title"
+    }
+  },
+
+  "color_palette_summary": {
+    "background": "#F5EFE6",
+    "text_primary": "#1E1E2E",
+    "text_secondary": "#6B7280",
+    "bars_cheap": "#D4A855 (gold — value models)",
+    "bars_frontier": "#E07850 (coral — frontier models)",
+    "bars_premium": "#3D4852 (dark — expensive)",
+    "gridlines": "#D8D0C4",
+    "annotation_accent": "#E07850",
+    "note": "Three-tier color coding: gold=cheap, coral=frontier, dark=premium"
+  },
+
+  "style_summary": {
+    "technique": "Clean data visualization. No chartjunk. Tufte-inspired.",
+    "influences": "Edward Tufte, Our World in Data, The Economist chart style",
+    "absolutely_avoid": [
+      "3D bars",
+      "Drop shadows on bars",
+      "Decorative elements",
+      "Pie chart or donut alternative",
+      "Company logos",
+      "Gradients in bars",
+      "Background images"
+    ]
+  },
+
+  "critical_requirements": [
+    "Background MUST be warm cream #F5EFE6",
+    "Bars MUST show the dramatic 178x cost range clearly",
+    "Value labels MUST be on every bar",
+    "The '178x difference' annotation is essential — it's the takeaway",
+    "Three-tier color coding: gold/coral/dark",
+    "16:9 landscape format",
+    "Must be readable from the back of a lecture hall"
+  ]
+}

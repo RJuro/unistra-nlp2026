@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Block 4 — Advanced Pipelines</title></head>
+<body>
+<div class="container">
+    <div class="section-label" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#A89B91;font-weight:600;">Thursday Morning</div>
+    <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-size:2.5rem;color:#FAF7F2;margin-bottom:0.5rem;">Advanced Pipelines</h1>
+    <div class="time-badge" style="display:inline-block;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 0.7rem;background:rgba(224,120,80,0.15);color:#E07850;font-weight:600;margin-bottom:1.5rem;">08:00 – 12:00 &bull; 4 hours</div>
+
+    <p style="color:#A89B91;margin-bottom:2rem;font-size:1.05rem;">Build production-grade pipelines: rerank search results, generate training data with LLMs, and fine-tune your own small language model.</p>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2rem;margin-bottom:1rem;">Learning Goals</h2>
+    <ul style="list-style:none;padding:0;color:#A89B91;">
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Improve retrieval precision with cross-encoder reranking</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Generate high-quality training data using LLM label synthesis</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Fine-tune Qwen3-4B with LoRA (fits a free Colab T4)</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Compare fine-tuned model to zero-shot LLM</li>
+    </ul>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2.5rem;margin-bottom:1rem;">Schedule</h2>
+
+    <!-- NB07 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB07: Cross-encoder Reranking</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">08:20 – 09:10 &bull; 50 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Bi-encoder retrieval (from NB06) &rarr; cross-encoder rerank</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>ms-marco-MiniLM-L-6-v2 cross-encoder</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Social science framing: policy docs, academic papers</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Measure precision@5 before/after reranking</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB07_reranking.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB07_reranking.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">09:10 – 09:25</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break</div>
+    </div>
+
+    <!-- NB08 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB08: Distillation — LLM Label Synthesis</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">09:25 – 10:30 &bull; 65 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>LLM labels unlabeled text via Groq (structured output)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Confidence filtering + deduplication + class balancing</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Train sklearn classifier on synthetic labels</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>extract_with_retry() pattern for production reliability</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB08_distillation.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB08_distillation.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">10:30 – 10:45</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break</div>
+    </div>
+
+    <!-- NB09 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB09: Fine-tuning Qwen3-4B with LoRA</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">10:45 – 12:00 &bull; 75 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Unsloth + trl for 2x faster LoRA fine-tuning</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Qwen3-4B fits free Colab T4 GPU</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Format distilled data as instruction pairs</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Bonus: export to GGUF/Ollama format</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB09_finetuning_qwen3.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB09_finetuning_qwen3.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

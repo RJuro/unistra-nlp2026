@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Block 5 — Ship It</title></head>
+<body>
+<div class="container">
+    <div class="section-label" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#A89B91;font-weight:600;">Thursday Afternoon</div>
+    <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-size:2.5rem;color:#FAF7F2;margin-bottom:0.5rem;">Ship It</h1>
+    <div class="time-badge" style="display:inline-block;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 0.7rem;background:rgba(224,120,80,0.15);color:#E07850;font-weight:600;margin-bottom:1.5rem;">13:00 – 17:00 &bull; 4 hours</div>
+
+    <p style="color:#A89B91;margin-bottom:2rem;font-size:1.05rem;">Evaluate your pipeline rigorously, learn annotation discipline, then finish and present your project.</p>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2rem;margin-bottom:1rem;">Learning Goals</h2>
+    <ul style="list-style:none;padding:0;color:#A89B91;">
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Evaluate LLM applications with rubrics and automated metrics</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Measure inter-rater reliability (Cohen's &kappa;, Gwet's AC1)</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Build a complete pipeline with evidence of quality</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Communicate results in a 5-minute demo</li>
+    </ul>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2.5rem;margin-bottom:1rem;">Schedule</h2>
+
+    <!-- NB10 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB10: LLM App Evaluation</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">13:00 – 13:40 &bull; 40 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Rubric-based scoring (define criteria, score 1–5)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Automated metrics: accuracy, macro F1, faithfulness</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>RAGAS concepts for retrieval evaluation</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Build eval set of ~30 examples</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB10_llm_evaluation.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB10_llm_evaluation.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <!-- NB11 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB11: Annotation & Inter-Rater Reliability</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">13:40 – 14:10 &bull; 30 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Argilla quick setup (or CSV fallback)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Human vs LLM labeling comparison</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Cohen's &kappa; and Gwet's AC1</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Deductive coding workflow</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB11_annotation_irr.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB11_annotation_irr.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">14:10 – 14:20</span>
+            <span style="font-size:0.8rem;color:#A89B91;">10 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Sprint intro: "Finish a coherent pipeline + show evidence"</div>
+    </div>
+
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;border-left:4px solid #D4A855;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">Project Sprint 2 (Final)</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">14:20 – 15:50 &bull; 90 minutes</div>
+        <p style="color:#A89B91;font-size:0.9rem;margin-bottom:0.75rem;">Finish your best pipeline with clean evaluation and qualitative examples.</p>
+        <p style="color:#D4A855;font-size:0.85rem;"><strong>Deliverable:</strong> Best model/pipeline + clean evaluation + 3–5 qualitative examples + 1 short "model card" (data, method, limits, failure modes)</p>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">15:50 – 16:00</span>
+            <span style="font-size:0.8rem;color:#A89B91;">10 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break + prep</div>
+    </div>
+
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;border-left:4px solid #E07850;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">Final Share-out</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">16:00 – 16:50 &bull; 50 minutes</div>
+        <p style="color:#A89B91;font-size:0.9rem;">5-minute demos per group. Show your pipeline, your results, and your honest evaluation.</p>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">16:50 – 17:00</span>
+            <span style="font-size:0.8rem;color:#A89B91;">10 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Course wrap-up + feedback</div>
+    </div>
+</div>
+</body>
+</html>

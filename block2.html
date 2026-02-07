@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Block 2 — LLMs + Topics</title></head>
+<body>
+<div class="container">
+    <div class="section-label" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#A89B91;font-weight:600;">Tuesday Afternoon</div>
+    <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-size:2.5rem;color:#FAF7F2;margin-bottom:0.5rem;">LLMs + Topics</h1>
+    <div class="time-badge" style="display:inline-block;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 0.7rem;background:rgba(224,120,80,0.15);color:#E07850;font-weight:600;margin-bottom:1.5rem;">13:00 – 17:00 &bull; 4 hours</div>
+
+    <p style="color:#A89B91;margin-bottom:2rem;font-size:1.05rem;">Use LLMs as zero-shot classifiers with structured output, discover topics with BERTopic, then launch your first project sprint.</p>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2rem;margin-bottom:1rem;">Learning Goals</h2>
+    <ul style="list-style:none;padding:0;color:#A89B91;">
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Use LLMs for classification without any training data</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Enforce structured JSON output with Pydantic schemas</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Discover latent topics in text with BERTopic</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Define a project: dataset + task + metric</li>
+    </ul>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2.5rem;margin-bottom:1rem;">Schedule</h2>
+
+    <!-- NB03 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB03: LLM Zero-shot Classification + Structured Output</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">13:00 – 13:50 &bull; 50 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span><strong style="color:#FAF7F2;">Part A:</strong> Zero-shot classify dk_posts with Groq API</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span><strong style="color:#FAF7F2;">Part B:</strong> Structured extraction from news articles</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Pydantic schemas with Literal types for constrained output</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Compare LLM accuracy to NB01/NB02 without training</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB03_llm_zero_shot.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB03_llm_zero_shot.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">13:50 – 14:05</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break</div>
+    </div>
+
+    <!-- NB04 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB04: BERTopic — Topic Discovery + LLM Annotation</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">14:05 – 15:35 &bull; 90 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Sentence-transformers &rarr; UMAP &rarr; HDBSCAN &rarr; BERTopic</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>LLM topic naming via Groq API</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Interactive visualizations: topic map, barchart, hierarchy</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Compare discovered topics to ground-truth labels</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB04_bertopic.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB04_bertopic.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">15:35 – 15:50</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break + Sprint 1 intro: "Pick dataset, pick task, define metric"</div>
+    </div>
+
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;border-left:4px solid #D4A855;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">Project Sprint 1</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">15:50 – 16:45 &bull; 55 minutes</div>
+        <p style="color:#A89B91;font-size:0.9rem;margin-bottom:0.75rem;">Pick a dataset, define your task and metric, build your first baseline.</p>
+        <p style="color:#D4A855;font-size:0.85rem;"><strong>Deliverable:</strong> Notebook with dataset loaded + train/val split + TF-IDF or embedding baseline + 1 metric + 5 example errors</p>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">16:45 – 17:00</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Lightning shares (2–3 groups) + day wrap</div>
+    </div>
+</div>
+</body>
+</html>

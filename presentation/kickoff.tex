@@ -1,0 +1,395 @@
+% kickoff.tex — UNISTRA NLP 2026 Kickoff Presentation
+% Compile with: xelatex kickoff.tex (requires fontspec)
+% Or: pdflatex kickoff.tex (will use default fonts)
+
+\documentclass[aspectratio=169,12pt]{beamer}
+
+% Try to use the custom theme; fallback gracefully
+\IfFileExists{beamerthemeUNISTRA.sty}{%
+  \usetheme{UNISTRA}%
+}{%
+  \usetheme{default}%
+  \usepackage{xcolor}%
+  \definecolor{bgdark}{HTML}{2C2421}%
+  \definecolor{cream}{HTML}{FAF7F2}%
+  \definecolor{coral}{HTML}{E07850}%
+  \definecolor{gold}{HTML}{D4A855}%
+  \definecolor{textmuted}{HTML}{A89B91}%
+  \setbeamercolor{background canvas}{bg=bgdark}%
+  \setbeamercolor{normal text}{fg=cream}%
+  \setbeamercolor{structure}{fg=coral}%
+  \setbeamertemplate{navigation symbols}{}%
+  \newcommand{\highlight}[1]{\textcolor{coral}{#1}}%
+  \newcommand{\muted}[1]{\textcolor{textmuted}{#1}}%
+  \newcommand{\gold}[1]{\textcolor{gold}{#1}}%
+}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,calc}
+
+% ── Metadata ──
+\title{Applied NLP}
+\subtitle{From Text to Intelligence}
+\author{Roman Jurowetzki}
+\institute{Aalborg University / University of Strasbourg}
+\date{February 10--12, 2026}
+
+\begin{document}
+
+% ═══════════════════════════════════════
+% SLIDE 1: Title
+% ═══════════════════════════════════════
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 2: About Me
+% ═══════════════════════════════════════
+\begin{frame}{About Me}
+  \begin{columns}[T]
+    \begin{column}{0.6\textwidth}
+      \textbf{Roman Jurowetzki}\\[0.3cm]
+      \muted{Associate Professor}\\
+      Aalborg University Business School\\[0.3cm]
+      \muted{Research:}\\
+      NLP for innovation studies, science policy,\\
+      LLMs for social science research\\[0.3cm]
+      \muted{Teaching:}\\
+      Business Data Science, Applied NLP,\\
+      AI for Social Scientists
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{center}
+        \muted{Find me:}\\[0.2cm]
+        \small
+        \highlight{@rjuro} on GitHub\\
+        \highlight{@rjuro} on Twitter/X\\
+        rjuro@business.aau.dk
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 3: The NLP Task Landscape
+% ═══════════════════════════════════════
+\begin{frame}{The NLP Task Landscape}
+  \framesubtitle{What can we do with text?}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    node distance=1.2cm,
+    task/.style={rectangle, draw=coral, fill=bgdark, text=cream, minimum width=3cm, minimum height=0.8cm, font=\small, line width=0.5pt},
+    label/.style={font=\footnotesize, text=textmuted}
+  ]
+    \node[task] (class) {Classification};
+    \node[task, right=1.5cm of class] (extract) {Extraction};
+    \node[task, right=1.5cm of extract] (sim) {Similarity};
+    \node[task, below=0.8cm of class] (topic) {Topic Modeling};
+    \node[task, below=0.8cm of extract] (gen) {Generation};
+    \node[task, below=0.8cm of sim] (qa) {Question Answering};
+
+    \node[label, below=0.15cm of class] {sentiment, stance, spam};
+    \node[label, below=0.15cm of extract] {NER, relations, JSON};
+    \node[label, below=0.15cm of sim] {search, matching};
+    \node[label, below=0.15cm of topic] {BERTopic, LDA};
+    \node[label, below=0.15cm of gen] {summaries, translation};
+    \node[label, below=0.15cm of qa] {RAG, chatbots};
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \muted{This workshop covers all of these --- from simple baselines to LLM-powered pipelines.}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 4: The 5 Eras of Text Representation
+% ═══════════════════════════════════════
+\begin{frame}{The 5 Eras of Text Representation}
+  \framesubtitle{A brief history of how computers read text}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    era/.style={rectangle, draw=coral, fill=bgdark, text=cream, minimum width=2.2cm, minimum height=0.7cm, font=\footnotesize\bfseries, line width=0.5pt},
+    year/.style={font=\tiny, text=gold},
+    desc/.style={font=\tiny, text=textmuted, text width=2cm, align=center}
+  ]
+    % Timeline line
+    \draw[coral, line width=1pt] (0,0) -- (12,0);
+
+    % Era markers
+    \foreach \x/\yr/\name/\detail in {
+      0.5/1950s/Regex/Rules \& patterns,
+      3/1990s/TF-IDF/Sparse vectors,
+      5.5/2013/Word2Vec/Dense embeddings,
+      8/2018/BERT/Contextual,
+      10.5/2020+/LLMs/Foundation models
+    } {
+      \fill[coral] (\x, 0) circle (3pt);
+      \node[era, above=0.4cm] at (\x, 0) {\name};
+      \node[year, below=0.15cm] at (\x, 0) {\yr};
+      \node[desc, below=0.55cm] at (\x, 0) {\detail};
+    }
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.5cm}
+  Each era \highlight{didn't replace} the previous one --- it \highlight{added a new tool} to the toolkit.\\[0.2cm]
+  \muted{TF-IDF still wins sometimes. The right tool depends on your task.}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 5: Where We Are Now
+% ═══════════════════════════════════════
+\begin{frame}{Where We Are Now}
+  \framesubtitle{The foundation model era}
+
+  \begin{itemize}
+    \item \highlight{Embeddings are everywhere} --- sentence, document, image, code
+    \item \highlight{Few-shot learning} --- classify with 8 examples, not 8,000
+    \item \highlight{Structured output} --- LLMs return JSON, not just text
+    \item \highlight{Knowledge distillation} --- big model teaches small model
+    \item \highlight{Open models} --- Llama, Qwen, Mistral --- run locally
+  \end{itemize}
+
+  \vspace{0.5cm}
+  \begin{alertblock}{Key Insight}
+    The cost of NLP went from ``PhD + 6 months'' to ``API call + 5 minutes.''\\
+    But \highlight{evaluation} and \highlight{judgment} matter more than ever.
+  \end{alertblock}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 6: Course Roadmap
+% ═══════════════════════════════════════
+\begin{frame}{Course Roadmap}
+  \framesubtitle{20 hours across 3 days}
+
+  \begin{center}
+  \begin{tikzpicture}[
+    block/.style={rectangle, draw=coral, fill=bgdark, text=cream, minimum width=2.8cm, minimum height=1.8cm, font=\footnotesize, align=center, line width=0.5pt},
+    day/.style={font=\small\bfseries, text=gold}
+  ]
+    % Day labels
+    \node[day] at (1.5, 2.2) {Tuesday};
+    \node[day] at (5.5, 2.2) {Wednesday};
+    \node[day] at (9.5, 2.2) {Thursday};
+
+    % Blocks
+    \node[block] at (0, 0.5) {Block 1\\[0.1cm]\tiny TF-IDF +\\Embeddings};
+    \node[block] at (3, 0.5) {Block 2\\[0.1cm]\tiny LLMs +\\BERTopic};
+    \node[block] at (5.5, 0.5) {Block 3\\[0.1cm]\tiny SetFit +\\FAISS};
+    \node[block] at (8, 0.5) {Block 4\\[0.1cm]\tiny Reranking +\\Fine-tuning};
+    \node[block] at (11, 0.5) {Block 5\\[0.1cm]\tiny Eval +\\Demos};
+
+    % Sprint markers
+    \node[font=\tiny, text=gold] at (3, -0.8) {Sprint 1};
+    \node[font=\tiny, text=gold] at (11, -0.8) {Sprint 2};
+
+    % Arrows
+    \draw[-{Stealth}, coral, thick] (1.5, 0.5) -- (1.8, 0.5);
+    \draw[-{Stealth}, coral, thick] (4.4, 0.5) -- (4.6, 0.5);
+    \draw[-{Stealth}, coral, thick] (6.6, 0.5) -- (7, 0.5);
+    \draw[-{Stealth}, coral, thick] (9.5, 0.5) -- (9.8, 0.5);
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.3cm}
+  \muted{Each block: guided notebooks + hands-on exercises + comparison to prior approaches.}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 7: The 11 Notebooks
+% ═══════════════════════════════════════
+\begin{frame}{The 11 Notebooks}
+  \footnotesize
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{Tuesday}\\[0.2cm]
+      \begin{tabular}{@{}ll@{}}
+        NB01 & TF-IDF + Linear Models \\
+        NB02 & Sentence Embeddings \\
+        NB03 & LLM Zero-shot \\
+        NB04 & BERTopic \\
+      \end{tabular}
+
+      \vspace{0.5cm}
+      \highlight{Wednesday}\\[0.2cm]
+      \begin{tabular}{@{}ll@{}}
+        NB05 & SetFit Few-shot \\
+        NB06 & FAISS Retrieval \\
+      \end{tabular}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \highlight{Thursday AM}\\[0.2cm]
+      \begin{tabular}{@{}ll@{}}
+        NB07 & Cross-encoder Reranking \\
+        NB08 & LLM Distillation \\
+        NB09 & Fine-tuning (Qwen3-4B) \\
+      \end{tabular}
+
+      \vspace{0.5cm}
+      \highlight{Thursday PM}\\[0.2cm]
+      \begin{tabular}{@{}ll@{}}
+        NB10 & LLM Evaluation \\
+        NB11 & Annotation \& IRR \\
+      \end{tabular}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4cm}
+  \muted{All notebooks run in Google Colab. No local setup required.}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 8: Tools & Setup
+% ═══════════════════════════════════════
+\begin{frame}{Tools \& Setup}
+  \framesubtitle{Everything is free}
+
+  \begin{columns}[T]
+    \begin{column}{0.45\textwidth}
+      \highlight{LLM Providers}\\[0.3cm]
+      \begin{itemize}
+        \item \textbf{Groq} \muted{(primary)}\\
+              Free, fast inference\\
+              14,400 req/day\\[0.2cm]
+        \item \textbf{Together.AI} \muted{(backup)}\\
+              \$5 free credit\\[0.2cm]
+        \item \textbf{Ollama} \muted{(local)}\\
+              Unlimited, runs in Colab
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.45\textwidth}
+      \highlight{Infrastructure}\\[0.3cm]
+      \begin{itemize}
+        \item \textbf{Google Colab}\\
+              Free T4 GPU\\
+              All notebooks pre-configured\\[0.2cm]
+        \item \textbf{HuggingFace}\\
+              Models + datasets\\[0.2cm]
+        \item \textbf{GitHub}\\
+              All materials at\\
+              \footnotesize\texttt{github.com/RJuro/}\\
+              \texttt{unistra-nlp2026}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 9: Project Tracks
+% ═══════════════════════════════════════
+\begin{frame}{Project Tracks}
+  \framesubtitle{Pick one, work across Sprint 1 + Sprint 2}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \highlight{A. Classification}\\
+      \muted{Stance, sentiment, toxicity}\\
+      \muted{Datasets: Moltbook, environmental claims}\\[0.4cm]
+
+      \highlight{B. Topic Discovery}\\
+      \muted{BERTopic + LLM annotation}\\
+      \muted{Datasets: Moltbook, podcasts, Bluesky}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \highlight{C. Semantic Search}\\
+      \muted{FAISS + cross-encoder reranking}\\
+      \muted{Datasets: policy docs, academic papers}\\[0.4cm]
+
+      \highlight{D. Structured Extraction}\\
+      \muted{LLM \textrightarrow{} structured JSON \textrightarrow{} analysis}\\
+      \muted{Datasets: SEC filings, podcast transcripts}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \begin{center}
+    \gold{Bring your own data} \muted{--- thesis-related encouraged!}
+  \end{center}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 10: Datasets
+% ═══════════════════════════════════════
+\begin{frame}{Datasets We'll Use}
+
+  \footnotesize
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    \textbf{Dataset} & \textbf{Size} & \textbf{Used In} & \textbf{Fun Factor} \\
+    \midrule
+    \highlight{dk\_posts} & 457 posts & NB01--03 & Reddit advice posts \\
+    \highlight{Moltbook} & 44K posts & NB04 & AI agents on social media \\
+    \highlight{Env. Claims} & binary & NB05 & Greenwashing detection \\
+    \highlight{SciFact} & 300 docs & NB06--07 & Scientific retrieval \\
+    \highlight{SEC Filings} & 1000s & Project D & Real financial data \\
+    \highlight{Bluesky} & 2M posts & Project B & Platform migration \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.4cm}
+  \muted{All datasets available on HuggingFace or included in the repo.}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 11: What You'll Build
+% ═══════════════════════════════════════
+\begin{frame}{What You'll Build}
+  \framesubtitle{By Thursday afternoon}
+
+  \begin{enumerate}
+    \item A \highlight{baseline classifier} that actually works (TF-IDF)
+    \item A \highlight{zero-shot LLM classifier} with structured output
+    \item A \highlight{semantic search engine} with reranking
+    \item A \highlight{fine-tuned language model} (Qwen3-4B)
+    \item A \highlight{project pipeline} with honest evaluation
+  \end{enumerate}
+
+  \vspace{0.5cm}
+  \begin{alertblock}{Sprint Deliverables}
+    \textbf{Sprint 1} (Tue PM): Dataset + baseline + metric + 5 errors\\
+    \textbf{Sprint 2} (Thu PM): Best pipeline + evaluation + model card
+  \end{alertblock}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 12: Ground Rules
+% ═══════════════════════════════════════
+\begin{frame}{Ground Rules}
+
+  \begin{itemize}
+    \item \highlight{Ask questions} --- there are no stupid ones
+    \item \highlight{Help each other} --- peer learning is powerful
+    \item \highlight{Break things} --- that's how you learn
+    \item \highlight{Show your errors} --- error analysis > accuracy chasing
+    \item \highlight{Use AI tools} --- Copilot, ChatGPT, Claude are all fair game
+  \end{itemize}
+
+  \vspace{0.5cm}
+  \muted{Breaks every 90 minutes. Coffee is essential.}
+\end{frame}
+
+% ═══════════════════════════════════════
+% SLIDE 13: Let's Start!
+% ═══════════════════════════════════════
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    {\Huge\color{cream} Let's start.}\\[0.8cm]
+    \textcolor{coral}{\rule{4cm}{2pt}}\\[0.8cm]
+    {\large\color{textmuted} Open NB01 in Colab}\\[0.3cm]
+    {\footnotesize\color{textmuted}\texttt{colab.research.google.com/github/RJuro/\\unistra-nlp2026/blob/main/notebooks/NB01\_tfidf\_baselines.ipynb}}
+  \end{center}
+  \vfill
+\end{frame}
+
+\end{document}

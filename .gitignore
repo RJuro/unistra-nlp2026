@@ -1,0 +1,44 @@
+# Environment
+.env
+.env.local
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Archives (not linked from site)
+old_notebooks/
+UNISTRA25/
+research/
+
+# Planning / review docs (internal only)
+plan.md
+review.md
+reviews/
+slides_feedback.md
+more_slides_feedback.md
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# IDE
+.vscode/
+.idea/
+
+# Claude
+.claude/

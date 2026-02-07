@@ -1,0 +1,41 @@
+# UNISTRA NLP 2026 — Core Dependencies
+# Each notebook installs its own dependencies via pip in the first cell.
+# This file is for local development / reference.
+
+# LLM APIs
+openai>=1.0
+pydantic>=2.0
+python-dotenv
+
+# Core data science
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+tqdm
+
+# NLP / Embeddings
+sentence-transformers>=3.0
+transformers>=4.40
+
+# Topic Modeling (NB04)
+bertopic>=0.17
+umap-learn
+hdbscan
+
+# Retrieval (NB06-07)
+faiss-cpu
+
+# Few-shot (NB05)
+setfit>=1.1
+
+# Evaluation
+evaluate
+
+# Annotation (NB11)
+# argilla  # optional — install in Colab if needed
+
+# Fine-tuning (NB09) — Colab only
+# unsloth
+# trl

@@ -1,0 +1,126 @@
+{
+  "title": "Self-Attention",
+  "slide": "23 — Attention Is All You Need",
+
+  "concept": "A visualization of the self-attention mechanism. A sentence is displayed as individual word tokens in a horizontal row. Lines of varying thickness connect words that attend to each other. The word 'cat' strongly attends to 'sat' and 'mat' (thick lines), weakly to 'the' (thin lines). Below the sentence, a Query-Key-Value diagram shows the three vectors as colored bars feeding into the attention computation. Clean, educational, immediately readable.",
+
+  "format": {
+    "dimensions": "1920 × 1080 pixels (16:9 ratio)",
+    "orientation": "Horizontal / Landscape",
+    "bleed": "Full bleed, no borders, no frames"
+  },
+
+  "background": {
+    "color": "#F5EFE6 (warm cream — projector-friendly)",
+    "texture": "Subtle paper grain"
+  },
+
+  "diagram_structure": {
+    "upper_section": {
+      "what": "The sentence 'The cat sat on the mat' displayed as 6 word tokens in a horizontal row",
+      "position": "Upper third of image, centered",
+      "word_style": {
+        "shape": "Rounded rectangle per word",
+        "fill": "#FAF7F2",
+        "border": "#3D4852",
+        "text_color": "#1E1E2E",
+        "font": "Monospace or clean sans-serif, medium weight"
+      },
+      "attention_lines": {
+        "from_word": "cat (second token)",
+        "connections": [
+          {"to": "The", "weight": "thin (0.05)", "opacity": "15%"},
+          {"to": "sat", "weight": "very thick (0.45)", "opacity": "90%"},
+          {"to": "on", "weight": "thin (0.10)", "opacity": "20%"},
+          {"to": "the", "weight": "thin (0.05)", "opacity": "15%"},
+          {"to": "mat", "weight": "thick (0.35)", "opacity": "70%"}
+        ],
+        "line_color": "#E07850 (coral)",
+        "style": "Curved arcs above the word row, varying thickness = varying attention weight"
+      },
+      "highlight": "The word 'cat' box has a coral #E07850 border to show it's the query word"
+    },
+
+    "lower_section": {
+      "what": "Query-Key-Value explanation with three colored bars",
+      "position": "Lower third of image, centered",
+      "layout": "Three horizontal labeled bars stacked vertically",
+      "bars": [
+        {"label": "Query (Q)", "description": "What am I looking for?", "color": "#E07850 (coral)"},
+        {"label": "Key (K)", "description": "What do I contain?", "color": "#D4A855 (gold)"},
+        {"label": "Value (V)", "description": "What do I offer?", "color": "#6B7280 (grey)"}
+      ],
+      "annotation": "Attention(Q,K,V) = softmax(QK^T / sqrt(d)) V",
+      "annotation_color": "#9CA3AF",
+      "annotation_size": "Small, bottom-right"
+    }
+  },
+
+  "typography": {
+    "title": {
+      "text": "Self-Attention",
+      "position": "Top-left, 5% margin",
+      "keyword": "Attention",
+      "keyword_color": "#E07850",
+      "other_color": "#3D4852",
+      "font": "Heavy sans-serif"
+    },
+    "word_tokens": {
+      "font": "Source Code Pro or monospace",
+      "size": "Large, clearly readable",
+      "color": "#1E1E2E"
+    },
+    "qkv_labels": {
+      "font": "Sans-serif bold",
+      "size": "Medium",
+      "description_font": "Sans-serif regular italic"
+    }
+  },
+
+  "color_palette_summary": {
+    "background": "#F5EFE6",
+    "text_primary": "#1E1E2E",
+    "text_secondary": "#6B7280",
+    "token_boxes": "#FAF7F2 fill, #3D4852 border",
+    "attention_lines": "#E07850 (varying opacity for weight)",
+    "query_highlight": "#E07850",
+    "key_highlight": "#D4A855",
+    "value_highlight": "#6B7280",
+    "annotation": "#9CA3AF",
+    "note": "Three colors for Q/K/V — coral, gold, grey. Attention arcs in coral."
+  },
+
+  "composition": {
+    "eye_path": "Title → word row → attention arcs (the visual payoff) → Q/K/V explanation below",
+    "balance": "Centered, symmetric. Upper half for the visual. Lower half for the explanation.",
+    "negative_space": "Between the word row and the Q/K/V section — breathing room"
+  },
+
+  "mood": {
+    "primary_feeling": "Educational clarity, 'aha' moment",
+    "temperature": "Warm neutral"
+  },
+
+  "style_summary": {
+    "technique": "Clean technical diagram. Flat fills. Crisp edges. Curved attention arcs.",
+    "influences": "Jay Alammar's Illustrated Transformer, but simplified and in this palette",
+    "absolutely_avoid": [
+      "3D effects",
+      "Matrix visualizations (too complex)",
+      "Neural network node diagrams",
+      "Gradients within shapes",
+      "More than 3 semantic colors",
+      "Realistic or photographic elements"
+    ]
+  },
+
+  "critical_requirements": [
+    "Background MUST be warm cream #F5EFE6",
+    "Attention arcs MUST have varying thickness to show attention weights",
+    "The word 'cat' MUST be visually highlighted as the query word",
+    "'sat' and 'mat' connections MUST be visibly thicker than others",
+    "Q/K/V bars must use three distinct colors: coral, gold, grey",
+    "16:9 landscape format",
+    "Must be readable from the back of a lecture hall — large text, clear contrast"
+  ]
+}

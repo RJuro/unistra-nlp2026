@@ -1,0 +1,138 @@
+{
+  "title": "Words in Vector Space",
+  "slide": "16/20 — Embedding Space Visualization",
+
+  "concept": "A 2D scatter plot showing word embeddings projected into two dimensions. Four distinct semantic clusters are visible: animals (dog, puppy, cat, kitten), royalty (king, queen, prince), technology (computer, software, algorithm), and food (pizza, sushi, pasta). The clusters are well-separated with clear labels. Between the animal and royalty clusters, a dashed arrow shows the famous 'king - man + woman = queen' vector arithmetic. The visualization makes the abstract idea of 'meaning as geometry' concrete.",
+
+  "format": {
+    "dimensions": "1920 × 1080 pixels (16:9 ratio)",
+    "orientation": "Horizontal / Landscape",
+    "bleed": "Full bleed, no borders, no frames"
+  },
+
+  "background": {
+    "color": "#F5EFE6 (warm cream)",
+    "texture": "None — clean for data"
+  },
+
+  "scatter_plot": {
+    "axes": {
+      "show": true,
+      "labels": false,
+      "note": "Axes present but unlabeled — these are abstract dimensions, not interpretable features",
+      "color": "#D8D0C4",
+      "style": "Thin lines with subtle arrow heads"
+    },
+
+    "clusters": [
+      {
+        "name": "Animals",
+        "words": ["dog", "puppy", "cat", "kitten", "hamster"],
+        "position": "Upper-left quadrant",
+        "dot_color": "#E07850 (coral)",
+        "label_color": "#E07850",
+        "cluster_ellipse": "#E07850 at 10% opacity, dashed border"
+      },
+      {
+        "name": "Royalty",
+        "words": ["king", "queen", "prince", "throne"],
+        "position": "Upper-right quadrant",
+        "dot_color": "#D4A855 (gold)",
+        "label_color": "#D4A855",
+        "cluster_ellipse": "#D4A855 at 10% opacity, dashed border"
+      },
+      {
+        "name": "Technology",
+        "words": ["computer", "software", "algorithm", "code"],
+        "position": "Lower-right quadrant",
+        "dot_color": "#6B7280 (grey)",
+        "label_color": "#6B7280",
+        "cluster_ellipse": "#6B7280 at 10% opacity, dashed border"
+      },
+      {
+        "name": "Food",
+        "words": ["pizza", "sushi", "pasta", "bread"],
+        "position": "Lower-left quadrant",
+        "dot_color": "#4A7856 (green)",
+        "label_color": "#4A7856",
+        "cluster_ellipse": "#4A7856 at 10% opacity, dashed border"
+      }
+    ],
+
+    "word_labels": {
+      "font": "Small sans-serif, positioned next to each dot",
+      "color": "#3D4852",
+      "note": "Each word is labeled. Dots are small circles (5-8px). Labels offset to avoid overlap."
+    },
+
+    "vector_arithmetic": {
+      "show": true,
+      "arrows": [
+        {"from": "king", "to": "queen", "label": "gender", "color": "#D4A855", "style": "dashed arrow"},
+        {"from": "man_position", "to": "woman_position", "label": "gender", "color": "#9CA3AF", "style": "dashed arrow", "note": "These two arrows should be roughly parallel"}
+      ],
+      "annotation": {
+        "text": "king - man + woman ≈ queen",
+        "position": "Near the royalty cluster",
+        "color": "#D4A855",
+        "background": "#FAF7F2",
+        "border": "#D4A855"
+      }
+    }
+  },
+
+  "typography": {
+    "title": {
+      "text": "Words in Vector Space",
+      "position": "Top-left",
+      "keyword": "Vector Space",
+      "keyword_color": "#E07850",
+      "other_color": "#1E1E2E",
+      "font": "Heavy sans-serif"
+    },
+    "subtitle": {
+      "text": "t-SNE / UMAP projection of word embeddings",
+      "color": "#6B7280"
+    },
+    "bottom_note": {
+      "text": "Similar meanings → nearby coordinates. Like GPS in meaning-space.",
+      "color": "#9CA3AF",
+      "position": "Bottom-center"
+    }
+  },
+
+  "color_palette_summary": {
+    "background": "#F5EFE6",
+    "text_primary": "#1E1E2E",
+    "text_secondary": "#6B7280",
+    "cluster_animals": "#E07850",
+    "cluster_royalty": "#D4A855",
+    "cluster_technology": "#6B7280",
+    "cluster_food": "#4A7856",
+    "axes_and_grid": "#D8D0C4",
+    "note": "Four cluster colors, one per semantic group. Warm cream background."
+  },
+
+  "style_summary": {
+    "technique": "Clean scatter plot with labeled clusters. Minimal chart decoration.",
+    "influences": "Academic paper figures, TensorFlow Embedding Projector screenshots simplified",
+    "absolutely_avoid": [
+      "3D perspective",
+      "Dense unlabeled point clouds",
+      "Gradients",
+      "Decorative elements",
+      "Too many words (keep to ~17-18 total)",
+      "Connecting lines between all points"
+    ]
+  },
+
+  "critical_requirements": [
+    "Background MUST be warm cream #F5EFE6",
+    "Four distinct clusters with clear separation",
+    "Every word dot MUST be labeled",
+    "The king-queen vector arithmetic MUST be shown with parallel arrows",
+    "Cluster names (Animals, Royalty, etc.) as labels with matching colors",
+    "16:9 landscape format",
+    "Readable from the back of a lecture hall"
+  ]
+}

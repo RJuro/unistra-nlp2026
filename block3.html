@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Block 3 — Few-shot + Retrieval</title></head>
+<body>
+<div class="container">
+    <div class="section-label" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#A89B91;font-weight:600;">Wednesday Morning</div>
+    <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-size:2.5rem;color:#FAF7F2;margin-bottom:0.5rem;">Few-shot + Retrieval</h1>
+    <div class="time-badge" style="display:inline-block;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 0.7rem;background:rgba(224,120,80,0.15);color:#E07850;font-weight:600;margin-bottom:1.5rem;">08:00 – 12:00 &bull; 4 hours</div>
+
+    <p style="color:#A89B91;margin-bottom:2rem;font-size:1.05rem;">Learn to classify with just a handful of examples (SetFit), build semantic search with FAISS, and develop rigorous evaluation habits.</p>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2rem;margin-bottom:1rem;">Learning Goals</h2>
+    <ul style="list-style:none;padding:0;color:#A89B91;">
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Train accurate classifiers with 8–32 labeled examples</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Build a FAISS index for fast semantic retrieval</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Do bilingual retrieval with bge-m3</li>
+        <li style="padding:0.4rem 0 0.4rem 1rem;position:relative;"><span style="position:absolute;left:0;top:0.7rem;width:5px;height:5px;background:#E07850;display:block;"></span>Apply evaluation discipline: macro F1, slice analysis, leakage detection</li>
+    </ul>
+
+    <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.5rem;color:#FAF7F2;margin-top:2.5rem;margin-bottom:1rem;">Schedule</h2>
+
+    <!-- NB05 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB05: SetFit Few-shot Classification</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">08:20 – 09:30 &bull; 70 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Environmental claims dataset (greenwashing detection)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>LLM-bootstrapped contrastive pairs via Groq</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Fine-tune paraphrase-mpnet-base-v2 with 8–32 examples</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Label efficiency: vary shots (4, 8, 16, 32)</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB05_setfit_fewshot.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB05_setfit_fewshot.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">09:30 – 09:45</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break</div>
+    </div>
+
+    <!-- NB06 -->
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">NB06: FAISS Retrieval + Semantic Search</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">09:45 – 10:55 &bull; 70 minutes</div>
+        <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
+            <ul style="list-style:none;padding:0;">
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Multilingual embeddings with BAAI/bge-m3</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Build a FAISS index, query it, evaluate precision@k</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Bilingual retrieval: query in French, retrieve English docs</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Social science context: policy docs, EU legislation</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB06_faiss_retrieval.ipynb" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:#E07850;color:white;text-decoration:none;">Open in Colab &rarr;</a>
+            <a href="notebooks/NB06_faiss_retrieval.ipynb" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:600;background:transparent;color:#FAF7F2;border:1px solid rgba(255,255,255,0.15);text-decoration:none;">Download</a>
+        </div>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">10:55 – 11:10</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Break</div>
+    </div>
+
+    <div style="background:#3D3531;padding:1.5rem 2rem;margin-bottom:1rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.1rem;color:#FAF7F2;margin-bottom:0.5rem;">Mini-session: Evaluation Habits</h3>
+        <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">11:10 – 11:45 &bull; 35 minutes</div>
+        <p style="color:#A89B91;font-size:0.9rem;">Macro F1 vs accuracy, calibration, slice analysis, data leakage detection. The habits that separate good models from lucky models.</p>
+    </div>
+
+    <div style="background:#3D3531;padding:1rem 1.5rem;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#FAF7F2;font-weight:500;">11:45 – 12:00</span>
+            <span style="font-size:0.8rem;color:#A89B91;">15 min</span>
+        </div>
+        <div style="color:#A89B91;font-size:0.9rem;margin-top:0.3rem;">Sprint 2 planning: "Add a second approach + evaluation discipline"</div>
+    </div>
+</div>
+</body>
+</html>
