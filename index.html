@@ -514,6 +514,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .project-card:hover {
             transform: translateY(-3px);
@@ -541,6 +543,39 @@
         .project-datasets {
             font-size: 0.75rem;
             color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+        .project-links a {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            transition: all 0.2s;
+        }
+        .project-links .colab-btn {
+            background: var(--coral);
+            color: white;
+        }
+        .project-links .colab-btn:hover {
+            background: var(--coral-light);
+            color: white;
+        }
+        .project-links .dl-btn {
+            color: var(--text-light-muted);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .project-links .dl-btn:hover {
+            border-color: var(--coral);
+            color: var(--coral);
+        }
+        .project-card {
+            display: flex;
+            flex-direction: column;
         }
 
         /* === FOOTER === */
@@ -716,6 +751,8 @@
                         <div class="hero-buttons">
                             <a href="#sessions" class="btn btn-coral">Sessions &amp; Materials <span>&darr;</span></a>
                             <a href="#requirements" class="btn btn-ghost">Setup Guide</a>
+                            <button class="btn btn-ghost" id="openCourseDesc">Course Overview</button>
+                            <a href="lecture/slides_round1.pdf" target="_blank" class="btn btn-ghost">Slides (PDF)</a>
                         </div>
                     </div>
                     <div class="hero-stats">
@@ -970,24 +1007,40 @@
                         <h3>Classification</h3>
                         <p>Classify text into categories &mdash; stance, sentiment, topic tags, toxicity. Compare baselines to LLMs to fine-tuned models.</p>
                         <div class="project-datasets">Moltbook &bull; Environmental Claims &bull; dk_posts</div>
+                        <div class="project-links">
+                            <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/Portfolio_A_classification.ipynb" target="_blank" rel="noopener">Starter &rarr;</a>
+                            <a class="dl-btn" href="notebooks/Portfolio_A_classification.ipynb">Download</a>
+                        </div>
                     </div>
                     <div class="project-card">
                         <div class="project-letter">B</div>
                         <h3>Topic Discovery</h3>
                         <p>BERTopic + LLM annotation. Discover what people talk about and how topics evolve over time.</p>
                         <div class="project-datasets">Moltbook &bull; Podcast Transcripts &bull; Bluesky</div>
+                        <div class="project-links">
+                            <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/Portfolio_B_topic_discovery.ipynb" target="_blank" rel="noopener">Starter &rarr;</a>
+                            <a class="dl-btn" href="notebooks/Portfolio_B_topic_discovery.ipynb">Download</a>
+                        </div>
                     </div>
                     <div class="project-card">
                         <div class="project-letter">C</div>
                         <h3>Semantic Search</h3>
                         <p>Build a retrieval system with FAISS + cross-encoder reranking for large document collections.</p>
                         <div class="project-datasets">Policy Docs &bull; Academic Papers &bull; SEC Filings</div>
+                        <div class="project-links">
+                            <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/Portfolio_C_semantic_search.ipynb" target="_blank" rel="noopener">Starter &rarr;</a>
+                            <a class="dl-btn" href="notebooks/Portfolio_C_semantic_search.ipynb">Download</a>
+                        </div>
                     </div>
                     <div class="project-card">
                         <div class="project-letter">D</div>
                         <h3>Structured Extraction</h3>
                         <p>LLM &rarr; structured JSON &rarr; analysis pipeline. Turn messy text into clean data at scale.</p>
                         <div class="project-datasets">Podcast Transcripts &bull; SEC Filings &bull; News</div>
+                        <div class="project-links">
+                            <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/Portfolio_D_structured_extraction.ipynb" target="_blank" rel="noopener">Starter &rarr;</a>
+                            <a class="dl-btn" href="notebooks/Portfolio_D_structured_extraction.ipynb">Download</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1002,7 +1055,7 @@
         </div>
     </footer>
 
-    <!-- PANEL SYSTEM -->
+    <!-- PANEL SYSTEM (sessions) -->
     <div class="topic-panel-overlay" id="topicOverlay"></div>
     <div class="topic-panel" id="topicPanel">
         <div class="topic-panel-toolbar">
@@ -1011,8 +1064,70 @@
         <div class="topic-panel-body" id="topicBody"></div>
     </div>
 
+    <!-- COURSE DESCRIPTION PANEL -->
+    <div class="topic-panel-overlay" id="courseOverlay"></div>
+    <div class="topic-panel" id="coursePanel">
+        <div class="topic-panel-toolbar">
+            <button class="panel-close" id="courseClose">&larr; <span>Back</span></button>
+        </div>
+        <div class="topic-panel-body">
+            <div class="section-label">About This Workshop</div>
+            <h1>Applied NLP: From Text to Intelligence</h1>
+            <p style="font-size:1.1rem; margin-bottom:1.5rem;">A 20-hour intensive workshop that takes social scientists from zero NLP to building production-quality text analysis pipelines &mdash; all in three days.</p>
+
+            <div style="background:var(--bg-card); padding:1.5rem 2rem; margin-bottom:2rem; border-left: 3px solid var(--coral);">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+                    <div>
+                        <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-light-muted); margin-bottom:0.3rem;">When</div>
+                        <div style="color:var(--cream); font-size:0.95rem;">February 10&ndash;12, 2026</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-light-muted); margin-bottom:0.3rem;">Where</div>
+                        <div style="color:var(--cream); font-size:0.95rem;">Room A 330, Idem-Lab, University of Strasbourg</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-light-muted); margin-bottom:0.3rem;">Instructor</div>
+                        <div style="color:var(--cream); font-size:0.95rem;">Roman Jurowetzki &mdash; Aalborg University / University of Strasbourg</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-light-muted); margin-bottom:0.3rem;">Format</div>
+                        <div style="color:var(--cream); font-size:0.95rem;">5 blocks &times; 4 hours &mdash; lectures, guided notebooks, project sprints</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>What You'll Learn</h2>
+            <p>The workshop covers the full modern NLP pipeline, from classical baselines to cutting-edge LLM techniques:</p>
+            <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                <li style="padding:0.4rem 0 0.4rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.75rem; width:5px; height:5px; background:var(--coral); display:block;"></span><strong style="color:var(--cream);">Day 1 (Tue):</strong> TF-IDF baselines, sentence embeddings, LLM zero-shot classification, BERTopic, project kick-off</li>
+                <li style="padding:0.4rem 0 0.4rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.75rem; width:5px; height:5px; background:var(--coral); display:block;"></span><strong style="color:var(--cream);">Day 2 (Wed):</strong> SetFit few-shot learning, FAISS semantic search, evaluation best practices</li>
+                <li style="padding:0.4rem 0 0.4rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.75rem; width:5px; height:5px; background:var(--coral); display:block;"></span><strong style="color:var(--cream);">Day 3 (Thu):</strong> Cross-encoder reranking, LLM distillation, LoRA fine-tuning, annotation &amp; IRR, final presentations</li>
+            </ul>
+
+            <h2>Learning Outcomes</h2>
+            <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                <li style="padding:0.3rem 0 0.3rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.65rem; width:5px; height:5px; background:var(--gold); display:block;"></span>Build text classification pipelines from TF-IDF to fine-tuned transformers</li>
+                <li style="padding:0.3rem 0 0.3rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.65rem; width:5px; height:5px; background:var(--gold); display:block;"></span>Use LLMs for zero-shot classification with structured JSON output</li>
+                <li style="padding:0.3rem 0 0.3rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.65rem; width:5px; height:5px; background:var(--gold); display:block;"></span>Discover topics in large corpora with BERTopic + LLM annotation</li>
+                <li style="padding:0.3rem 0 0.3rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.65rem; width:5px; height:5px; background:var(--gold); display:block;"></span>Build semantic search systems with FAISS and cross-encoder reranking</li>
+                <li style="padding:0.3rem 0 0.3rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.65rem; width:5px; height:5px; background:var(--gold); display:block;"></span>Generate training data with LLMs and fine-tune small models via LoRA</li>
+                <li style="padding:0.3rem 0 0.3rem 1.2rem; position:relative; color:var(--text-light-muted);"><span style="position:absolute; left:0; top:0.65rem; width:5px; height:5px; background:var(--gold); display:block;"></span>Evaluate models rigorously: macro F1, slice analysis, inter-rater reliability</li>
+            </ul>
+
+            <h2>Prerequisites</h2>
+            <p style="margin-bottom:2rem;">Basic Python familiarity (loops, functions, pandas). No NLP or ML experience required &mdash; we start from scratch. Everything runs in Google Colab with free API keys.</p>
+
+            <h2>Materials</h2>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                <a href="lecture/slides_round1.pdf" target="_blank" class="btn btn-coral" style="font-size:0.85rem;">Kickoff Slides (PDF)</a>
+                <a href="https://github.com/RJuro/unistra-nlp2026" target="_blank" class="btn btn-ghost" style="font-size:0.85rem;">GitHub Repository</a>
+            </div>
+        </div>
+    </div>
+
     <script>
     (function() {
+        /* === Session panel === */
         const panel = document.getElementById('topicPanel');
         const overlay = document.getElementById('topicOverlay');
         const body = document.getElementById('topicBody');
@@ -1054,10 +1169,38 @@
         closeBtn.addEventListener('click', closePanel);
         overlay.addEventListener('click', closePanel);
 
+        /* === Course description panel === */
+        const coursePanel = document.getElementById('coursePanel');
+        const courseOverlay = document.getElementById('courseOverlay');
+        const courseCloseBtn = document.getElementById('courseClose');
+        const courseOpenBtn = document.getElementById('openCourseDesc');
+
+        function openCoursePanel() {
+            coursePanel.classList.add('active');
+            courseOverlay.classList.add('active');
+            document.body.classList.add('panel-open');
+            coursePanel.scrollTop = 0;
+        }
+
+        function closeCoursePanel() {
+            coursePanel.classList.remove('active');
+            courseOverlay.classList.remove('active');
+            document.body.classList.remove('panel-open');
+        }
+
+        courseOpenBtn.addEventListener('click', openCoursePanel);
+        courseCloseBtn.addEventListener('click', closeCoursePanel);
+        courseOverlay.addEventListener('click', closeCoursePanel);
+
+        /* === Shared keyboard handler === */
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && panel.classList.contains('active')) closePanel();
+            if (e.key === 'Escape') {
+                if (panel.classList.contains('active')) closePanel();
+                if (coursePanel.classList.contains('active')) closeCoursePanel();
+            }
         });
 
+        /* === Hash routing === */
         window.addEventListener('popstate', function() {
             if (panel.classList.contains('active')) {
                 closePanel();
