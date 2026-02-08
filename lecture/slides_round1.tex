@@ -75,10 +75,10 @@
 
 % ── Metadata ──
 \title{Applied NLP}
-\subtitle{A Practical Journey Through NLP (Round 1 Revision)}
+\subtitle{From Text to Intelligence}
 \author{Roman Jurowetzki}
 \institute{Aalborg University / University of Strasbourg}
-\date{February 2026 --- Revised Draft}
+\date{February 10--12, 2026 \enspace\textbullet\enspace University of Strasbourg}
 
 \begin{document}
 
@@ -925,6 +925,7 @@
         \item Attention lets each token directly weigh other tokens
         \item Computation becomes parallel and more context-rich
       \end{itemize}
+      \vspace{0.2cm}
       \highlight{Self-attention}: each token scores all others through Q/K/V.\\[0.1cm]
       \small
       \textbf{Query}: what to look for;\enspace
@@ -932,17 +933,80 @@
       \textbf{Value}: what it contributes.
     \end{column}
     \begin{column}{0.44\textwidth}
-      \IfFileExists{figures/generated/attention.png}{%
-        \includegraphics[width=0.98\linewidth]{figures/generated/attention.png}
-      }{%
-        \centering
-        \fcolorbox{coral}{bgcard}{\parbox{0.92\linewidth}{\centering\small Missing image: \texttt{figures/generated/attention.png}}}
-      }
+      \highlight{The key equation:}
+      \vspace{0.15cm}
+      \[
+      \text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right) V
+      \]
+      \vspace{0.1cm}
+      \muted{Scale factor $\sqrt{d_k}$ prevents dot products from growing too large.}\\[0.2cm]
+      \muted{Multi-head attention runs this in parallel across $h$ heads, each capturing different relationship types.}
     \end{column}
   \end{columns}
 
-  \vspace{0.2cm}
+  \vspace{0.15cm}
   \cmark{Vaswani et al., 2017}
+\end{frame}
+
+% --- Slide 23b: Self-Attention Visualization ---
+\begin{frame}{Self-Attention: How Tokens Attend to Each Other}
+  \framesubtitle{``The cat sat on the mat'' --- which words matter for ``sat''?}
+
+  \begin{center}
+  \begin{tikzpicture}[scale=0.95]
+    % Token boxes
+    \foreach \i/\word in {0/The, 2/cat, 4/sat, 6/on, 8/the, 10/mat} {
+      \node[rectangle, draw=textmuted, fill=bgcard, minimum width=1.5cm, minimum height=0.7cm,
+            font=\normalsize, text=textdark, line width=0.5pt] (t\i) at (\i, 0) {\word};
+    }
+    % Highlight "sat" as the query token
+    \node[rectangle, draw=coral, fill=bgcard, minimum width=1.5cm, minimum height=0.7cm,
+          font=\normalsize\bfseries, text=coral, line width=1.5pt] at (4, 0) {sat};
+
+    % Attention arcs from "sat" to others with varying weights
+    \draw[coral, line width=2.5pt, opacity=0.85, bend left=35] (4,0.4) to (2,0.4);
+    \node[font=\scriptsize, text=coral] at (3,1.6) {\textbf{0.42}};
+
+    \draw[coral, line width=1.5pt, opacity=0.55, bend left=30] (4,0.4) to (10,0.4);
+    \node[font=\scriptsize, text=coral] at (7,1.45) {0.23};
+
+    \draw[coral, line width=0.8pt, opacity=0.35, bend left=30] (4,0.4) to (6,0.4);
+    \node[font=\scriptsize, text=textmuted] at (5,0.95) {0.15};
+
+    \draw[coral, line width=0.5pt, opacity=0.2, bend left=35] (4,0.4) to (0,0.4);
+    \node[font=\scriptsize, text=textmuted] at (1.5,1.85) {0.08};
+
+    \draw[coral, line width=0.5pt, opacity=0.2, bend left=25] (4,0.4) to (8,0.4);
+    \node[font=\scriptsize, text=textmuted] at (6.3,0.85) {0.07};
+
+    \draw[coral, line width=1pt, opacity=0.4, looseness=4, out=120, in=60] (4,0.4) to (4,0.4);
+    \node[font=\scriptsize, text=textmuted] at (4,1.4) {0.05};
+
+    % Q/K/V labels below
+    \node[rectangle, fill=coral, text=white, font=\scriptsize\bfseries, minimum width=1.5cm, minimum height=0.35cm] at (4,-0.85) {Query (Q)};
+    \foreach \i in {0,2,6,8,10} {
+      \node[rectangle, fill=gold, text=textdark, font=\tiny\bfseries, minimum width=1.5cm, minimum height=0.3cm] at (\i,-0.85) {Key / Value};
+    }
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \small
+      \highlight{Reading the diagram:}\\
+      Line thickness = attention weight.\\
+      ``sat'' attends most to \textbf{``cat''} (the subject)\\
+      and \textbf{``mat''} (the location).
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \small
+      \highlight{Key insight:}\\
+      Every token can attend to every other token ---\\
+      no sequential bottleneck.\\
+      Context is captured \textit{in parallel}.
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % --- Slide 24: The Assembly Line ---
@@ -1067,7 +1131,7 @@
     % Labels
     \node[font=\tiny, text=textmuted] at (0,1.3) {GPT-5.2, o3};
     \node[font=\tiny, text=textmuted] at (0,1.05) {Codex 5.3};
-    \node[font=\tiny, text=textmuted] at (3.5,1.3) {Claude Opus 4.7};
+    \node[font=\tiny, text=textmuted] at (3.5,1.3) {Claude Opus 4};
     \node[font=\tiny, text=textmuted] at (7,1.3) {Gemini 3};
     \node[font=\tiny, text=textmuted] at (0,-0.7) {Llama 4};
     \node[font=\tiny, text=gold] at (3.5,-0.7) {V3.2, R1};
@@ -1102,7 +1166,7 @@
     \textbf{Model} & \textbf{Context} & \textbf{Strength} & \textbf{Input \$/M} & \textbf{Note} \\
     \midrule
     GPT-5.2 & 400K & Reasoning & \$1.75 & 100\% AIME \\
-    Claude Opus 4.7 & 200K & Coding & \$3.00 & 77\% SWE-bench \\
+    Claude Opus 4 & 200K & Coding & \$3.00 & 77\% SWE-bench \\
     Gemini 3 Pro & 2M & Multimodal & varies & 1501 LMArena Elo \\
     Llama 4 Scout & \gold{10M} & Open-source & free & 17B active/109B \\
     DeepSeek V3.2 & 128K & Cost & \gold{\$0.27} & 37B active/671B \\
@@ -1147,7 +1211,7 @@
       ymin=0, ymax=50,
       ylabel={\footnotesize \$/M output tokens},
       ylabel style={text=textdark},
-      symbolic x coords={GPT-4 (2023), Claude 4.5S, GPT-5.2, DeepSeek R1, GPT-4o Mini, DeepSeek V3.2},
+      symbolic x coords={GPT-4 (2023), Claude Sonnet 4, GPT-5.2, DeepSeek R1, GPT-4o Mini, DeepSeek V3.2},
       xtick=data,
       x tick label style={rotate=30, anchor=east, font=\tiny, text=textdark},
       y tick label style={font=\tiny, text=textdark},
@@ -1159,7 +1223,7 @@
       ymajorgrids=true,
     ]
       \addplot[fill=coral, draw=coral] coordinates {(GPT-4 (2023),45)};
-      \addplot[fill=gold, draw=gold] coordinates {(Claude 4.5S,15) (GPT-5.2,14) (DeepSeek R1,2.19) (GPT-4o Mini,0.60) (DeepSeek V3.2,0.42)};
+      \addplot[fill=gold, draw=gold] coordinates {(Claude Sonnet 4,15) (GPT-5.2,14) (DeepSeek R1,2.19) (GPT-4o Mini,0.60) (DeepSeek V3.2,0.42)};
     \end{axis}
     \node[font=\scriptsize, text=coral] at (2.0,5.3) {2023 reference: GPT-4 \(\sim\)\$45/M};
     \node[font=\scriptsize, text=gold] at (7.8,1.8) {best current value: \(\sim\)\$0.42/M};
@@ -1268,12 +1332,15 @@
       axis background/.style={fill=bglight},
       major grid style={draw=bgaccent},
       xmajorgrids=true,
-      nodes near coords=false,
     ]
       \addplot[fill=coral, draw=coral] coordinates {(0.008,GPT-4) (0.2,Claude 3) (0.4,GPT-5.2) (2,Gemini 3) (1,Qwen 2.5-1M) (1,Llama 4 Maverick) (10,Llama 4 Scout)};
     \end{axis}
-    \node[font=\tiny, text=textmuted] at (2.3,0.4) {Log scale reveals both mainstream (0.2--2M) and frontier (10M) ranges.};
   \end{tikzpicture}
+  \end{center}
+
+  \vspace{-0.1cm}
+  \begin{center}
+    \muted{Log scale reveals both mainstream (100K--2M) and frontier (10M) ranges.}
   \end{center}
 \end{frame}
 
@@ -1340,7 +1407,7 @@ class ArticleInfo(BaseModel):
         \item \textbf{AIME}: Math olympiad\\
               \muted{GPT-5.2: 100\%}
         \item \textbf{SWE-bench}: Real GitHub issues\\
-              \muted{Claude 4.5: 77.2\%}
+              \muted{Claude Opus 4: 77.2\%}
       \end{itemize}
     \end{column}
     \begin{column}{0.48\textwidth}
@@ -1415,7 +1482,7 @@ class ArticleInfo(BaseModel):
       xmin=0, xmax=100,
       xlabel={\footnotesize Accuracy (\%)},
       xlabel style={text=textdark},
-      symbolic y coords={GPT-4o, Claude 3.5S, DeepSeek R1, GPT-5.2, Gemini 3 Pro, Human Expert},
+      symbolic y coords={GPT-4o, Claude 3.5 Sonnet, DeepSeek R1, GPT-5.2, Gemini 3 Pro, Human Expert},
       ytick=data,
       y tick label style={font=\small, text=textdark},
       x tick label style={font=\tiny, text=textdark},
@@ -1425,7 +1492,7 @@ class ArticleInfo(BaseModel):
       major grid style={draw=bgaccent},
       xmajorgrids=true,
     ]
-      \addplot[fill=coral, draw=coral] coordinates {(8,GPT-4o) (15,Claude 3.5S) (25,DeepSeek R1) (35.4,GPT-5.2) (37.2,Gemini 3 Pro) (90,Human Expert)};
+      \addplot[fill=coral, draw=coral] coordinates {(8,GPT-4o) (15,Claude 3.5 Sonnet) (25,DeepSeek R1) (35.4,GPT-5.2) (37.2,Gemini 3 Pro) (90,Human Expert)};
     \end{axis}
   \end{tikzpicture}
   \end{center}
@@ -1636,21 +1703,21 @@ class ArticleInfo(BaseModel):
 
 % --- Slide 42: What We'll Build ---
 \begin{frame}{What We'll Build This Week}
-  \framesubtitle{Outcomes, systems, and evaluation}
+  \framesubtitle{Tue--Wed--Thu: five blocks, eleven notebooks}
 
   \begin{center}
   \begin{tikzpicture}[
     day/.style={rectangle, draw=coral, fill=bgcard, text=textdark, minimum width=3.5cm, minimum height=2.5cm, font=\footnotesize, align=center, line width=0.5pt},
     dlabel/.style={font=\small\bfseries, text=gold}
   ]
-    \node[dlabel] at (0, 2.5) {Day 1: Foundations \& Scale};
-    \node[day] at (0, 0.5) {TF-IDF baselines\\Embedding pipelines\\BERTopic mapping\\Vector similarity\\[0.1cm]\muted{+ first retrieval checks}};
+    \node[dlabel] at (0, 2.5) {Tue: Classify \& Explore};
+    \node[day] at (0, 0.5) {TF-IDF baselines\\Sentence embeddings\\LLM zero-shot\\BERTopic topics\\[0.1cm]\muted{+ Sprint 1 kick-off}};
 
-    \node[dlabel] at (5, 2.5) {Day 2: The Retrieval Engine};
-    \node[day] at (5, 0.5) {Vector DBs\\FAISS + reranking\\RAG design\\Eval + error analysis\\[0.1cm]\muted{+ retrieval QA loop}};
+    \node[dlabel] at (5, 2.5) {Wed: Few-shot \& Retrieve};
+    \node[day] at (5, 0.5) {SetFit few-shot\\FAISS semantic search\\Evaluation habits\\Slice analysis\\[0.1cm]\muted{+ Sprint 2 planning}};
 
-    \node[dlabel] at (10, 2.5) {Day 3: Production Agents};
-    \node[day] at (10, 0.5) {Structured extraction\\Distillation + tuning\\Agentic workflows\\Guardrails + handoff\\[0.1cm]\muted{+ demos + wrap-up}};
+    \node[dlabel] at (10, 2.5) {Thu: Scale \& Ship};
+    \node[day] at (10, 0.5) {Cross-encoder reranking\\LLM distillation\\LoRA fine-tuning\\Annotation + IRR\\[0.1cm]\muted{+ final demos}};
 
     \draw[-{Stealth}, coral, thick] (2,0.5) -- (3,0.5);
     \draw[-{Stealth}, coral, thick] (7,0.5) -- (8,0.5);
@@ -1659,7 +1726,7 @@ class ArticleInfo(BaseModel):
 
   \vspace{0.3cm}
   \begin{center}
-    \muted{Build, compare, and validate: each day turns methods into deployable workflows.}
+    \muted{Build, compare, and validate: each day adds complexity to your NLP toolkit.}
   \end{center}
 \end{frame}
 
