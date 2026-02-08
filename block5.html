@@ -25,10 +25,10 @@
         <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">13:00 – 13:40 &bull; 40 minutes</div>
         <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
             <ul style="list-style:none;padding:0;">
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Rubric-based scoring (define criteria, score 1–5)</li>
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Automated metrics: accuracy, macro F1, faithfulness</li>
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>RAGAS concepts for retrieval evaluation</li>
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Build eval set of ~30 examples</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>LLM-as-judge rubric scoring with kimi-k2 (score 1&ndash;5)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Automated metrics: accuracy, macro F1, per-class precision/recall</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>RAGAS concepts for retrieval evaluation (faithfulness check)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Qualitative error analysis on stance detection</li>
             </ul>
         </div>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
@@ -43,10 +43,10 @@
         <div style="font-size:0.8rem;color:#A89B91;margin-bottom:0.75rem;">13:40 – 14:10 &bull; 30 minutes</div>
         <div style="font-size:0.9rem;color:#A89B91;margin-bottom:1rem;line-height:1.5;">
             <ul style="list-style:none;padding:0;">
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Argilla quick setup (or CSV fallback)</li>
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Human vs LLM labeling comparison</li>
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Cohen's &kappa; and Gwet's AC1</li>
-                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Deductive coding workflow</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Human vs LLM labeling comparison (kimi-k2 as annotator)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Cohen's &kappa; and Gwet's AC1 (manual implementation)</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Confusion matrix heatmap + disagreement analysis</li>
+                <li style="padding-left:1rem;position:relative;margin-bottom:0.3rem;"><span style="position:absolute;left:0;top:0.6rem;width:5px;height:5px;background:#E07850;display:inline-block;"></span>Deductive coding workflow with codebook exercise</li>
             </ul>
         </div>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">

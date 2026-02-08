@@ -898,57 +898,188 @@
 
                 <!-- ===== WEDNESDAY ===== -->
                 <div class="day-group">
-                    <div class="day-header" style="border-bottom-color: rgba(255,255,255,0.1);">
-                        <div class="day-date" style="color: var(--text-light-muted);">Wednesday, February 11</div>
+                    <div class="day-header">
+                        <div class="day-date">Wednesday, February 11</div>
                         <div class="day-hours">4 hours &bull; AM</div>
-                        <div class="day-status">Materials available Tuesday evening</div>
                     </div>
-                    <div class="day-blocks-locked single">
-                        <div class="session-card-locked">
-                            <div class="session-number">03</div>
-                            <div class="session-day">Morning &bull; 08:00&ndash;12:00</div>
-                            <div class="session-title">Few-shot + Retrieval</div>
-                            <div class="session-desc">SetFit few-shot classification, FAISS semantic search, evaluation habits.</div>
-                            <div class="session-notebooks">
-                                <span class="nb-tag">NB05</span>
-                                <span class="nb-tag">NB06</span>
-                                <span class="nb-tag">Eval</span>
+
+                    <!-- Block 3: Few-shot + Retrieval -->
+                    <div class="block-expanded">
+                        <div class="block-header">
+                            <div>
+                                <div class="block-title">Block 3 &mdash; Few-shot + Retrieval</div>
+                                <div class="block-time">08:00 &ndash; 12:00 &bull; Morning</div>
                             </div>
+                            <div class="block-number">03</div>
+                        </div>
+                        <div class="block-desc">Train classifiers with just a handful of examples, build semantic search with FAISS, and develop rigorous evaluation habits.</div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB05</div>
+                            <div class="nb-name">SetFit Few-shot Classification</div>
+                            <div class="nb-duration">08:20 &bull; 70 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB05_setfit_fewshot.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB05_setfit_fewshot.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">09:30</div>
+                            <div class="label">Break</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB06</div>
+                            <div class="nb-name">FAISS Retrieval + Semantic Search</div>
+                            <div class="nb-duration">09:45 &bull; 70 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB06_faiss_retrieval.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB06_faiss_retrieval.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">10:55</div>
+                            <div class="label">Break</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">11:10</div>
+                            <div class="label">Mini-session: Evaluation Habits &mdash; macro F1, slice analysis, data leakage</div>
+                            <div class="nb-duration">35 min</div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">11:45</div>
+                            <div class="label">Sprint 2 planning: &ldquo;Add a second approach + evaluation discipline&rdquo;</div>
+                            <div class="nb-duration">15 min</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- ===== THURSDAY ===== -->
                 <div class="day-group">
-                    <div class="day-header" style="border-bottom-color: rgba(255,255,255,0.1);">
-                        <div class="day-date" style="color: var(--text-light-muted);">Thursday, February 12</div>
+                    <div class="day-header">
+                        <div class="day-date">Thursday, February 12</div>
                         <div class="day-hours">8 hours &bull; AM + PM</div>
-                        <div class="day-status">Materials available Wednesday evening</div>
                     </div>
-                    <div class="day-blocks-locked">
-                        <div class="session-card-locked">
-                            <div class="session-number">04</div>
-                            <div class="session-day">Morning &bull; 08:00&ndash;12:00</div>
-                            <div class="session-title">Advanced Pipelines</div>
-                            <div class="session-desc">Cross-encoder reranking, LLM-generated training data, fine-tuning Qwen3-4B with LoRA.</div>
-                            <div class="session-notebooks">
-                                <span class="nb-tag">NB07</span>
-                                <span class="nb-tag">NB08</span>
-                                <span class="nb-tag">NB09</span>
+
+                    <!-- Block 4: Advanced Pipelines -->
+                    <div class="block-expanded">
+                        <div class="block-header">
+                            <div>
+                                <div class="block-title">Block 4 &mdash; Advanced Pipelines</div>
+                                <div class="block-time">08:00 &ndash; 12:00 &bull; Morning</div>
+                            </div>
+                            <div class="block-number">04</div>
+                        </div>
+                        <div class="block-desc">Build production-grade pipelines: rerank search results, generate training data with LLMs, and fine-tune your own small language model.</div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB07</div>
+                            <div class="nb-name">Cross-encoder Reranking</div>
+                            <div class="nb-duration">08:20 &bull; 50 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB07_reranking.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB07_reranking.ipynb">Download</a>
                             </div>
                         </div>
 
-                        <div class="session-card-locked">
-                            <div class="session-number">05</div>
-                            <div class="session-day">Afternoon &bull; 13:00&ndash;17:00</div>
-                            <div class="session-title">Evaluation + Projects</div>
-                            <div class="session-desc">LLM evaluation, annotation &amp; inter-rater reliability, final sprint, presentations.</div>
-                            <div class="session-notebooks">
-                                <span class="nb-tag">NB10</span>
-                                <span class="nb-tag">NB11</span>
-                                <span class="nb-tag">Sprint 2</span>
-                                <span class="nb-tag">Demos</span>
+                        <div class="schedule-item">
+                            <div class="time">09:10</div>
+                            <div class="label">Break</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB08</div>
+                            <div class="nb-name">Distillation &mdash; LLM Label Synthesis</div>
+                            <div class="nb-duration">09:25 &bull; 65 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB08_distillation.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB08_distillation.ipynb">Download</a>
                             </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">10:30</div>
+                            <div class="label">Break</div>
+                            <div class="nb-duration">15 min</div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB09</div>
+                            <div class="nb-name">Fine-tuning Qwen3-4B with LoRA</div>
+                            <div class="nb-duration">10:45 &bull; 75 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB09_finetuning_qwen3.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB09_finetuning_qwen3.ipynb">Download</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Block 5: Evaluation + Projects -->
+                    <div class="block-expanded">
+                        <div class="block-header">
+                            <div>
+                                <div class="block-title">Block 5 &mdash; Ship It</div>
+                                <div class="block-time">13:00 &ndash; 17:00 &bull; Afternoon</div>
+                            </div>
+                            <div class="block-number">05</div>
+                        </div>
+                        <div class="block-desc">Evaluate your pipeline rigorously, learn annotation discipline, then finish and present your project.</div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB10</div>
+                            <div class="nb-name">LLM App Evaluation</div>
+                            <div class="nb-duration">13:00 &bull; 40 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB10_llm_evaluation.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB10_llm_evaluation.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="nb-row">
+                            <div class="nb-id">NB11</div>
+                            <div class="nb-name">Annotation &amp; Inter-Rater Reliability</div>
+                            <div class="nb-duration">13:40 &bull; 30 min</div>
+                            <div class="nb-links">
+                                <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB11_annotation_irr.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
+                                <a class="dl-btn" href="notebooks/NB11_annotation_irr.ipynb">Download</a>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">14:10</div>
+                            <div class="label">Sprint intro: &ldquo;Finish a coherent pipeline + show evidence&rdquo;</div>
+                            <div class="nb-duration">10 min</div>
+                        </div>
+
+                        <div class="schedule-item sprint">
+                            <div class="time">14:20</div>
+                            <div class="label">Project Sprint 2 (Final) &mdash; best pipeline + clean evaluation + model card</div>
+                            <div class="nb-duration">90 min</div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">15:50</div>
+                            <div class="label">Break + prep</div>
+                            <div class="nb-duration">10 min</div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">16:00</div>
+                            <div class="label">Final share-out: 5-minute demos per group</div>
+                            <div class="nb-duration">50 min</div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="time">16:50</div>
+                            <div class="label">Course wrap-up + feedback</div>
+                            <div class="nb-duration">10 min</div>
                         </div>
                     </div>
                 </div>
