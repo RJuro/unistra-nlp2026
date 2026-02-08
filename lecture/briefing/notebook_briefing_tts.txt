@@ -1,0 +1,254 @@
+NLP WORKSHOP NOTEBOOK BRIEFING
+TTS READY PRESENTER SCRIPT
+Focus notebooks: NB07 reranking, NB05 setfit, NB08 distillation, NB10 llm evaluation
+
+How to use this file
+Read it as a speaking script before recording.
+If you are low on time, read the short version lines first.
+If you need depth, read the long version lines.
+Pacing target is moderate and clear, about one hundred thirty to one hundred fifty words per minute.
+
+Overall narrative in one sentence
+We start with low-label learning, add ranking precision, scale labels with distillation, and then evaluate the full system like adults with standards.
+
+Global opening
+Today I want to connect four practical notebooks into one coherent production story.
+SetFit shows how to learn from almost no labels.
+Reranking shows how to improve retrieval precision without rebuilding the whole index.
+Distillation shows how to manufacture useful labeled data from an LLM teacher.
+Evaluation shows how to check that our app is actually good and not just fluent.
+If this sequence works, we get a complete loop from data scarcity to quality control.
+
+SECTION ONE
+NB05 SETFIT FEW SHOT CLASSIFICATION
+
+Short version talking points
+SetFit is for tiny labeled datasets.
+It uses contrastive learning plus a simple classifier head.
+In this notebook we run multi-seed experiments and track macro F1, not only accuracy.
+We also test llm augmentation quality and compare two x versus three x data expansion.
+Current default model is intfloat e5 small with consistent query prefix formatting.
+
+Long version talking script
+Let us begin with NB05, because this is the notebook for the most common real constraint in social science and policy teams.
+You have almost no labels.
+Not fifty thousand labels.
+Not five thousand labels.
+Sometimes eight.
+SetFit is useful here because it converts a tiny supervised set into many contrastive pairs.
+So each label does more work than it would in plain supervised fine tuning.
+
+The conceptual architecture is two phase.
+Phase one is contrastive tuning of the sentence encoder.
+Phase two is a lightweight classifier head on top of learned embeddings.
+
+The practical upgrades in this notebook are important.
+First, we report mean and standard deviation across multiple random seeds.
+That prevents one lucky run from becoming a fake conclusion.
+Second, we report macro F1 and not just accuracy, because class asymmetry can hide in accuracy.
+Third, we use stronger llm augmentation prompts and quality filtering, then compare doubling versus tripling the training set.
+
+There is one implementation detail I want to emphasize because it can silently affect outcomes.
+This notebook now defaults to intfloat e5 small.
+For e5 style models we keep input formatting consistent using query prefix text.
+If you mix formatting at train and inference time, you degrade quality and then blame the model unfairly.
+
+Presenter cue
+Say this line slowly.
+Few shot performance is a variance problem first, then a model problem.
+
+Common audience question and answer
+Question.
+Why not just use a larger transformer.
+Answer.
+With tiny data, bigger models overfit faster and are less stable.
+SetFit gives better label efficiency and a cleaner baseline.
+
+If the demo fails
+If llm bootstrapping API is unavailable, keep the baseline and label-efficiency sections.
+State that augmentation is optional and the key lesson is variance aware few-shot evaluation.
+
+Transition line to next notebook
+Now that we can classify with very little supervision, the next bottleneck is retrieval precision, because your classifier is only as useful as the evidence stream feeding it.
+
+SECTION TWO
+NB07 CROSS ENCODER RERANKING
+
+Short version talking points
+Bi encoders are fast but approximate.
+Cross encoders are slower but more precise.
+Two stage retrieval gives the best practical tradeoff.
+First retrieve with faiss and embeddings, then rerank top candidates with a cross encoder.
+We evaluate precision at k and compare with bi encoder only baseline.
+
+Long version talking script
+NB07 is where we upgrade retrieval quality without rebuilding the entire retrieval system.
+The core idea is to split work by cost profile.
+
+Stage one uses a bi encoder plus faiss index.
+That gives fast candidate retrieval from large corpora.
+Stage two takes only the top candidates and reranks them with a cross encoder.
+The cross encoder reads query and document jointly, so relevance scoring is usually sharper.
+
+This is the standard production pattern because it separates recall and precision.
+Fast retrieval maximizes candidate coverage.
+Reranking improves final ordering quality.
+
+The notebook demonstrates both qualitative query examples and quantitative evaluation with qrels style relevance judgments.
+Focus your explanation on precision at k improvements after reranking.
+That is the most concrete win for most audiences.
+
+Presenter cue
+Say this line.
+We are not replacing fast retrieval.
+We are adding an expensive second opinion to a small shortlist.
+
+Practical caution
+Cross encoders add latency.
+So we tune top k retrieve and top k final.
+Too small candidate pool hurts recall.
+Too large pool hurts speed.
+That tradeoff is where engineering judgment lives.
+
+Common audience question and answer
+Question.
+Why not use only cross encoder.
+Answer.
+Because pairwise scoring every document is too expensive at scale.
+Two stage design keeps cost proportional to shortlist size.
+
+If the demo fails
+If qrels evaluation is unavailable, run a small manual relevance inspection across three queries.
+The point is still visible if top results become clearly more on topic.
+
+Transition line to next notebook
+Once retrieval and ranking are better, the next bottleneck is labels and supervision volume, which is where distillation enters.
+
+SECTION THREE
+NB08 DISTILLATION WITH LLM LABEL SYNTHESIS
+
+Short version talking points
+Distillation notebook uses llm as teacher to label unlabeled data.
+It enforces structured output and confidence scores.
+Then it filters low confidence labels and trains smaller student models.
+It compares tf idf baseline and embedding based student performance.
+It includes cost analysis to keep synthesis economically realistic.
+
+Long version talking script
+NB08 is the scaling bridge.
+If NB05 solves low label start, NB08 solves medium label growth.
+We ask an llm teacher to generate labels on an unlabeled pool using structured outputs.
+Then we filter by confidence and train student classifiers on the synthetic labeled set.
+
+There are three concepts to stress.
+One, schema constrained outputs reduce parsing chaos.
+Two, confidence thresholding is a quality control gate.
+Three, student training converts expensive teacher calls into cheap deployable models.
+
+The notebook intentionally compares student choices.
+A lexical student is fast and interpretable.
+An embedding based student is often stronger semantically.
+You can position this as a teacher student compression strategy for budget and latency control.
+
+The cost analysis section matters.
+Do not skip it.
+Audience trust rises when you show token assumptions and projected spend.
+Distillation is useful only if quality gains justify teacher cost.
+
+Presenter cue
+Say this line clearly.
+Distillation is not magic quality transfer.
+It is supervised data manufacturing with explicit quality filters.
+
+Common audience question and answer
+Question.
+Is synthetic labeling reliable enough.
+Answer.
+It depends on rubric quality, prompt discipline, confidence filtering, and downstream validation.
+Use it to accelerate annotation, not to eliminate validation.
+
+If the demo fails
+If API calls fail, use pre-generated labeled sample if available and continue from filtering and student training.
+The pedagogical core is the pipeline logic.
+
+Transition line to next notebook
+Now that we can build models and scale labels, we need a final discipline, evaluation, because fluent outputs are not the same as reliable systems.
+
+SECTION FOUR
+NB10 LLM APP EVALUATION
+
+Short version talking points
+Evaluation notebook builds an eval set and automated metrics.
+It adds rubric based llm judging and qualitative error analysis.
+It introduces ragas style retrieval quality concepts.
+The central message is measure reliability, faithfulness, and failure patterns before deployment.
+
+Long version talking script
+NB10 is the quality governance notebook.
+This is where we switch from building to verifying.
+
+We start with eval set construction.
+If your eval set is weak, your metrics are decorative.
+Then we compute automated metrics where appropriate.
+Then we add rubric based evaluation for criteria that are hard to capture with one scalar metric.
+
+The notebook also includes qualitative error analysis.
+That is crucial.
+Metrics summarize behavior.
+Error analysis explains behavior.
+
+Then we connect to retrieval aware evaluation concepts, including faithfulness and context use.
+For rag style systems, wrong retrieval often causes wrong answers.
+So evaluate retrieval quality and generation quality together, not as separate silos.
+
+Presenter cue
+Say this line with emphasis.
+If you cannot explain your errors, you do not yet understand your model.
+
+Common audience question and answer
+Question.
+Can llms judge llms reliably.
+Answer.
+They can be useful as one signal, but never alone.
+Use rubric judges plus reference checks plus human spot audits.
+
+If the demo fails
+If live judge calls fail, walk through rubric logic and show how qualitative error taxonomy still guides iteration.
+
+CONNECTIVE ARC ACROSS THE FOUR NOTEBOOKS
+
+Use this paragraph between sections if you want one coherent story.
+We began with tiny data learning in setfit, then improved evidence ranking through cross encoder reranking, then scaled supervision through distillation, and finally audited system behavior with structured evaluation.
+That sequence is intentionally practical.
+It mirrors how real teams move from prototype to deployable workflow.
+
+KEY LINES YOU CAN REUSE DURING Q AND A
+Few shot without variance reporting is a confidence trap.
+Reranking is precision repair, not retrieval replacement.
+Distillation is label supply engineering with quality gates.
+Evaluation is where style stops and substance starts.
+
+TIMING GUIDE FOR A LIVE OR RECORDED BRIEFING
+Five minutes opening and framing.
+Ten to twelve minutes NB05.
+Ten minutes NB07.
+Ten to twelve minutes NB08.
+Eight to ten minutes NB10.
+Five minutes synthesis and questions.
+Total target around fifty to sixty minutes.
+
+RISK CHECKLIST BEFORE RECORDING
+Verify api keys for augmentation, labeling, and rubric judging sections.
+Have one fallback static result table per notebook in case of network issues.
+Pre-run at least one successful query or experiment in each notebook.
+Keep one sentence definitions ready for precision at k, macro F1, and faithfulness.
+
+FINAL CLOSING SCRIPT
+If you remember one thing from this sequence, remember this.
+Building an nlp pipeline is easy.
+Building one that is stable, auditable, and useful is the real work.
+SetFit handles low-label starts.
+Reranking improves retrieval precision.
+Distillation scales supervision responsibly.
+Evaluation keeps us honest.
+That is the stack.

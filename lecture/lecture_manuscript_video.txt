@@ -1,0 +1,695 @@
+# NLP for Economists and Social Scientists
+## Full Video Lecture Manuscript
+
+This manuscript is written as a spoken transcript for a full video lecture based on the current slide deck. The pacing assumes one lecturer, one camera angle, and slides on screen. The style is rigorous, clear, and lightly dry in tone.
+
+### Slide 1. Title
+Good morning everyone. Today we are going to do natural language processing for economists and social scientists. That sentence sounds simple, but what it really means is that we are going to take unstructured text, which is one of the messiest forms of data we have, and turn it into measurements, evidence, and decisions you can actually defend in public.
+
+If you have ever opened a folder of policy documents, scraped transcripts, patent abstracts, or press releases and thought, this is either a research opportunity or a cry for help, you are in exactly the right room.
+
+### Slide 2. Two Tracks
+I want you to hold two tracks in your mind throughout this lecture.
+
+Track one is concepts and intuition. Why does a method work. When does it fail. What assumptions is it sneaking in while smiling politely.
+
+Track two is operations on text. What can you actually do with these models in practice. Classify. Extract. Retrieve. Reason.
+
+The reason we keep both tracks is simple. Code without conceptual grounding is brittle. Concepts without implementation are decorative. We are aiming for a professional middle ground where your pipeline survives contact with real data and real reviewers.
+
+### Slide 3. Roadmap
+Here is the roadmap from the nineties to 2026.
+
+We start with sparse methods like TF-IDF. Then topic models. Then word embeddings. Then transformers. Then modern LLM systems.
+
+The wrong story is that each new method kills the previous one. The right story is that each layer adds capability and constraints. You do not throw away lexical retrieval because you discovered embeddings. You combine them. You do not stop caring about interpretability because you can prompt a giant model. You care more.
+
+So this is an additive history, not a replacement history.
+
+### Slide 4. Word Counts and Information Theory
+Let us begin with something humble and very powerful: counting words.
+
+Claude Shannon, in 1948, gave us a foundational idea in information theory. Rare events carry more information. Karen Sparck Jones had the brilliant practical insight in 1972 that term rarity should influence retrieval weight. Akiko Aizawa later formalized the information-theoretic interpretation of TF-IDF.
+
+Translated into plain language: if every document says assistant, productivity, and innovation, those terms are not helping you separate documents. They are social noise. But if one document says oncology and another says antitrust, suddenly we are measuring signal.
+
+### Slide 5. Bag of Words
+Bag of words is almost offensively simple. We map each document to a vector of term counts.
+
+It ignores order. Dog bites man and man bites dog get the same vector, which is not ideal if you are trying to stay out of court.
+
+And yet, for many baseline tasks, this works remarkably well. This is an important professional lesson. Start with methods that are boring enough to be reliable. Fancy is optional. Stable is not.
+
+### Slide 6. TF-IDF Intuition
+TF-IDF says a term should matter when it is frequent in this document but rare in the broader corpus.
+
+Imagine one hundred AI company announcements this month. Everyone says assistant and productivity. A few mention clinical trial outcomes. The rare phrase is the discriminative one.
+
+So TF-IDF is not trying to sound clever. It is trying to give you a weighting scheme that rewards local relevance and penalizes global cliché.
+
+### Slide 7. TF-IDF Math
+The formula is straightforward. Term frequency multiplied by inverse document frequency.
+
+I want you to remember what this does semantically, not just algebraically. It discounts generic vocabulary and amplifies distinguishing vocabulary.
+
+When people say classic methods are obsolete, this is usually said by people who have not recently run an error analysis on enterprise search logs.
+
+### Slide 8. TF-IDF Worked Example
+In the worked example, a lower count term like clinical can dominate a higher count term like assistant because it is globally rare.
+
+That is the core idea in one sentence. Frequency alone is not meaning. Distinctiveness is meaning for retrieval.
+
+### Slide 9. BM25
+Now BM25, the practical heir to TF-IDF.
+
+Robertson and collaborators introduced length normalization and term frequency saturation. Robertson and Zaragoza extended the probabilistic relevance framework.
+
+In practical systems, BM25 remains the backbone of classical retrieval. If you open Elasticsearch, Solr, or Lucene, you are standing on this lineage.
+
+And now we even have newer lexical variants like BMX from Li and colleagues. Foundational methods do not die. They evolve, then quietly continue paying everyone’s production bills.
+
+### Slide 10. Uncovering Hidden Relationships
+Topic modeling asks a different question. Instead of how to rank documents for a query, we ask what latent thematic structure exists in the corpus.
+
+Deerwester and colleagues gave us LSA. Blei, Ng, and Jordan gave us LDA. Lee and Seung gave us NMF.
+
+Each method offers a different compromise between geometry, probability, and interpretability.
+
+### Slide 11. Matrix Factorization
+Matrix factorization gives us a useful mental model. The document-word matrix is approximated as document-topic times topic-word.
+
+So documents become mixtures of topics, and topics become weighted distributions over words.
+
+This is one of those rare moments in machine learning where the math and the intuition actually like each other.
+
+### Slide 12. Discovering Topics in Text
+In realistic corpora, documents are not pure. One article can be fifty percent technology, thirty percent health, and the rest economics and policy context.
+
+That is normal. Mixed membership is a feature, not an error.
+
+When students first meet topic models, they often want one document equals one label. Real language generally refuses to cooperate.
+
+### Slide 13. LDA Generative Story
+LDA is elegant because it gives a generative story.
+
+Draw a topic mixture for each document. For each token, draw a topic. Then draw a word from that topic.
+
+David Blei’s contribution here is conceptually important for social science. Ambiguity is modeled, not denied. We do not force text into one thematic box and pretend uncertainty went away.
+
+### Slide 14. BERTopic for 2026
+Now we move to BERTopic.
+
+Maarten Grootendorst’s key move was to combine modern embeddings, UMAP, HDBSCAN, and c-TF-IDF into a practical topic workflow. You get modern semantic clustering with outputs humans can still read.
+
+This matters because topic modeling is only useful if experts can inspect, critique, and iterate.
+
+### Slide 15. BERTopic in Practice
+Why has BERTopic spread so quickly in applied work.
+
+Because it is interpretable enough for domain experts, scalable enough for large corpora, and practical enough for notebooks.
+
+You can map topics, inspect hierarchy, and optionally use LLM labeling as a final readability layer. That is exactly the kind of stack social science teams can adopt without hiring a separate GPU priesthood.
+
+### Slide 16. Words as GPS Coordinates
+Now embeddings.
+
+Mikolov and colleagues made a powerful idea practical: words can be represented as dense vectors where geometry reflects usage patterns.
+
+Nearby vectors imply contextual similarity. Dog and puppy cluster. Dog and spreadsheet do not, unless your spreadsheet has become sentient and needs governance.
+
+### Slide 17. Vector Arithmetic
+The famous analogy equation made people pay attention.
+
+King minus man plus woman approximates queen.
+
+The important point is not the meme value. The important point is that relation types become directional structure in vector space.
+
+### Slide 18. How Word2Vec Learns
+Word2Vec learns through context prediction at scale.
+
+Skip-gram predicts surrounding context from a center word. CBOW predicts the center from context.
+
+The model does not get a dictionary of meaning. It gets distributional evidence. Meaning emerges statistically from usage.
+
+### Slide 19. The UFO in the Village
+This slide is just distance intuition.
+
+If UFO and alien occur in contexts far from village and castle contexts, vectors separate. Distance acts as a proxy for semantic dissimilarity.
+
+This is the distributional hypothesis in action. You know a term by the company it keeps.
+
+### Slide 20. Visualizing Embedding Space
+We use t-SNE or UMAP to project high-dimensional embeddings down to two dimensions.
+
+These visualizations are useful for seeing local neighborhoods and broad clusters.
+
+They are also easy to over-interpret. A projection is a diagnostic tool, not a metaphysical truth about language.
+
+### Slide 21. Bias in Embeddings
+Now the warning label.
+
+Bolukbasi and colleagues showed occupational gender bias in embeddings. Caliskan and colleagues formalized this with WEAT.
+
+For social scientists, this is uncomfortable and useful. Uncomfortable because models can amplify harmful bias. Useful because these spaces can reveal cultural associations at scale. Kozlowski and colleagues make that measurement argument explicit.
+
+### Slide 22. From Words to Sentences
+Sentence-BERT, from Reimers and Gurevych, moved us from word-level vectors to sentence-level vectors that are useful for retrieval and clustering.
+
+This is where semantic search became fast and practical for day-to-day workflows.
+
+Also note the ecosystem shift. You now have high-quality API embeddings and strong local open models. The strategic question is no longer can we embed text. It is how do we version, cache, and evaluate embeddings responsibly.
+
+### Slide 23. Attention Is All You Need
+Vaswani and colleagues in 2017 changed the field.
+
+Attention lets each token directly weigh every other token. This improves long-range context handling and parallelization compared with recurrent architectures.
+
+If you remember one phrase here, make it this: representation quality improved because context became a first-class computational object.
+
+### Slide 24. Playlist Curation Analogy
+The playlist analogy captures layered representation building.
+
+Early layers capture local lexical cues. Middle layers capture phrase structure and relations. Later layers capture discourse and task intent.
+
+By the end, you do not have a list of words. You have a contextual representation that supports inference.
+
+### Slide 25. Three Architectures
+Encoder-only, decoder-only, and encoder-decoder models solve different classes of problems.
+
+Devlin and team gave us BERT for understanding tasks. Radford and collaborators pushed decoder-style generation. Raffel and team showed a unified text-to-text framing with T5.
+
+Professionally, this means model choice should follow task structure, not model popularity.
+
+### Slide 26. Evolution of Similarity
+This slide compares TF-IDF, Word2Vec, and SBERT on sentence pairs.
+
+TF-IDF is lexical overlap. Word2Vec captures lexical semantics. SBERT captures sentence-level contextual meaning and disambiguation.
+
+Again, no universal winner. There is only winner on your benchmark, for your failure modes, at your latency and cost constraints.
+
+### Slide 27. LLM Landscape in 2026
+The LLM ecosystem is now multipolar.
+
+OpenAI, Anthropic, Google, Meta, DeepSeek, Qwen, Mistral, xAI and others are shaping capabilities, prices, and deployment options.
+
+A key market shift has been rapid expansion of Chinese model ecosystems in both usage share and open-model participation.
+
+### Slide 28. Model Zoo
+The model zoo slide is a tradeoff table.
+
+Context windows, benchmark strengths, costs, and openness vary dramatically.
+
+You are not choosing the best model in absolute terms. You are choosing the best model for a constrained optimization problem where legal constraints, budget, latency, and failure tolerance all matter.
+
+### Slide 29. Cost Collapse
+The cost of intelligence has fallen sharply.
+
+This changes the research frontier because many experiments that were financially silly two years ago are now routine.
+
+Lower cost does not remove the need for evaluation. It does remove some excuses for not evaluating.
+
+### Slide 30. Reasoning Models
+Reasoning models changed deployment strategy.
+
+Snell and colleagues highlighted an important scaling law intuition: additional inference-time compute can outperform much larger models that answer immediately.
+
+Wei and collaborators opened much of this discussion through chain-of-thought work. The practical translation is simple. Sometimes giving a model time to think is better than buying a bigger one and asking it to improvise instantly.
+
+### Slide 31. DeepSeek Earthquake
+DeepSeek combined efficiency engineering, scale, and open distribution in a way that surprised markets and competitors.
+
+Mixture-of-experts routing, aggressive systems optimization, and lower-cost profiles shifted assumptions about what frontier-grade performance must cost.
+
+The financial headlines were dramatic, but the deeper lesson is technical: architecture and systems work can be as disruptive as sheer parameter count.
+
+### Slide 32. Context Windows
+Context windows have expanded from thousands to millions of tokens.
+
+That creates new opportunities for long-document analysis, legal corpora, and multi-document synthesis.
+
+It also creates new ways to be lazy. Bigger windows are not a substitute for retrieval design, chunking strategy, and evidence-aware prompting.
+
+### Slide 33. Structured Output
+Structured output is one of the most important practical developments.
+
+Constrained decoding plus schema validation turns LLMs into extraction systems that produce reliable JSON.
+
+For economists and social scientists, this is huge. It means you can convert unstructured text into analyzable tables with auditable failure handling rather than hope and vibes.
+
+### Slide 34. Benchmark Landscape
+Traditional benchmarks are saturating for top models.
+
+Harder evaluations like GPQA, AIME, SWE-bench, and Humanity’s Last Exam provide more differentiation.
+
+Hendrycks and colleagues pushed this harder benchmark regime precisely because we needed tests that still measure progress once the easy exams become speed runs.
+
+### Slide 35. Multimodal AI
+Multimodal systems now unify text, image, audio, and video.
+
+CLIP was a major precursor because it aligned text and images in shared space. Current models generalize this idea into broader multimodal reasoning and generation.
+
+For social science, this means your evidence can include documents, diagrams, screenshots, and speech in one pipeline.
+
+### Slide 36. Humanity’s Last Exam
+Humanity’s Last Exam is a useful reality check.
+
+Even strong frontier systems remain far below expert human performance across broad difficult domains.
+
+So we should be impressed and cautious at the same time. Both emotions are justified. Preferably in that order.
+
+### Slide 37. NLP for Social Scientists
+Gentzkow, Kelly, and Taddy helped formalize text as data in economics. Ash and Hansen mapped the modern embedding and transformer landscape for economists.
+
+Kozlowski showed cultural measurement from embeddings. Gilardi and collaborators found strong annotation performance from LLMs in many settings. Horton proposed using LLMs as simulated respondents in what he called Homo Silicus.
+
+This is no longer fringe work. It is now methodological infrastructure.
+
+### Slide 38. Embeddings for Innovation Research
+Patent text is a perfect application domain.
+
+Arts and colleagues used textual similarity to map technological relatedness. Kelly and collaborators used textual distance to identify breakthrough inventions. Bekamiri, Hain, and Jurowetzki pushed sentence-embedding approaches specialized for patent similarity.
+
+The broader idea is that text can become a high-resolution proxy for knowledge distance and novelty.
+
+### Slide 39. AI and Productivity Evidence
+Now the productivity evidence.
+
+Dell’Acqua and colleagues showed large gains for consultants within the AI frontier, with uneven effects outside that frontier. Noy and Zhang showed strong speed and quality gains among professionals. Brynjolfsson and collaborators showed sizeable gains in customer support, especially for less experienced workers.
+
+The recurring pattern is equalization. AI often boosts lower baseline performers the most.
+
+### Slide 40. Adoption Gap
+Social science adoption has lagged computer science for understandable reasons.
+
+Interpretability demands, causal identification norms, smaller datasets, institutional inertia.
+
+But the gap is closing fast because tooling is more practical, structured output is more reliable, and costs are lower.
+
+Keep Dell’Acqua’s jagged frontier idea in mind. AI capability is uneven across tasks. Professional judgment is deciding where the cliff edges are.
+
+### Slide 41. Who Is Affected
+Eloundou and coauthors estimate broad task exposure across the US workforce, with higher exposure in higher-income occupations.
+
+Acemoglu offers a more cautious macro estimate for aggregate productivity effects over the next decade.
+
+These are not contradictory. Local disruption can be large while aggregate productivity moves more gradually.
+
+### Slide 42. What We Build This Week
+This course is organized as an escalation ladder.
+
+Day one foundations and measurement pipelines. Day two retrieval systems and evaluation loops. Day three structured extraction, distillation, and agentic workflows.
+
+The point is not to collect notebooks. The point is to build systems that survive deployment constraints.
+
+### Slide 43. Professional Playbook
+Here is the operating principle.
+
+Start with prompting. Then retrieval augmentation. Then few-shot methods like SetFit. Then fine-tune if needed. Then custom training if absolutely necessary.
+
+Most high-value business problems are solved in the first two levels. The rest of the ladder exists for hard cases, not for ego.
+
+### Slide 44. Five Themes
+Let me summarize five themes.
+
+Foundational methods still matter. Reasoning changed model behavior. Cost is collapsing. Local private NLP is practical. The adoption gap in social science is closing.
+
+If you hold those five ideas, you can navigate most new announcements without becoming either a cynic or a fanatic.
+
+### Slide 45. Resources
+For depth, read Grimmer, Roberts, and Stewart on text as data. Use Jurafsky and Martin for broad NLP foundations. Read Raschka for modern model-building intuition.
+
+For visual intuition, Jay Alammar’s illustrated series remains excellent. Use these sources as anchors when the daily model news cycle starts sounding like weather alerts.
+
+### Slide 46. References and Closing
+The references slide is not decorative.
+
+Shannon, Sparck Jones, Aizawa, Deerwester, Lee and Seung, Blei, Robertson, Mikolov, Vaswani, and many others built the conceptual staircase we are still climbing.
+
+So let me close with one practical sentence and one methodological sentence.
+
+Practical sentence. Choose the simplest method that survives contact with your data, and benchmark honestly before escalating complexity.
+
+Methodological sentence. Language models are powerful instruments, not epistemic oracles. Your research design and your judgment remain central.
+
+Thank you. In the workshop sessions, we now move from conceptual map to hands-on system building.
+
+
+## Extended Lecture Pass (Long-Form Recording Version)
+This section is designed for a longer video version. It follows the same slide order and adds extra spoken material, transitions, and examples.
+
+### Slide 1. Extended delivery
+Before we touch methods, I want to set expectations. This lecture is not a product demo. It is a methods lecture with deployment consequences.
+
+If you are here for one magic prompt that solves all text problems, I regret to inform you that the magic prompt is called careful problem definition, and it requires human labor.
+
+### Slide 2. Extended delivery
+When I say concepts first, I mean we will constantly ask what signal a model can and cannot represent.
+
+When I say systems second, I mean we will translate those representational choices into concrete pipelines. Inputs, outputs, failure modes, monitoring.
+
+### Slide 3. Extended delivery
+A useful way to read this timeline is as a sequence of bottlenecks being reduced.
+
+Sparse methods reduced lexical ambiguity for retrieval. Topic models reduced thematic opacity in corpora. Embeddings reduced synonym mismatch. Transformers reduced context fragmentation. LLM tooling reduced interface friction.
+
+### Slide 4. Extended delivery
+Shannon gave us the mathematical language for information content. Sparck Jones gave us a retrieval interpretation that still matters every day in production search.
+
+So when you compute IDF, you are not doing legacy nostalgia. You are operationalizing surprisal. Rare terms tend to tell you more than frequent boilerplate.
+
+### Slide 5. Extended delivery
+Bag of words is usually the model people mock right before it beats their fancy baseline on a clean benchmark split.
+
+The professional move is to use it as a sanity anchor. If your expensive method cannot outperform a cheap lexical baseline, that is not innovation. That is an invoice.
+
+### Slide 6. Extended delivery
+Think of TF-IDF as anti-hype weighting.
+
+The terms everyone repeats get down-weighted. The terms that are locally concentrated and globally rare get up-weighted. This is often exactly what you want in policy corpora, legal corpora, and technical reports.
+
+### Slide 7. Extended delivery
+In practice, TF normalization and IDF smoothing choices matter.
+
+Small preprocessing differences can shift rankings enough to affect downstream analyses. Keep your weighting choices versioned and reproducible, especially in collaborative projects.
+
+### Slide 8. Extended delivery
+The worked example also teaches a communication lesson.
+
+Stakeholders often trust a model more when they can see why specific terms drove ranking. TF-IDF provides this naturally. Interpretability is not only ethics. It is adoption strategy.
+
+### Slide 9. Extended delivery
+BM25 remains powerful because it encodes practical retrieval wisdom in a compact scoring function.
+
+Length normalization prevents long documents from winning by verbosity. Saturation prevents repeated terms from inflating relevance indefinitely. These are small mathematical details with huge practical impact.
+
+### Slide 10. Extended delivery
+In topic modeling, one recurring mistake is to evaluate only coherence scores and ignore analytical usefulness.
+
+A slightly lower coherence model may still be better for your substantive question if the topics align with interpretable social or institutional categories.
+
+### Slide 11. Extended delivery
+Matrix factorization language helps interdisciplinary teams collaborate.
+
+You can explain W as document profiles and H as topic signatures. People do not need to love linear algebra to understand that decomposition.
+
+### Slide 12. Extended delivery
+Documents as mixtures is a crucial conceptual shift for social science coding traditions.
+
+Instead of forcing one category per document, topic mixtures preserve nuance and overlap. That often matches qualitative reading practices better than hard classification.
+
+### Slide 13. Extended delivery
+LDA’s generative story is also useful pedagogically because it makes assumptions explicit.
+
+You can point to priors, sampling process, and exchangeability assumptions and ask whether those assumptions are acceptable for your data regime.
+
+### Slide 14. Extended delivery
+BERTopic is popular because it operationalizes a modern stack with minimal friction.
+
+Embeddings capture semantics. UMAP builds neighborhood structure. HDBSCAN discovers dense clusters. c-TF-IDF restores interpretability at the token level.
+
+### Slide 15. Extended delivery
+In applied teams, BERTopic often becomes the bridge between exploratory analysis and production categorization.
+
+You discover candidate themes unsupervised, review with experts, then turn validated topics into supervised labels or retrieval facets.
+
+### Slide 16. Extended delivery
+Dense embeddings reduce dimensionality and improve semantic generalization, but they also hide feature-level transparency.
+
+So you gain semantic smoothness and lose direct lexical accountability. Later in the pipeline, bring interpretability back through exemplars, keywords, and error audits.
+
+### Slide 17. Extended delivery
+Vector arithmetic analogies are impressive, but they are not universal guarantees.
+
+Treat them as demonstrations of emergent relational structure, not as a promise that every conceptual relation will be linearly encoded.
+
+### Slide 18. Extended delivery
+Context prediction objectives are elegant because they let models learn from raw text without manual labels.
+
+That same advantage creates domain-transfer risk. If the pretraining corpus differs strongly from your target domain, representation quality can drift.
+
+### Slide 19. Extended delivery
+Distance-based intuition is useful, but always ask distance under which metric and on which normalized space.
+
+Cosine and Euclidean can behave differently depending on preprocessing and embedding norms. Retrieval quality depends on these implementation details.
+
+### Slide 20. Extended delivery
+Visualization is excellent for diagnosis and terrible for proof.
+
+Use UMAP or t-SNE plots to generate hypotheses, then validate with quantitative metrics and manual inspection rather than relying on pretty clusters.
+
+### Slide 21. Extended delivery
+Bias analysis should be part of your standard evaluation plan, not a post-hoc appendix.
+
+If your pipeline influences policy or institutional decisions, document representational bias tests and mitigation steps before deployment.
+
+### Slide 22. Extended delivery
+Sentence embeddings changed retrieval economics.
+
+Once you precompute vectors, many semantic operations become cheap enough for iterative research workflows. This is why retrieval, clustering, and deduplication became routine in so many fields.
+
+### Slide 23. Extended delivery
+Attention mechanisms effectively make context routing trainable.
+
+Instead of fixed context windows with weak memory, tokens learn which other tokens matter. That shift is one reason transformer architectures scaled so effectively.
+
+### Slide 24. Extended delivery
+Layered representation also explains why probing studies find different linguistic signals at different depths.
+
+Early layers pick up surface structure, middle layers relations, later layers task-oriented abstractions. This is not perfectly clean, but the pattern is robust enough to guide analysis.
+
+### Slide 25. Extended delivery
+Architectural taxonomy is not just trivia.
+
+When teams mismatch model family and task type, they pay twice. First in latency and cost. Then in quality and reliability.
+
+### Slide 26. Extended delivery
+Similarity evolution from TF-IDF to SBERT is a progression in representational granularity.
+
+You move from shared tokens, to shared local contexts, to sentence-level contextual alignment. Each step reduces one class of mismatch and introduces new tradeoffs.
+
+### Slide 27. Extended delivery
+A multipolar model market is good for innovation and tricky for governance.
+
+Capabilities are distributed. So are risks, compliance models, licensing terms, and API constraints. Model selection now includes legal and geopolitical dimensions.
+
+### Slide 28. Extended delivery
+The model zoo slide should be read as a decision matrix.
+
+Start from task requirements, then map to context window, latency, quality tolerance, and budget. Resist choosing models based on brand loyalty or benchmark headlines alone.
+
+### Slide 29. Extended delivery
+Cost collapse changes experimentation strategy.
+
+You can run broader ablations, more seed repeats, and stronger error analyses. This is not a luxury anymore. It is becoming baseline scientific hygiene.
+
+### Slide 30. Extended delivery
+Inference-time reasoning is especially relevant for high-stakes tasks.
+
+A slower answer with better decomposition can be preferable to a fast answer with brittle logic. This is one of the few places where latency and epistemic quality are directly linked.
+
+### Slide 31. Extended delivery
+DeepSeek’s disruption underscores a classic lesson in computing.
+
+Efficiency breakthroughs can be as strategic as scale breakthroughs. Better routing, better kernels, better precision control, better training systems. Engineering is not the side story. It is the story.
+
+### Slide 32. Extended delivery
+Long context is useful, but retrieval remains essential.
+
+Even with huge windows, targeted evidence selection reduces distraction, cost, and hallucination risk. Context capacity and retrieval quality should be treated as complements.
+
+### Slide 33. Extended delivery
+Structured output is where NLP becomes infrastructure.
+
+You can now design deterministic post-processing contracts around probabilistic generation. Schemas, validators, retries, and logging turn a chat model into a data pipeline component.
+
+### Slide 34. Extended delivery
+Benchmark literacy matters.
+
+Scores are meaningful only if you understand test construction, contamination risk, and task relevance. A benchmark can be impressive and irrelevant at the same time.
+
+### Slide 35. Extended delivery
+Multimodal systems expand the evidence surface for social research.
+
+But they also expand measurement error channels. OCR artifacts, visual ambiguity, temporal compression in video. Multimodal pipelines need modality-specific quality checks.
+
+### Slide 36. Extended delivery
+Humanity’s Last Exam is helpful because it resists easy saturation.
+
+It reminds us that broad robust expertise remains difficult for current systems. That is exactly the kind of benchmark we need for honest progress tracking.
+
+### Slide 37. Extended delivery
+In social science adoption, methods become durable when they satisfy three criteria.
+
+They scale, they remain interpretable enough for review, and they support replicable workflows. The current NLP toolchain is finally meeting those criteria in many domains.
+
+### Slide 38. Extended delivery
+Patent and innovation work illustrates why text is such a valuable proxy.
+
+Technological distance, novelty, and influence are often encoded in language long before they are fully visible in citations or market outcomes.
+
+### Slide 39. Extended delivery
+The productivity experiments are strong because they combine quality and speed outcomes.
+
+Also note heterogeneity. Gains are not uniform. Boundary effects and task design matter. This is where managerial judgment and workflow design determine realized value.
+
+### Slide 40. Extended delivery
+The adoption gap closes fastest when tools match institutional norms.
+
+Interpretability, auditability, and workflow integration are adoption multipliers. Fancy capability without institutional fit is usually a short-lived pilot.
+
+### Slide 41. Extended delivery
+Exposure is not the same as displacement.
+
+Task-level automation can increase productivity, reshape job content, or reallocate labor without full occupation replacement. Precision in terminology helps keep policy discussions serious.
+
+### Slide 42. Extended delivery
+The workshop structure is deliberately cumulative.
+
+Each day builds reusable components. By the end, you should have a stack that supports real analysis, not isolated notebook tricks.
+
+### Slide 43. Extended delivery
+The escalation ladder is a cost-control device.
+
+Start with the cheapest intervention that can work. Escalate only when error analysis proves necessity. This is good science and good engineering economics.
+
+### Slide 44. Extended delivery
+If you remember only one strategic idea, remember method pluralism.
+
+Classical IR, embeddings, and LLM workflows are not rival religions. They are tools in one professional toolkit.
+
+### Slide 45. Extended delivery
+For self-study, pair one conceptual source with one implementation source.
+
+Read a chapter, then reproduce a pipeline. Conceptual understanding without code fades. Code without conceptual grounding misleads.
+
+### Slide 46. Extended delivery
+Closing thought.
+
+Our field moves quickly, but foundational reasoning patterns move slowly. Represent clearly, retrieve carefully, evaluate honestly, and document assumptions. If you do that, your work will age much better than the weekly leaderboard.
+
+## Recording Notes for the Lecturer
+Target runtime for the original manuscript is approximately 60 to 75 minutes.
+
+Target runtime for the extended pass is approximately 100 to 120 minutes, depending on pauses and live examples.
+
+Use this rhythm for each section:
+- 60 percent conceptual explanation
+- 25 percent practical implication
+- 15 percent caveat or failure mode
+
+If recording in one take, insert short breaths between sections and longer pauses after Slides 9, 15, 26, 36, and 46.
+
+
+## Deep-Dive Inserts for Full-Length Video
+Use these inserts between sections if you want a true full-length lecture recording with more narrative continuity.
+
+### Insert A. Why methods classes still matter
+A lot of people ask whether methods still matter when models are so capable. The short answer is yes, more than ever.
+
+When capability increases, misuse scales faster than understanding. If you can process ten thousand documents in an afternoon, you can also make ten thousand systematic mistakes in an afternoon.
+
+So methodology is not a nostalgic attachment to old rigor. It is your rate limiter against high-throughput confusion.
+
+### Insert B. The baseline principle
+I want to normalize something in your workflow. Always run a plain baseline first.
+
+If TF-IDF plus logistic regression already gives acceptable quality, that is a strategic victory. You just solved your problem with low latency, low cost, and high interpretability.
+
+A complex model should be justified by measured improvement, not by aesthetic preference.
+
+### Insert C. Measurement before magic
+In social science and economics, most disagreement is not about modeling syntax. It is about measurement validity.
+
+Are we measuring what we think we are measuring. Are category boundaries coherent. Are proxies stable over time and across subgroups.
+
+Models are downstream of these decisions. If measurement is weak, model sophistication mostly amplifies confidence, not truth.
+
+### Insert D. Error analysis as a professional habit
+After every benchmark run, inspect actual errors. Not just metrics.
+
+Look at false positives and false negatives. Look at subgroup behavior. Look at temporal drift. Look at language and register differences.
+
+This is where domain expertise enters the loop. Metrics summarize. Error analysis explains.
+
+### Insert E. Topic modeling caution
+Topic modeling can be very persuasive visually. That is exactly why caution is needed.
+
+A clean topic map can still represent artifacts of preprocessing, platform language habits, or clustering hyperparameters.
+
+Treat topics as hypotheses to be reviewed, not facts to be announced.
+
+### Insert F. Retrieval engineering reality
+Retrieval quality is often bottlenecked by details that look minor in slides.
+
+Chunk boundaries, normalization, embedding versioning, index type, and reranking strategy all matter. A lot.
+
+If your retrieval layer is weak, your generation layer will hallucinate with confidence because it never saw the right evidence.
+
+### Insert G. Structured output governance
+Structured output is not only a technical trick. It is governance.
+
+When outputs conform to schemas, you can audit fields, enforce constraints, and create reliable downstream transformations.
+
+If your model answers in free prose for a data extraction task, you are accepting preventable ambiguity.
+
+### Insert H. Human in the loop design
+Human review should be designed, not improvised.
+
+Decide in advance which uncertainty signals trigger manual checks. Decide who reviews, with what rubric, and how disagreements are resolved.
+
+Human in the loop is valuable only when the loop is explicit and reproducible.
+
+### Insert I. Adoption in institutions
+Institutional adoption is less about model IQ and more about workflow fit.
+
+People adopt systems that are understandable, controllable, and easy to integrate with existing processes.
+
+If your pipeline is brilliant but opaque, adoption will stall. If it is good enough and legible, adoption accelerates.
+
+### Insert J. Responsible claims
+When reporting model results, separate three claims clearly.
+
+Performance claim. What the model does on defined tasks.
+
+Generalization claim. How stable that performance is across settings and time.
+
+Impact claim. What changes in real decisions or outcomes when the system is used.
+
+Most overclaiming happens when these three are merged into one sentence.
+
+### Insert K. Cost-aware model strategy
+Model choice should be cost-aware by design.
+
+A cheap model that performs at ninety-eight percent of a premium model may dominate at scale when you include latency, throughput, and reliability overhead.
+
+Always evaluate quality per dollar and quality per second, not quality alone.
+
+### Insert L. Prompting versus training
+Prompting is fast to iterate. Training is slower but can be more stable.
+
+The practical approach is staged. Start with prompt and retrieval improvements. Move to few-shot tuning only when repeated errors suggest a systematic representational gap.
+
+That sequence minimizes unnecessary training work and keeps systems debuggable.
+
+### Insert M. Communicating uncertainty
+A high-quality lecture should model uncertainty communication.
+
+Say what you know, what you estimate, and what remains unclear. State assumptions plainly.
+
+This builds trust with technical and non-technical audiences alike, and it keeps your future self from inheriting ambiguous claims.
+
+### Insert N. What to do this week
+If you are following this course actively, pick one corpus you care about and apply the full ladder.
+
+Start lexical. Add embeddings. Build retrieval. Add structured extraction. Evaluate carefully.
+
+By the end, you will have not just learned methods. You will have built a reusable analytical instrument.
+
+### Insert O. Final extended close
+Let me close the extended version with a simple frame.
+
+Good NLP practice in 2026 is not choosing between classical and modern methods. It is orchestrating them in the right order, with the right checks, for the right question.
+
+Use simple tools first. Escalate with evidence. Keep humans accountable. Keep assumptions visible.
+
+That is how you turn fast-moving technology into durable research practice.
