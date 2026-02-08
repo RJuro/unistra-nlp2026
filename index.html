@@ -596,13 +596,21 @@
         }
         .video-card {
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 0.5rem;
             overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .video-card:hover {
+            border-color: rgba(255,255,255,0.18);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
         .video-card video {
             width: 100%;
+            aspect-ratio: 16 / 9;
             display: block;
-            background: #1a1512;
+            background: #000;
+            object-fit: contain;
         }
         .video-card-info {
             padding: 1rem 1.2rem;
@@ -743,6 +751,7 @@
             .nb-links { width: 100%; }
             .block-expanded { padding: 1.5rem; }
             .requirements-section { margin: 0; padding: 3rem 1.5rem; }
+            .videos-grid { grid-template-columns: 1fr; }
         }
 
         /* === PRINT === */
@@ -1136,8 +1145,9 @@
 
                 <div class="videos-grid">
                     <div class="video-card">
-                        <video controls preload="metadata" poster="">
+                        <video controls playsinline preload="metadata">
                             <source src="videos/Word2VecExplainer.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
                         </video>
                         <div class="video-card-info">
                             <h3>Word2Vec</h3>
@@ -1146,8 +1156,9 @@
                     </div>
 
                     <div class="video-card">
-                        <video controls preload="metadata" poster="">
+                        <video controls playsinline preload="metadata">
                             <source src="videos/SelfAttentionExplainer.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
                         </video>
                         <div class="video-card-info">
                             <h3>Self-Attention</h3>
@@ -1156,8 +1167,9 @@
                     </div>
 
                     <div class="video-card">
-                        <video controls preload="metadata" poster="">
+                        <video controls playsinline preload="metadata">
                             <source src="videos/LDAExplainer.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
                         </video>
                         <div class="video-card-info">
                             <h3>LDA Topic Modeling</h3>
