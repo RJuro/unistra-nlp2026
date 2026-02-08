@@ -461,9 +461,8 @@
 % --- Slide 11b: Topic Model Visualization (generated asset) ---
 \begin{frame}[plain]
   \IfFileExists{figures/generated/topic_model_viz.png}{%
-    \begin{center}
-      \includegraphics[width=0.98\paperwidth,height=0.98\paperheight,keepaspectratio]{figures/generated/topic_model_viz.png}
-    \end{center}
+    \hspace*{-0.8cm}%
+    \includegraphics[width=0.95\paperwidth,height=0.95\paperheight,keepaspectratio]{figures/generated/topic_model_viz.png}
   }{%
     \vspace*{0.12\paperheight}
     \begin{center}
@@ -933,14 +932,12 @@
       \textbf{Value}: what it contributes.
     \end{column}
     \begin{column}{0.44\textwidth}
-      \highlight{The key equation:}
-      \vspace{0.15cm}
-      \[
-      \text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right) V
-      \]
-      \vspace{0.1cm}
-      \muted{Scale factor $\sqrt{d_k}$ prevents dot products from growing too large.}\\[0.2cm]
-      \muted{Multi-head attention runs this in parallel across $h$ heads, each capturing different relationship types.}
+      \IfFileExists{figures/generated/attention.png}{%
+        \includegraphics[width=0.98\linewidth]{figures/generated/attention.png}
+      }{%
+        \centering
+        \fcolorbox{coral}{bgcard}{\parbox{0.92\linewidth}{\centering\small Missing image: \texttt{figures/generated/attention.png}}}
+      }
     \end{column}
   \end{columns}
 

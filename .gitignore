@@ -40,5 +40,10 @@ more_slides_feedback.md
 .vscode/
 .idea/
 
+# Testing artifacts
+testing/venv/
+checkpoints/
+testing/emotion_distilled_labels.csv
+
 # Claude
 .claude/

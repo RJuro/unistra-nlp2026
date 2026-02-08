@@ -578,6 +578,46 @@
             flex-direction: column;
         }
 
+        /* === EXPLAINER VIDEOS === */
+        .videos-section {
+            padding: 4rem 0 3rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .videos-section h2 { margin-bottom: 0.4rem; }
+        .videos-section .sub {
+            color: var(--text-light-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .video-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            overflow: hidden;
+        }
+        .video-card video {
+            width: 100%;
+            display: block;
+            background: #1a1512;
+        }
+        .video-card-info {
+            padding: 1rem 1.2rem;
+        }
+        .video-card-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--cream);
+        }
+        .video-card-info p {
+            font-size: 0.82rem;
+            color: var(--text-light-muted);
+            line-height: 1.5;
+        }
+
         /* === FOOTER === */
         footer {
             border-top: 1px solid rgba(255,255,255,0.06);
@@ -729,6 +769,7 @@
             <div class="logo">NLP<em>/</em>LLM 2026</div>
             <nav>
                 <a href="#sessions">Sessions</a>
+                <a href="#explainers">Explainers</a>
                 <a href="#requirements">Setup</a>
                 <a href="#projects">Projects</a>
             </nav>
@@ -1080,6 +1121,47 @@
                             <div class="time">16:50</div>
                             <div class="label">Course wrap-up + feedback</div>
                             <div class="nb-duration">10 min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPLAINER VIDEOS -->
+        <section class="videos-section" id="explainers">
+            <div class="container">
+                <div class="section-label">Background</div>
+                <h2>Concept Explainers</h2>
+                <p class="sub">Short animated videos covering key concepts we build on in the workshop.</p>
+
+                <div class="videos-grid">
+                    <div class="video-card">
+                        <video controls preload="metadata" poster="">
+                            <source src="videos/Word2VecExplainer.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-card-info">
+                            <h3>Word2Vec</h3>
+                            <p>How words become vectors &mdash; the skip-gram model, training on context windows, and why "king &minus; man + woman = queen" works.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video controls preload="metadata" poster="">
+                            <source src="videos/SelfAttentionExplainer.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-card-info">
+                            <h3>Self-Attention</h3>
+                            <p>The mechanism at the heart of Transformers &mdash; queries, keys, values, and how attention lets models understand context.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video controls preload="metadata" poster="">
+                            <source src="videos/LDAExplainer.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-card-info">
+                            <h3>LDA Topic Modeling</h3>
+                            <p>Latent Dirichlet Allocation &mdash; how documents are modeled as mixtures of topics, and topics as distributions over words.</p>
                         </div>
                     </div>
                 </div>
