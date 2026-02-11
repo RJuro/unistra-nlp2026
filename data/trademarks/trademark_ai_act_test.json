@@ -1,0 +1,602 @@
+[
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Shenzhen Jiaren Technology Co., Ltd.\nGoods/Services: records ; transmitters; circuits ; sound recorders; sound records; ; headsets"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"consumer electronics\"], \"risk_rationale\": \"The goods listed (records, transmitters, circuits, sound recorders, etc.) are traditional electronic components or media without any indicated AI functionality.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Artificial intelligence video game software for use on home video game consoles; interactive entertainment software for home consoles; computer game software for gaming consoles; downloadable video game software for consoles; interactive multimedia computer game programs for consoles; electronic game software for consoles; AI-enhanced game software for gaming machines; interactive game software for home consoles; electronic game programs for consoles; video game programs for home consoles"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"ai-enhanced gameplay\", \"procedural content generation\", \"adaptive difficulty\"], \"target_sectors\": [\"entertainment\", \"gaming\"], \"risk_rationale\": \"AI used in video games for non-critical entertainment purposes falls under the minimal risk tier as it does not affect fundamental rights or safety.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Electronic databases for biometric data; biometric data storage devices; electronic storage for facial images; databases for identity verification; electronic storage for surveillance footage; databases for biometric templates; electronic storage for crowd analytics; databases for security monitoring; electronic storage for biometric records; databases for real-time surveillance data"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"biometric data management\", \"surveillance storage\", \"security infrastructure\"], \"risk_rationale\": \"All listed goods/services are passive storage media—databases and electronic storage devices—for biometric and surveillance data, without any processing, analysis or AI functionality, so they do not constitute an AI system under the EU AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Deng\nGoods/Services: detectors; fire alarms; alarms; access control systems; recording apparatus; records ; protection devices for personal use against accidents; computer hardware; hardware; surveying instruments; sound recorders; sound records; computers and computer hardware; ; electronic access control systems for interlocking doors; humanoid robots with artificial intelligence; projection apparatus; solar panels for the production of electricity; solar panels for production of electricity; thin client computers; electronic access control system for buildings; thin client"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"limited\", \"confidence\": 0.8, \"ai_capabilities\": [\"artificial intelligence integration\", \"humanoid robotics\"], \"target_sectors\": [\"security systems\", \"consumer electronics\", \"automation\"], \"risk_rationale\": \"The description mentions 'humanoid robots with artificial intelligence' which places these products in the limited risk tier due to transparency obligations for AI systems interacting with humans, though the overall application appears to be general-purpose rather than high-risk domains.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Computer hardware for emotion detection and recognition; wearable computer hardware for emotion detection and recognition; head-mounted displays for emotion detection and recognition; smart glasses for emotion detection and recognition; smartwatches for emotion detection and recognition; fitness trackers for emotion detection and recognition; physiological sensors for emotion detection and recognition; facial recognition cameras; biometric sensors; affective computing hardware"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"limited\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"emotion detection\", \"facial recognition\", \"affective computing\", \"biometric analysis\", \"physiological signal processing\"], \"target_sectors\": [\"consumer electronics\", \"workplace monitoring\", \"health and fitness\"], \"risk_rationale\": \"The goods consist of hardware platforms designed for emotion detection/recognition, which under the EU AI Act triggers limited-risk transparency obligations rather than stricter requirements because they are not used for high-stakes decisions in employment or safety-critical contexts.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Security apparatus for emotion detection and recognition; surveillance cameras with emotion detection capabilities; access control systems with emotion detection; security systems with emotion recognition; biometric security devices with emotion detection; facial recognition systems for security purposes; emotion recognition systems for security screening; lie detection apparatus; polygraph machines; biometric authentication devices with emotion detection"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"facial emotion recognition\", \"biometric emotion analysis\", \"lie detection\", \"polygraph interpretation\", \"behavioural pattern recognition\"], \"target_sectors\": [\"physical security\", \"law enforcement\", \"access control\", \"screening systems\"], \"risk_rationale\": \"Emotion recognition used for security screening is identified as high-risk in the EU AI Act when deployed in contexts like hiring or border control.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Shenzhen Xixiang E-Commerce Co.,Ltd.\nGoods/Services: thermometers; detectors; monitors ; chronographs ; recording apparatus; records ; thermometers, ; microphones; sound recorders; sound records; monitoring apparatus, ; ; battery chargers; battery charging equipment; battery charge devices; electric battery chargers; chargers for batteries; chargers for electric batteries; chargers for electric accumulators; chargers for electrical accumulators; rechargers for electric accumulators; headphones; rechargeable electric batteries; chargers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"consumer electronics\", \"power management\"], \"risk_rationale\": \"The listed goods are conventional electronic devices and accessories without implied AI processing or learning functions.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: AI-powered interactive entertainment software for location-based gaming; downloadable computer game software for GPS-enabled devices; interactive multimedia computer game programs for location-based play; electronic game software for mobile location games; artificial intelligence computer game software for geolocation; downloadable location-aware game software; interactive entertainment software for outdoor gaming; AI-enhanced game software for location-based interaction; electronic game software for GPS gaming; computer game software for location-based entertainment"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"AI-powered gaming\", \"location-aware AI\", \"AI-enhanced interaction\"], \"target_sectors\": [\"entertainment\", \"gaming\"], \"risk_rationale\": \"Location-based gaming AI is used for entertainment purposes only, with no connection to critical infrastructure, biometric processing, or other high-risk domains.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Central processing units for biometric data analysis; graphics processing units for biometric image processing; biometric data processing chips; biometric sensor chips; biometric integrated circuits; biometric memory modules; biometric data encryption chips; biometric signal processors; biometric data acquisition cards; biometric data communication processors"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9, \"ai_capabilities\": [], \"target_sectors\": [\"biometric hardware\"], \"risk_rationale\": \"The listed goods are specialised silicon-based hardware components that process, store or transmit biometric data; they do not describe any built-in AI/ML models, algorithms or decision-making functions and thus fall outside the EU AI Act’s scope.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: ATLANTIS TECNOLOGIA Y SISTEMAS S.L.\nGoods/Services: detectors; monitors ; computer software for use in migrating between different computer network operating systems; image scanners; scanners; records ; computer networks; communications networks; document management software; computer software for document management; computer programmes for document management; computer programs for document management; document management system software; computer peripheral devices; peripherals adapted for use with computers; computer peripheral apparatus; computer peripheral equipment; computer peripherals; peripheral devices; peripheral equipment for computers; scanners ; computer software for accessing information directories that may be downloaded from the global computer network; software for accessing information on a global computer network; logs "
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [], \"risk_rationale\": \"The goods/services list comprises hardware (scanners, peripherals, networks) and general software for document management, global-network browsing and OS migration; no mention of AI, machine learning, automated decision-making or any algorithmic processing that would fall under the AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Shenzhen iCar Multimedia Industry Co.Ltd\nGoods/Services: monitors ; records ; diaphragms ; cameras; video recordings; baby monitors; video baby monitors; ; headphones; headsets; wearable activity trackers; virtual reality headsets; facial recognition apparatus"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.8200000000000001, \"ai_capabilities\": [\"facial recognition\", \"activity tracking\", \"computer vision\"], \"target_sectors\": [\"consumer electronics\", \"home security\", \"health monitoring\"], \"risk_rationale\": \"Facial recognition apparatus explicitly listed triggers high-risk biometric identification systems under EU AI Act Article 6(1); baby monitors with AI vision analytics also fall under remote biometric surveillance.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: downloadable computer software for project management; computer software for project management; project management software; computer programs for task scheduling; computer software for resource allocation; computer software for time tracking; time tracking software; computer programs for milestone tracking; computer software for project planning; computer software for project scheduling; computer programs for team collaboration; computer software for workflow management; computer software for project budgeting; computer programs for progress monitoring; computer software for project reporting; computer software for task assignment; computer programs for deadline management; computer software for project documentation"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"project management\", \"team collaboration\", \"workflow management\"], \"risk_rationale\": \"The description lists only standard project-management software functions (scheduling, time-tracking, budgeting) without mentioning any AI-driven features such as predictive analytics, automated task allocation, or intelligent scheduling.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Augmented reality game software with AI-driven interactive elements; downloadable AR entertainment software; interactive augmented reality game software; computer game software for AR devices; downloadable electronic AR game software; AI-powered augmented reality game programs; interactive multimedia augmented reality game software; electronic augmented reality game software; downloadable AR computer game programs; augmented reality game software for entertainment"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"limited\", \"confidence\": 0.85, \"ai_capabilities\": [\"AI-driven interactive elements\", \"AI-powered augmented reality game programs\"], \"target_sectors\": [\"entertainment\", \"gaming\", \"augmented reality\"], \"risk_rationale\": \"The AI capabilities are limited to powering interactive game elements, which fall under transparency obligations as they are consumer-facing AI systems that generate augmented reality content.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: emotion recognition software for medical diagnostics; medical software for analysing patient emotions; diagnostic software for mental health assessment; medical imaging software for analysing facial expressions; software for diagnosing psychological disorders; medical diagnostic apparatus; diagnostic software for psychiatric evaluation; medical software for monitoring patient emotional state; diagnostic software for neurological disorders; medical analysis software"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.92, \"ai_capabilities\": [\"emotion recognition\", \"facial expression analysis\", \"mental health assessment\", \"diagnostic inference\"], \"target_sectors\": [\"medical devices\", \"mental healthcare\", \"neurology\", \"psychiatry\"], \"risk_rationale\": \"Emotion recognition systems used for medical diagnostics are classified as high-risk because they materially influence patient health outcomes and fall under the medical device category explicitly listed in the EU AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Downloadable artificial intelligence models for law enforcement; downloadable computer programs for crime prediction; downloadable software for facial recognition used by police; downloadable software for licence plate recognition; downloadable software for analysing video surveillance data; downloadable software for crowd monitoring; downloadable software for suspect identification; downloadable software for crime scene analysis; downloadable software for forensic data processing; downloadable software for evidence management; downloadable software for police drones; downloadable software for automated incident detection"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"unacceptable\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"facial recognition\", \"license plate recognition\", \"video surveillance analysis\", \"crowd monitoring\", \"crime prediction\", \"suspect identification\", \"automated incident detection\"], \"target_sectors\": [\"law enforcement\", \"public security\", \"surveillance\"], \"risk_rationale\": \"The description explicitly covers real-time biometric identification systems ('facial recognition used by police') in publicly accessible spaces, which the AI Act classifies as unacceptable when used for law enforcement purposes.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: downloadable computer software for educational purposes; computer software for educational purposes; educational software; computer programs for interactive learning; computer software for e-learning; e-learning software; computer programs for course delivery; computer software for student assessment; computer software for curriculum planning; computer programs for educational games; computer software for language learning; language learning software; computer software for mathematics instruction; computer programs for science simulations; computer software for classroom management; computer software for student tracking; computer programs for educational content creation; computer software for virtual classrooms; computer software for educational reporting"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"student assessment\", \"student tracking\", \"educational content creation\", \"adaptive learning\"], \"target_sectors\": [\"education\", \"educational technology\"], \"risk_rationale\": \"Educational software involving student assessment and tracking falls under the EU AI Act's high-risk category due to its potential to significantly influence educational outcomes and access to educational opportunities.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: media content recommendation software; software for personalized entertainment content; computer programs for adaptive media streaming; software for viewer preference analysis; downloadable content personalization engines; software for predictive media suggestions; computer software for broadcast personalization; media recommendation algorithms; software for real-time content adaptation; programs for personalized media delivery"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"content recommendation\", \"viewer preference analysis\", \"predictive suggestions\", \"real-time content adaptation\", \"personalization algorithms\"], \"target_sectors\": [\"entertainment\", \"media streaming\", \"broadcasting\"], \"risk_rationale\": \"These are standard recommendation and personalization systems for media content, which fall under minimal risk as they are consumer-facing tools without significant impact on rights or safety.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Downloadable artificial intelligence software for use in medical diagnosis; downloadable software for analysing medical data for diagnostic purposes; computer software for medical analysis; computer software for medical diagnostic purposes; artificial intelligence software for analysing medical data; downloadable software for medical diagnostic apparatus; computer software for use in medical diagnosis; software for medical apparatus; medical software; downloadable electronic publications in the nature of medical reports; computer software for medical imaging; medical imaging software"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"medical data analysis\", \"medical imaging analysis\", \"automated diagnosis\", \"AI diagnostic algorithms\"], \"target_sectors\": [\"medical devices\", \"healthcare\", \"diagnostics\"], \"risk_rationale\": \"The software performs medical diagnosis and analyzes medical data, which falls under regulated medical devices under the AI Act. AI systems used for medical purposes are classified as high-risk due to their potential impact on patient health and safety.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Sesam GmbH\nGoods/Services: ; humanoid robots with artificial intelligence; teaching robots; security surveillance robots; laboratory robots"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.85, \"ai_capabilities\": [\"autonomous navigation\", \"object recognition\", \"human-robot interaction\", \"surveillance analytics\", \"educational content delivery\"], \"target_sectors\": [\"education technology\", \"security and surveillance\", \"laboratory automation\"], \"risk_rationale\": \"The listed goods encompass AI-powered robots for surveillance and education, both explicitly categorized as high-risk systems under the EU AI Act (Annex III, points 1 and 3).\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: downloadable computer software for graphic design; computer software for graphic design; graphic design software; computer programs for image editing; computer software for digital illustration; computer software for photo manipulation; photo editing software; computer programs for vector graphics; computer software for layout design; computer software for typography; computer programs for colour management; computer software for print preparation; computer software for web graphics; computer programs for animation creation; computer software for 3D modelling; computer software for rendering; computer programs for graphic effects; computer software for asset management; computer software for design collaboration"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"graphic_design\", \"digital_art\", \"printing_services\", \"animation\", \"3D_modelling\"], \"risk_rationale\": \"All listed goods describe conventional creative/design software (vector graphics, typography, 3D modelling, etc.) without AI features like automated generation, recognition, or machine learning.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: data compression software for artificial intelligence video games; data encryption software for artificial intelligence video games; data storage software for artificial intelligence video games; data synchronization software for artificial intelligence video games; data migration software for artificial intelligence video games; data backup software for artificial intelligence video games; data recovery software for artificial intelligence video games; data analytics software for artificial intelligence video games; data visualization software for artificial intelligence video games; data integration software for artificial intelligence video games"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.9, \"ai_capabilities\": [\"data analytics\", \"data visualization\", \"data integration\", \"AI game features\"], \"target_sectors\": [\"video games\"], \"risk_rationale\": \"AI capabilities are limited to data processing and enhancing video games, neither of which fall into unacceptable, high, or limited-risk categories.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: computer databases for credit information storage; downloadable databases for credit scoring; electronic databases for credit risk data; computer databases for financial credit records; downloadable credit reference databases; electronic databases containing creditworthiness data; computer databases for automated credit assessment; downloadable financial credit databases; electronic databases for credit evaluation; computer databases for storing credit risk information"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.85, \"ai_capabilities\": [\"credit scoring\", \"automated credit assessment\", \"credit evaluation\"], \"target_sectors\": [\"financial services\", \"credit reporting\"], \"risk_rationale\": \"The description explicitly references automated credit assessment and credit scoring systems, which are specifically categorized as high-risk AI systems under the EU AI Act due to their significant impact on individuals' access to financial services and potential for discrimination.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: AINDO EU S.R.L.S.\nGoods/Services: artificial intelligence apparatus; ; big data management software; data management software; data mining software; machine learning software; artificial intelligence and machine learning software; artificial intelligence software for analysis; machine learning software for analysis; software for processing images, graphics, audio, video and text; software for the integration of artificial intelligence and machine learning in the field of big data"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.9, \"ai_capabilities\": [\"machine learning\", \"data mining\", \"big-data analytics\", \"image/audio/video/text processing\"], \"target_sectors\": [\"data analytics\", \"big-data management\"], \"risk_rationale\": \"The listed goods are general-purpose AI/ML/data-processing tools with no indication they will be used in any of the high-risk or prohibited application areas.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Computer software for biometric data processing; computer software for real-time facial recognition; computer software for iris recognition; computer software for gait analysis; computer software for biometric database management; computer software for matching biometric data; computer software for biometric identity authentication; computer software for monitoring public areas; computer software for security surveillance; computer software for threat detection"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"unacceptable\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"facial recognition\", \"iris recognition\", \"gait analysis\", \"biometric matching\", \"identity authentication\", \"threat detection\", \"real-time processing\"], \"target_sectors\": [\"public security\", \"mass surveillance\", \"biometric identification\"], \"risk_rationale\": \"This trademark covers real-time biometric identification systems used for mass surveillance in public areas, which the EU AI Act explicitly classifies as unacceptable risk.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Beijing Weimeng Internet Technology Co., Ltd.\nGoods/Services: electronic publications, downloadable; publications in electronic format; publications in electronic format ; publications, downloadable; downloadable electronic publications; electronic publications; publications in electronic form; electronic publications; downloadable publications in electronic form; communications networks; logs ; transmitters; digital music downloadable provided from the internet; digital music downloadable from the internet; ; downloadable image files; downloadable electronic publications in the nature of magazines; downloadable software; e-payment software; software for processing electronic payments to and from others; online payment software; computer software for facilitating payment transactions by electronic means; hardware for processing electronic payments to"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9, \"ai_capabilities\": [], \"target_sectors\": [\"publishing\", \"entertainment\", \"financial services\"], \"risk_rationale\": \"The description lists only static digital content (magazines, music, images) and conventional payment-processing software, none of which inherently requires or mentions artificial-intelligence functionality.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: FLOWE S.p.A. - Società Benefit o in forma abbreviata Flowe S.p.A. - SB\nGoods/Services: magnetic encoders; encoders; records ; magnetic recordings; storage apparatus for computer data; magnetic data media; magnetic data carriers; magnetic media registers; magnetic recording charts; magnetic recording supports; data media; magnetic data recording media; magnetic data storage media; financial management software; electronic magnetic recording media; credit cards; circuits ; blank magnetic data carriers; magnetic data carriers, recording discs; magnetic recording discs; recording discs ; ; integrated circuit cards ; smart cards; smart cards ; cards with integrated circuits; integrated circuit cards; circuit cards; chipcards; cards bearing integrated circuits; magnets; encoded charge cards; encoded prepaid credit cards; magnetically encoded charge cards; magnetizers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"financial services\", \"data storage\"], \"risk_rationale\": \"The listed goods are physical items (magnetic encoders, cards, magnets, storage media) and financial software without any indication of embedded or cloud AI functionality.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Bühler AG\nGoods/Services: sensors used in plant control; modulators; computer hardware; hardware; control installations; computers and computer hardware; ; computer hardware modules for use in electronic devices using the internet of things ; computer hardware modules for use with the internet of things ; computer hardware modules for use in internet of things electronic devices; sensors; internet of things  gateways; internet of things  sensors"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9, \"ai_capabilities\": [], \"target_sectors\": [\"manufacturing\", \"automation\", \"IoT infrastructure\"], \"risk_rationale\": \"The description lists only passive IoT components like sensors, gateways and control hardware with no indication that any AI processing or decision-making is performed.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Computerized database management for recruitment; computerized database management for candidate screening; computerized database management for employment assessment; computerized database management for talent acquisition; computerized database management for human resources management; electronic data storage for recruitment; electronic data storage for candidate screening; electronic data storage for employment assessment; electronic data storage for talent acquisition; electronic data storage for human resources management; database management services for recruitment; database management services for candidate screening; database management services for employment assessment; database management services for talent acquisition; database management services for human resources managem"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.85, \"ai_capabilities\": [\"candidate screening\", \"employment assessment\"], \"target_sectors\": [\"human resources\", \"recruitment\"], \"risk_rationale\": \"Recruitment and employment assessment tools frequently rely on AI-driven profiling and decision-making that the EU AI Act classifies as high-risk due to potential bias and impacts on livelihoods.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: downloadable mobile applications for artificial intelligence-based candidate screening; mobile applications for recruitment and job candidate assessment; downloadable software in the nature of a mobile application for analysing candidate profiles; mobile applications for scheduling and conducting candidate interviews; downloadable mobile apps for scoring job applicants; mobile applications for managing recruitment workflows; downloadable software for mobile devices for candidate communication; mobile applications for tracking candidate progress; downloadable mobile software for candidate background verification; mobile applications for talent acquisition"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"candidate screening\", \"profile analysis\", \"applicant scoring\", \"recruitment workflow optimization\"], \"target_sectors\": [\"recruitment\", \"human resources\", \"employment\"], \"risk_rationale\": \"These recruitment and hiring tools involve AI-based decision-making that can significantly affect employment opportunities and career prospects, placing them in the high-risk category under AI Act Article 50.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: 5SENSES\nGoods/Services: monitors ; digital measuring apparatus; wall mountings adapted for television monitors; tv wall mounts; screens ; measures; cameras; electronic tags; screens; magnets, magnetizers and demagnetizers; data processing equipment and accessories; ; television apparatus; tv sets; televisions; tv monitors; television monitors; television display apparatus; television sets; television instruments; magnets; projectors; data processing equipment; brackets for setting up flat screen tv sets; simulation software; sensors; simulation software ; magnetizers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9, \"ai_capabilities\": [], \"target_sectors\": [\"consumer electronics\", \"data processing hardware\"], \"risk_rationale\": \"The listed goods are hardware devices, mounts, and ordinary software; none of the descriptions imply embedded AI or AI-driven functionality.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: downloadable computer software for word processing; computer software for word processing; word processing software; computer programs for text editing; computer software for document creation; computer software for document editing; computer software for document formatting; computer programs for spell checking; computer software for grammar checking; computer software for desktop publishing; desktop publishing software; computer programs for document layout; computer software for document templates; computer software for document conversion; computer software for document printing; computer programs for document storage; computer software for document retrieval; computer software for document management"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"office productivity\"], \"risk_rationale\": \"All listed goods are conventional word-processing, desktop-publishing and document-management tools that operate deterministically without AI components.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Kunshan Zhongying Changsheng Trading Co., Ltd.\nGoods/Services: records ; navigational instruments; screens ; resistance measuring instruments; resistance wires; measures; circuits ; video recordings; electric apparatus for commutation; commutation; screens; commutators; electrical resistance wire; ; humanoid robots with artificial intelligence; integrated circuit cards ; smart cards; smart cards ; cards with integrated circuits; integrated circuit cards; circuit cards; chipcards; cards bearing integrated circuits; measuring instruments; headphones; chargers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"limited\", \"confidence\": 0.8, \"ai_capabilities\": [\"humanoid robotics\", \"embedded AI control\", \"smart-card security/ID\"], \"target_sectors\": [\"consumer electronics\", \"robotics\", \"payment/ID systems\"], \"risk_rationale\": \"The only AI capability mentioned is 'humanoid robots with artificial intelligence,' which are classified as limited-risk under the EU AI Act because they are consumer products that require transparency but do not fall into the prohibited or high-risk categories.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: data processing apparatus for social credit systems; electronic data processors for social credit scoring; data processing equipment for reputation analysis; data processing instruments for trustworthiness evaluation; data processing terminals for social behaviour tracking; data processing devices for creditworthiness assessment; data processing machines for social metrics; data processing units for reputation scoring; data processing hardware for social indices"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"unacceptable\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"social credit scoring\", \"reputation analysis\", \"trustworthiness evaluation\", \"social behaviour tracking\", \"creditworthiness assessment\"], \"target_sectors\": [\"finance\", \"social governance\"], \"risk_rationale\": \"The description explicitly covers social credit scoring and social behaviour tracking systems, which are explicitly listed as unacceptable practices under Article 5(1)(c) of the EU AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: computer interfaces for automated credit assessment systems; software interfaces for credit scoring platforms; electronic dashboards for credit risk monitoring; computer interfaces for credit applicant data entry; software dashboards for credit decision tracking; electronic interfaces for credit bureau data display; computer screens for creditworthiness indicators; software interfaces for credit portfolio overview; electronic displays for credit analysis results; computer dashboards for automated credit reporting"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"automated credit assessment\", \"credit scoring\", \"credit risk monitoring\", \"credit decision tracking\", \"credit analysis\"], \"target_sectors\": [\"financial services\", \"banking\", \"credit reporting\"], \"risk_rationale\": \"All listed goods/services explicitly relate to automated credit assessment, scoring, and decision-making systems, which are explicitly classified as high-risk AI systems under Annex III of the EU AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: mobile application software for personalized recommendations; mobile apps for content personalization; downloadable mobile recommendation software; software for smartphone-based user profiling; mobile software for adaptive suggestions; computer programs for mobile personalization; mobile applications for predictive recommendations; software for contextual mobile recommendations; mobile apps for behavioral analysis; downloadable recommendation mobile software"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.85, \"ai_capabilities\": [\"collaborative filtering\", \"content-based filtering\", \"user profiling\", \"behavioral analysis\", \"predictive modeling\"], \"target_sectors\": [\"consumer mobile apps\", \"content streaming\", \"e-commerce\", \"news feeds\"], \"risk_rationale\": \"These mobile apps rely on standard recommender-system techniques (collaborative/content filtering plus user profiling) that present only minimal transparency obligations under the AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Computer software for financial advice and information via conversational agents; downloadable software for banking customer support using artificial intelligence; computer programs for automated expense tracking through chat interactions; software for providing real-time financial market information dialogue; artificial intelligence software for personal budgeting assistance; computer programs for secure financial transaction authorisation via conversation; downloadable software for insurance claim guidance through chatbots; software for fraud detection alerts delivered by conversational interfaces; computer programs for integrating payment services with chatbot systems; software for regulatory compliance communications in financial services"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.92, \"ai_capabilities\": [\"conversational agents\", \"chatbots\", \"artificial intelligence for personal budgeting\", \"automated expense tracking\", \"fraud detection alerts\", \"conversational interfaces\"], \"target_sectors\": [\"financial advice\", \"banking customer support\", \"insurance claim guidance\", \"financial transaction authorization\", \"regulatory compliance communications\", \"financial market information\"], \"risk_rationale\": \"The services involve AI-driven financial advice, credit-risk-relevant budgeting assistance, and automated fraud detection, all of which fall under high-risk credit/financial decision-making per the EU AI Act.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: dSPACE digital signal processing and control engineering GmbH\nGoods/Services: electrical test apparatus; electrical and electronic test apparatus and instruments; monitors ; testing apparatus for electronic equipment; test equipment for electronic apparatus; records ; electronic cruise control apparatus; electronic speed controllers; speed reducers ; speed regulators ; speed controllers ; speed controllers ; speed reducers ; speed regulators ; cruise controls for vehicles; cruise control systems for vehicles; logs ; computer software development tools; software development tools; programming software; computer programming software; software development programs; software development programmes; development tool programs; measures; testing apparatus ; navigation, guidance, tracking, targeting and map making devices; scientific research and laboratory apparatus, educa"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"automotive\", \"laboratory testing\", \"software development\"], \"risk_rationale\": \"The listed goods/services describe conventional electronic test equipment, cruise-control hardware, and software-development tools that do not incorporate or rely on AI technologies.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: FATH Mechatronics GmbH\nGoods/Services: electronic control systems; detectors; monitors ; access control systems; software to control building environmental, access and security systems; computer hardware; hardware; computer systems; electronic controllers; measures; computer software for controlling and managing access server applications; access control devices; computers and computer hardware; ; electronic access control systems for interlocking doors; computer programs for the enabling of access or entrance control; computer programs for enabling access or entrance control; electronic access control system for buildings; wireless controllers to remotely monitor and control the function and status of other electrical, electronic, and mechanical devices or systems; wireless controllers to remotely monitor and control the funct"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"building management\", \"security\", \"access control\"], \"risk_rationale\": \"The description lists conventional electronic access control, monitoring and environmental control hardware/software without any mention of AI-driven features such as biometric identification, behavioural analysis or automated decision-making.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Medical diagnostic apparatus using artificial intelligence; artificial intelligence software for medical diagnostics; downloadable artificial intelligence software for medical diagnostics; software for medical diagnostic apparatus; software for medical imaging apparatus; medical imaging software using artificial intelligence; software for analysing medical images using artificial intelligence; computer software for medical imaging; medical apparatus for diagnostic use; medical diagnostic instruments; artificial intelligence apparatus for medical purposes; downloadable software for medical diagnostic apparatus"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"medical image analysis\", \"diagnostic decision support\", \"AI-based medical imaging\"], \"target_sectors\": [\"healthcare\", \"medical diagnostics\", \"medical imaging\"], \"risk_rationale\": \"AI-based medical diagnostic software and apparatus are classified as high-risk under the EU AI Act because they are safety components in medical devices that can significantly affect patient health outcomes.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: emotion recognition software for gaming applications; gaming software for adapting gameplay based on emotions; interactive gaming software; software for emotion-based game control; video games software; gaming software for analysing player emotions; interactive multimedia game programs; gaming software for personalised content; computer games software; software for emotion-driven gaming experiences"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"limited\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"emotion recognition\", \"adaptive gameplay\", \"emotion analysis\", \"personalized content generation\"], \"target_sectors\": [\"gaming\", \"entertainment\"], \"risk_rationale\": \"The mark covers emotion recognition/adaptation software used exclusively in gaming contexts, which falls under Article 52's transparency requirements for emotion recognition systems rather than high-risk applications.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: ALEF Education Consultancy L.L.C\nGoods/Services: readers ; compact discs ; discs ; cell phone straps; straps for mobile phones; mobile phone straps; straps for cellular phones; personal digital assistants ; personal digital assistants; personal digital assistants; personal digital assistants ; personal digital assistants; pdas; records ; audiovisual teaching apparatus; audio visual teaching apparatus; audio-visual teaching apparatus; solar batteries; holograms; electronic dictionaries; downloadable graphics for mobile phones; magnetic data media; magnetic data carriers; magnetic media registers; magnetic recording charts; magnetic recording supports; data media; magnetic data recording media; magnetic data storage media; logs ; computer hardware; hardware; games software; computer game programs; programs; computer programs for playing ga"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"education\"], \"risk_rationale\": \"The description lists only electronic devices, software, and teaching apparatus without any AI capabilities or intelligent data processing references.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: Medical diagnostic apparatus using artificial intelligence for pulmonology; artificial intelligence based medical diagnostic apparatus for respiratory diseases; medical apparatus for diagnostic use incorporating artificial intelligence for lung analysis; computer software for medical diagnostic use in pulmonology using artificial intelligence; downloadable software for artificial intelligence based pulmonary diagnostic analysis; artificial intelligence medical devices for diagnostic purposes in pulmonology; medical diagnostic instruments incorporating artificial intelligence for thoracic imaging; artificial intelligence software for analyzing pulmonary data for medical diagnostic purposes; medical apparatus for pulmonary diagnostic purposes using artificial intelligence; computer software "
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 1.0, \"ai_capabilities\": [\"artificial intelligence\", \"medical diagnostic analysis\", \"pulmonary data analysis\", \"lung analysis\", \"thoracic imaging\"], \"target_sectors\": [\"medical devices\", \"pulmonology\", \"respiratory diagnostics\"], \"risk_rationale\": \"All described goods are AI-enabled medical diagnostic devices specifically for pulmonology and respiratory diseases, which fall under the EU AI Act's high-risk category for medical devices.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: platform as a service (PaaS) featuring computer software platforms for developing artificial intelligence video games; software as a service (SaaS) featuring software for developing artificial intelligence video games; software as a service (SaaS) featuring software for operating artificial intelligence video games; software as a service (SaaS) featuring software for managing artificial intelligence video games; software as a service (SaaS) featuring software for analyzing player behavior in artificial intelligence video games; software as a service (SaaS) featuring software for optimizing artificial intelligence in video games; software as a service (SaaS) featuring software for personalizing artificial intelligence video games; software as a service (SaaS) featuring software for moderati"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"minimal\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"player behavior analysis\", \"AI optimization\", \"AI personalization\"], \"target_sectors\": [\"video game development\", \"video game operation\", \"video game management\"], \"risk_rationale\": \"AI integrated into video games is considered minimal-risk recreational AI; transparency obligations are not triggered because players know their opponent is an AI system and no human profiling decisions are being made that materially affect the player outside the gaming context.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Evermood GmbH\nGoods/Services: monitors ; ; health monitoring software; machine learning software; artificial intelligence and machine learning software; artificial intelligence software for healthcare; machine learning software for healthcare"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"machine learning\", \"artificial intelligence\", \"healthcare AI\"], \"target_sectors\": [\"healthcare\", \"medical devices\"], \"risk_rationale\": \"The description explicitly lists AI/ML software tailored for healthcare, a sector explicitly designated as high-risk under the EU AI Act when AI systems influence patient health outcomes.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: TUL CORPORATION\nGoods/Services: readers ; couplers ; telecommunications networks; optical character readers; readers; records ; computer programs, downloadable; programs ; computer programs ; downloadable computer programs; downloadable computer software; electronic data processing equipment; electrical and electronic apparatus for processing data; electrical and electronic instruments for processing data; electronic data processing apparatus; graphics cards; computer hardware; hardware; circuits ; memory devices; memory cards; computers and computer hardware; memory cards for video game machines; computer software applications, downloadable; downloadable computer software applications; computer software applications; software applications; downloadable application software; downloadable applications; ; computer central "
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"data_processing\", \"telecommunications\", \"consumer_electronics\"], \"risk_rationale\": \"All listed goods are passive data-processing hardware/software (readers, cards, downloadable programs, storage) with no indication of embedded AI components, models or autonomous decision-making capabilities.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Jakovac\nGoods/Services: magnets, magnetizers and demagnetizers; ; magnets; magnetizers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [], \"risk_rationale\": \"These goods describe purely physical electromagnetic devices lacking any artificial-intelligence subsystem.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: Mongraal Entertainment Limited\nGoods/Services: records ; downloadable publications; computer joysticks; keys; computer hardware; hardware; podcasts; computers and computer hardware; ; headphones; headsets; downloadable podcasts; chargers; cases for tablet computers; protective cases for tablet computers; tablet computer cases; cases adapted for tablet computers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"consumer electronics\", \"entertainment\"], \"risk_rationale\": \"The listed goods are standard electronic devices and accessories with no mention of AI functionality such as biometric processing, recommendation systems, or automated decision-making.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: portable speakers; portable loudspeakers; wireless portable speakers; Bluetooth portable speakers; rechargeable portable speakers; speaker cases; speaker covers; speaker stands; speaker docks; speaker chargers"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": false, \"risk_tier\": \"not_ai\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [], \"target_sectors\": [\"consumer electronics\"], \"risk_rationale\": \"The listed goods are purely electro-acoustic hardware accessories with no indication of integrated AI functions such as voice recognition or adaptive audio processing.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: scientific apparatus for criminal behaviour modelling; electronic instruments for predictive policing research; apparatus for field data collection in law enforcement; electronic devices for real-time crime statistics; instruments for AI-based incident prediction; laboratory apparatus for crime pattern analysis; electronic measuring devices for police performance metrics; scientific tools for offender profiling; research apparatus for predictive analytics in policing; electronic equipment for forensic data processing"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"high\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"predictive analytics\", \"incident prediction\", \"offender profiling\", \"criminal behavior modeling\", \"real-time statistics\"], \"target_sectors\": [\"law enforcement\", \"policing\", \"forensics\", \"criminal justice\"], \"risk_rationale\": \"All listed goods/services are explicitly designed for law enforcement applications and involve AI-driven predictive capabilities that directly impact individual rights and freedoms, placing them squarely within the EU AI Act's high-risk category for law-enforcement AI systems.\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": "Assess this EUIPO trademark under the EU AI Act:\n\nOwner: SYNTHETIC\nGoods/Services: computer hardware for AI-based law enforcement systems; servers for predictive policing platforms; electronic processors for crime data analysis; data processing apparatus for police intelligence; electronic interfaces for crime monitoring; computer modules for automated suspect identification; electronic sensors for public safety surveillance; hardware for secure law enforcement databases; electronic control units for policing analytics; apparatus for AI-driven crime detection"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"is_ai_related\": true, \"risk_tier\": \"unacceptable\", \"confidence\": 0.9500000000000001, \"ai_capabilities\": [\"predictive policing\", \"automated suspect identification\", \"crime data analysis\", \"AI-driven crime detection\", \"public safety surveillance\"], \"target_sectors\": [\"law enforcement\", \"public safety\", \"surveillance\"], \"risk_rationale\": \"The description explicitly covers AI-based systems for predictive policing and automated suspect identification through public surveillance, which constitutes prohibited real-time biometric mass surveillance under Article 5(1)(h) of the EU AI Act.\"}"
+      }
+    ]
+  }
+]
