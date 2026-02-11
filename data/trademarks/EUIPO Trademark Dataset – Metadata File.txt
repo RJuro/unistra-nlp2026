@@ -1,0 +1,75 @@
+EUIPO Trademark Dataset – Metadata File
+
+Dataset description
+This dataset contains information on trademark filings between 2015 and 2020 at the European Union Intellectual Property Office (EUIPO) that are related to digital products. Each observation represents a single trademark application. 
+
+Data source
+European Union Intellectual Property Office (EUIPO) trademark filings.
+Owner and trademark details can be verified via the EUIPO eSearch portal: https://euipo.europa.eu/eSearch/#basic
+
+Variable 1
+Name: owner_id
+
+Description
+A unique numerical identifier assigned to each trademark owner. The same owner_id can appear multiple times if the owner has filed multiple trademark applications.
+
+Type
+Integer (numeric)
+
+Notes
+This identifier is consistent across trademarks belonging to the same owner and can be used to group or aggregate trademarks at the owner level.
+
+Variable 2
+Name: owner_name
+
+Description
+The official name of the trademark owner as recorded in the EUIPO database.
+
+Type
+Character (string)
+
+Example values
+MICROSOFT CORPORATION
+SIEMENS AG
+SAMSUNG ELECTRONICS CO., LTD.
+
+Notes
+Some owner names may be missing in the dataset. Missing names can be retrieved by searching the owner_id in the EUIPO owner search portal:
+https://euipo.europa.eu/eSearch/#advanced/owners
+
+Variable 3
+Name: ApplicationNumber
+
+Description
+A unique identifier for each trademark application filed at EUIPO.
+
+Type
+Character (string) or numeric identifier
+
+Example values
+18020001
+18132055
+18191155
+
+Notes
+Each ApplicationNumber refers to exactly one trademark. Detailed information about a trademark can be found by searching this number in the EUIPO trademark search portal:
+https://euipo.europa.eu/eSearch/#advanced/trademarks
+
+Variable 4
+Name: full_description
+
+Description
+A textual description of the goods and services covered by the trademark. These descriptions consist of standardized terms that have been examined and accepted by EUIPO trademark examiners.
+
+Type
+Character (string, free text)
+
+Example values
+“games software; computer game programs; electronic game software; downloadable software in the nature of a mobile application for playing games”
+
+“computer keyboards; screens; computer hardware; headphones; software for mobile phones”
+
+“apparatus and instruments for recording sound; audio recording equipment; downloadable media; calculating devices”
+
+Notes
+The full_description variable is particularly suitable for text mining, natural language processing, and classification tasks, for example identifying digital, software-related, or hardware-related trademarks.
