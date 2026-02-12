@@ -350,6 +350,15 @@
             border-color: var(--coral);
             color: var(--coral);
         }
+        .nb-links .bonus-btn {
+            color: var(--gold);
+            border: 1px solid rgba(212,168,85,0.3);
+            background: rgba(212,168,85,0.1);
+        }
+        .nb-links .bonus-btn:hover {
+            border-color: var(--gold);
+            background: rgba(212,168,85,0.2);
+        }
 
         /* Schedule items (breaks, sprints) */
         .schedule-item {
@@ -987,6 +996,8 @@
                             <div class="nb-links">
                                 <a class="colab-btn" href="https://colab.research.google.com/github/RJuro/unistra-nlp2026/blob/main/notebooks/NB06_faiss_retrieval.ipynb" target="_blank" rel="noopener">Colab &rarr;</a>
                                 <a class="dl-btn" href="notebooks/NB06_faiss_retrieval.ipynb">Download</a>
+                                <a class="bonus-btn" href="data/scifact-search-template.zip" download title="Deployable FastAPI search app (SciFact + ChromaDB + multilingual-e5)">Search App Template</a>
+                                <a class="bonus-btn" href="https://huggingface.co/spaces/RJuro/scifact-semantic-search" target="_blank" rel="noopener">Live Demo &rarr;</a>
                             </div>
                         </div>
 
